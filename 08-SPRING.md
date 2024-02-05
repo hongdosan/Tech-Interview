@@ -5,30 +5,40 @@
   ---
 
   <details>
-    <summary></summary>
+    <summary><b></b></summary>
   </details>
 </details> 
 -->
 
 <details>
-  <summary><h3>1. 서블릿이란?</h3></summary>
+  <summary><h3>1. 서블릿(Servlet)이란?</h3></summary>
+
+  서블릿은 서버 측에서 실행되어 클라이언트의 요청을 처리하고 그 결과를 반환하는 Java 클래스입니다. 웹 서버(WS) 내에서 동작하며, 동적인 웹 페이지나 웹 애플리케이션을 생성하는데 사용됩니다. 
 
   ---
   
   <details>
-    <summary>서블릿 컨테이너란?</summary>
+    <summary><b>서블릿 컨테이너란?</b></summary>
+    서블릿 컨테이너는 서블릿의 생명주기를 관리하는 컴포넌트입니다. 서블릿의 생성, 초기화, 호출, 소멸 등의 과정을 관리하며, 요청과 응답 객체를 생성하여 서블릿에 전달합니다.
   </details>  
   <details>
-    <summary>서블릿 동작과정에 대해 설명해주세요.</summary>
+    <summary><b>서블릿 동작과정에 대해 설명해주세요.</b></summary>
+    1. 사용자가 URL을 통해 요청을 보내면, 웹 서버는 이 요청을 서블릿 컨테이너에 전달합니다. 
+    2. 서블릿 컨테이너는 요청을 처리할 서블릿을 찾아 실행합니다.
+    3. 서블릿은 요청을 처리한 후 응답을 생성합니다.
+    4. 서블릿 컨테이너는 이 응답을 웹 서버에 전달하고, 웹 서버는 이를 사용자에게 반환합니다.
   </details>  
   <details>
-    <summary>DispatcherServlet 의 역할에 대해 설명해 주세요.</summary>
+    <summary><b>DispatcherServlet 의 역할에 대해 설명해 주세요.</b></summary>
+     DispatcherServlet은 스프링 MVC의 핵심 컴포넌트로, 모든 클라이언트 요청을 최초로 받아들이는 프론트 컨트롤러 역할을 합니다. 요청에 따라 적절한 컨트롤러로 분배하고, 처리 결과를 사용자에게 반환하는 역할을 수행합니다.
   </details>
   <details>
-    <summary>여러 요청이 들어온다고 가정할 때, DispatcherServlet은 한번에 여러 요청을 모두 받을 수 있나요?</summary>
+    <summary><b>여러 요청이 들어온다고 가정할 때, DispatcherServlet은 한번에 여러 요청을 모두 받을 수 있나요?</b></summary>
+    DispatcherServlet은 멀티스레드 환경에서 동작하므로 한 번에 여러 요청을 받아 처리할 수 있습니다. 각 요청은 별도의 스레드에서 처리되며, 이를 통해 동시에 여러 사용자의 요청을 처리할 수 있습니다.
   </details>  
   <details>
-    <summary>수많은 @Controller 를 DispatcherServlet은 어떻게 구분 할까요?</summary>
+    <summary><b>수많은 @Controller 를 DispatcherServlet은 어떻게 구분 할까요?</b></summary>
+    DispatcherServlet은 요청 URL을 분석하여 해당 요청을 처리할 @Controller를 결정합니다. 이는 스프링의 HandlerMapping이 수행하며, URL, HTTP 메서드, 요청 파라미터 등을 기반으로 적절한 컨트롤러를 찾습니다.
   </details>  
 </details>
 
