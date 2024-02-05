@@ -163,9 +163,16 @@
   ---
 
   <details>
+    <summary>Spring MVC란 무엇인가요?</summary>
+
+    - Spring MVC는 Spring Framework의 일부로서, 웹 애플리케이션 제작을 위한 MVC 패턴 기반의 프레임워크입니다. 
+    - Spring MVC는 웹 요청을 처리하고 응답을 생성하는 데 필요한 여러 기능을 제공합니다. 
+    - 이에는 요청 매핑, 데이터 바인딩, 유효성 검사, 페이지 이동 등이 포함됩니다. 
+  </details>
+  <details>
     <summary>MVC1이랑 MVC2 패턴 차이에 대해 설명해주세요.</summary>
 
-    MVC1과 MVC2는 웹 개발에 있어서 MVC 패턴을 구현하는 두 가지 방법입니다. 
+    Spring MVC1과 Spring MVC2는 웹 개발에 있어서 MVC 패턴을 구현하는 두 가지 방법입니다. 
     - Spring MVC1: 
       - 모든 요청과 응답이 JSP 페이지를 통해 처리되는 구조입니다. 
       - JSP 페이지가 Controller와 View의 역할을 모두 수행합니다. 
@@ -175,13 +182,6 @@
       - 즉, 요청을 하나의 컨트롤러(서블릿)가 먼저 받아서, 뷰와 모델의 중간 역할을 합니다.
       - 따라서, 컴포넌트 간 역할이 분리되어 있기 때문에, 유지보수 및 확장성이 좋아 대부분의 웹 애플리케이션은 MVC2 방식을 사용하고 있습니다.
       - 스프링에서는 디스패처 서블릿이 프론트 컨트롤러의 역할을 맡고 요청에 맞는 컨트롤러를 찾아 요청을 위임합니다.
-  </details>
-  <details>
-    <summary>Spring MVC란 무엇인가요?</summary>
-
-    - Spring MVC는 Spring Framework의 일부로서, 웹 애플리케이션 제작을 위한 MVC 패턴 기반의 프레임워크입니다. 
-    - Spring MVC는 웹 요청을 처리하고 응답을 생성하는 데 필요한 여러 기능을 제공합니다. 
-    - 이에는 요청 매핑, 데이터 바인딩, 유효성 검사, 페이지 이동 등이 포함됩니다. 
   </details>
   <details>
     <summary>스프링 MVC 구조 흐름에 대해 과정대로 설명해보세요.</summary>
