@@ -238,7 +238,7 @@
 
     따라서 DispatcherServlet은 스프링 MVC의 핵심적인 요소로서, 클라이언트의 요청 처리와 응답 반환, 예외 처리 등을 총괄하는 역할을 수행합니다. 
     이런 기능을 통해 개발자는 요청 처리 로직에 집중할 수 있게 됩니다.
-    더 자세하게 설명하자면, web.xml에 맵핑되는 컨트롤러를 모두 등록해야 했는데, 현재는 디스패처 서블릿을 통해 모든 요청을 핸들링해주고 공통 작업을 처리해주면서 web.xml의 역할을 축소시켜 줬습니다.
+    더 자세하게 설명하자면, web.xml에 맵핑되는 컨트롤러를 모두 등록해야 했는데, 현재는 디스패처 서블릿을 통해 모든 요청을 핸들링해주고 공통 작업을 처리해주면서 web.xml의 역할을 축소시켜 줬습니다.
   </details>
   <details>
     <summary>여러 요청이 들어온다고 가정할 때, DispatcherServlet은 한번에 여러 요청을 모두 받을 수 있나요?</summary>
@@ -251,6 +251,15 @@
     
     DispatcherServlet은 요청 URL을 분석하여 해당 요청을 처리할 @Controller를 결정합니다. 
     이는 스프링의 HandlerMapping이 수행하며, URL, HTTP 메서드, 요청 파라미터 등을 기반으로 적절한 컨트롤러를 찾습니다.
+  </details>
+  <details>
+    <summary>handlerAdapter 는 무엇인가요? (답변 미작성)</summary>
+  </details>
+  <details>
+    <summary>handlerMapping 는 무엇인가요? (답변 미작성)</summary>
+  </details>
+  <details>
+    <summary>handlerInterceptor 는 무엇인가요? (답변 미작성)</summary>
   </details>
 </details>
 
@@ -317,7 +326,7 @@
       
     정리하자면, 요구 사항에 따라 필터와 인터셉터를 적절히 사용하면 됩니다. 
     필터는 보다 일반적인 웹 처리를 위한 것이며, 인터셉터는 스프링 MVC의 특정 컨트롤러에 대한 요청을 처리하는 데 더 적합합니다.
-  </details>  
+  </details>
   <details>
     <summary>필터와 인터셉터 차이만 보면, 인터셉터만 쓰는게 나아보이는데, 아닌가요?</summary>
 
@@ -345,20 +354,13 @@
 
     스프링 시큐리티 어쩌구... 저쩌구.. 필터.. 어쩌구 저쩌구.. 사용자 로그인 상태를 체크 어쩌구.. 쿠키 체크.. 저쩌구.. 또한 헤더에 담겨 함께 넘어온 JWT 토큰 유효화 검증 어쩌구.. OncePerFilter 저쩌구..
   </details>
-</details>
-
-<details>
-  <summary><h3>7. AOP에 대해 설명해 주세요.</h3></summary>
-
-  ---
-
   <details>
-    <summary>@Aspect는 어떻게 동작하나요?</summary>
-  </details>  
+    <summary>Spring에서 Interceptor를 사용해본 경험이 있나요? (답변 미작성)</summary>
+  </details>
 </details>
 
 <details>
-  <summary><h3>8. 스프링(Spring)이란?</h3></summary>
+  <summary><h3>7. 스프링(Spring)이란?</h3></summary>
 
   - 스프링은 자바 플랫폼을 위한 오픈 소스 애플리케이션 프레임워크입니다. 
   - 엔터프라이즈 수준의 애플리케이션을 구축하는 데 필요한 모든 기능을 종합적으로 제공하며, 특히 엔터프라이즈 애플리케이션 개발의 복잡함을 줄이고 개발자가 비즈니스 로직에 집중할 수 있도록 지원합니다.
@@ -417,20 +419,133 @@
     결국 스프링과 스프링 부트 중 어떤 것을 선택할지는 개발 상황, 요구 사항, 기술 스택 등에 따라 달라집니다. 
     두 프레임워크 모두 강력하고 유연성이 높으므로 상황에 맞게 적절히 선택하면 됩니다.
   </details>
-</details>   
-
-<details>
-  <summary><h3>9. IoC와 DI에 대해 설명해 주세요.</h3></summary>
-
-  ---
-  
-  - 후보 없이 특정 기능을 하는 클래스가 딱 1개이면, 구체 클래스를 그냥 사용해도 되지 않을까요? 근데, 왜 Spring에선 Bean을 사용 할까요?
-  - Spring의 Bean 생성 주기에 대해 설명해 주세요.
-  - 프로토타입 빈은 무엇인가요?
+  <details>
+    <summary>스프링의 전체 동작 과정에 대해 설명해주세요. (답변 미작성)</summary>
+  </details>
 </details>
 
 <details>
-  <summary><h3>10. JPA와 같은 ORM을 사용하는 이유가 무엇인가요?</h3></summary>
+  <summary><h3>8. IoC와 DI에 대해 설명해 주세요.</h3></summary>
+
+  ---
+
+  <details>
+    <summary>후보 없이 특정 기능을 하는 클래스가 딱 1개라면, 구체 클래스를 사용해도 되지 않을까요? 근데, 왜 Spring에선 Bean을 사용 할까요?</summary>
+  </details>
+  <details>
+    <summary>Spring의 Bean 생성 주기에 대해 설명해 주세요.</summary>
+  </details>
+  <details>
+    <summary>Bean Scope 에 대해서 아시나요? 안다면, 해당 Scope들을 설명해주세요.</summary>
+  </details>
+  <details>
+    <summary>default scope 가 어떤 scope인지 이유와 함께 설명하세요.</summary>
+  </details>
+  <details>
+    <summary>prototype scope 는 어떨 때 사용하는 지 아시나요?</summary>
+  </details>
+  <details>
+    <summary>인스턴스를 새로 만들지 않고 재사용하는 것은 어떤 장점이 있나요?</summary>
+  </details>
+  <details>
+    <summary>생성자 주입 방식을 사용하는 이유가 있나요?</summary>
+  </details>
+  <details>
+    <summary>스프링 컨테이너란 무엇인가요?</summary>
+  </details>
+  <details>
+    <summary>VO, DTO 차이에 대해 설명하세요.</summary>
+  </details>
+  <details>
+    <summary>엔티티, VO 차이에 대해 설명하세요.</summary>
+  </details>
+  <details>
+    <summary>DAO(Data Access Object)란 무엇인가요?</summary>
+  </details>
+  <details>
+    <summary>어노테이션이란 무엇이란 무엇인가요?</summary>
+  </details>
+  <details>
+    <summary>빈 혹은 컴포넌트 등록을 위한 각 어노테이션을 설명해주세요.</summary>
+  </details>
+  <details>
+    <summary>Spring에서 @Controller 와 @RestController 은 어떤 차이가 있나요?</summary>
+  </details>
+  <details>
+    <summary>그렇다면, @Controller 로 작성했을 땐 Rest 방식인 String JSON 으로 반환하지 못하나요?</summary>
+  </details>
+  <details>
+    <summary>빈과 컴포넌트 차이에 대해 설명해주세요.</summary>
+  </details>
+  <details>
+    <summary>컴포넌트는 메서드 단에서 사용못하나요?</summary>
+  </details>
+  <details>
+    <summary>BeanFactory vs ApplicationContext 차이에 대해 설명해주세요.</summary>
+  </details>
+</details>
+
+<details>
+  <summary><h3>9. AOP(Aspect Oriented Programming)에 대해 설명해 주세요.</h3></summary>
+
+  ---
+
+  <details>
+    <summary>AOP 동작원리에 대해 설명해보세요.</summary>
+  </details>
+  <details>
+    <summary>AOP 용어들을 설명해보세요. (Advice, Joinpoint, Pointcut, Weaving, Aspect)</summary>
+  </details>
+  <details>
+    <summary>@Aspect는 어떻게 동작하나요?</summary>
+  </details>
+  <details>
+    <summary>AspectJ 란 무엇인가요?</summary>
+  </details>
+  <details>
+    <summary>AOP와 필터, 인터셉터의 차이점에 대해 자세하게 설명해보세요.</summary>
+  </details>
+  <details>
+    <summary>AOP 를 실제로 사용해 본 경험이 있나요?</summary>
+  </details>
+  <details>
+    <summary>AOP 를 동작시키기 위해 어떤 조건 혹은 어떤 코드를 구성을 해야 AOP 가 정상적으로 동작하는지 아시나요?</summary>
+  </details>
+  <details>
+    <summary>AOP 적용할 수 있는 포인트가 메서드라고 했을 때 메서드의 시작과 끝에 AOP 를 걸 수가 있습니다. 이때, 메서드를 호출하는 과정에서 메서드가 다른 외부에서의 호출이거나 동일한 클래스 내부에서의 호출이 될 수도 있습니다. 이런 경우에 모두 AOP가 동작하나요? 근거와 함께 설명해주세요.</summary>
+  </details>
+</details>
+
+<details>
+  <summary><h3>10. 프록시가 무엇인지 아시나요?</h3></summary>
+
+  ---
+
+  <details>
+    <summary>프록시 패턴이란 무엇인가요?</summary>
+  </details>
+  <details>
+    <summary>프록시 객체란 무엇인가요?</summary>
+  </details>
+  <details>
+    <summary>프록시 서버란 무엇인가요?</summary>
+  </details>
+  <details>
+    <summary>리버스 프록시에 대해 설명해주세요.</summary>
+  </details>
+  <details>
+    <summary>포워드 프록시에 대해 설명해주세요.</summary>
+  </details>
+  <details>
+    <summary>JDK Dynamic Proxy에 대해 설명해주세요.</summary>
+  </details>
+  <details>
+    <summary>CGLIB에 대해 설명해주세요.</summary>
+  </details>
+</details>  
+
+<details>
+  <summary><h3>11. JPA와 같은 ORM을 사용하는 이유가 무엇인가요?</h3></summary>
 
   ---
   
@@ -439,7 +554,7 @@
 </details>
 
 <details>
-  <summary><h3>11. @Transactional 은 어떤 기능을 하나요?</h3></summary>
+  <summary><h3>12. @Transactional 은 어떤 기능을 하나요?</h3></summary>
 
   ---
   
