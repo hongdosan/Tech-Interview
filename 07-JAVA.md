@@ -1,4 +1,4 @@
-## Java, Spring
+## Java
 
 <details>
   <summary><h3>1. JVM이 정확히 무엇이고, 어떤 기능을 하는지 설명해 주세요.</h3></summary>
