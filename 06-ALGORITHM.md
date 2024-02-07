@@ -1,5 +1,6 @@
 ## 손코딩
-### 생각날 때 마다 꾸준히 추가해보겠습니다...
+### 혹시 코딩테스트를 원한다면 [이쪽으로! <= VSFe님 자료입니다!](https://github.com/VSFe/Algorithm_Study)
+
 
 1. 각종 정렬 알고리즘을 구현해 보세요.
 2. 각종 자료구조 (ex. LinkedList, Queue, Stack, Tree, ...) 를 구현해 보세요.
