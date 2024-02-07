@@ -900,9 +900,19 @@
   <summary><h3>11. JPA와 같은 ORM을 사용하는 이유가 무엇인가요?</h3></summary>
 
   ---
-  
-  - 영속성은 어떤 기능을 하나요? 이게 진짜 성능 향상에 큰 도움이 되나요?
-  - N + 1 문제에 대해 설명해 주세요.
+
+  <details>
+    <summary>영속성은 어떤 기능을 하나요?</summary>
+  </details>
+  <details>
+    <summary>JPA와 MyBatis차이를 자세하게 설명해주세요.</summary>
+  </details>
+  <details>
+    <summary>영속성은 성능 향상에 큰 도움이 되나요?</summary>
+  </details>
+  <details>
+    <summary>N + 1 문제에 대해 설명해 주세요.</summary>
+  </details>
 </details>
 
 <details>
