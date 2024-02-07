@@ -2,7 +2,7 @@
 
 > 답변 정리 완료 및 진행 중인 아닌 Contents는 아직 건들지 않았기 때문에, VSFe 님의 2024.02.01 기준 포스팅과 동일합니다.
  
-- 해당 포스팅은 VSFe 님의 [Tech-Interview](https://github.com/VSFe/Tech-Interview) 포스팅을 Fork하여 개인적으로 커스텀하고 있는 저장소입니다.
+- 해당 포스팅은 VSFe 님의 [Tech-Interview](https://github.com/VSFe/Tech-Interview) 포스팅을 클론하여 개인적으로 커스텀하고 있는 저장소입니다.
 - 계속해서 질문도 추가하며, 질문에 대한 답변도 정리하고 있습니다.
 
 - 답변은 개인적인 공부 지식을 바탕으로 정리했기 때문에, 틀린 부분이 있을 수 있습니다.
