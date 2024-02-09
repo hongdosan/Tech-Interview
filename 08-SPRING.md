@@ -913,6 +913,9 @@
   <details>
     <summary>N + 1 문제에 대해 설명해 주세요.</summary>
   </details>
+  <details>
+    <summary>OSIV에 대해 아시나요?</summary>
+  </details>
 </details>
 
 <details>
