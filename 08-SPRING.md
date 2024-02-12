@@ -489,65 +489,6 @@
   ---
 
   <details>
-    <summary>후보 없이 특정 기능을 하는 클래스가 딱 1개라면, 구체 클래스를 사용해도 되지 않을까요? 근데, 왜 Spring에선 Bean을 사용 할까요?</summary>
-
-     - Spring에서는 Bean을 사용하여 객체의 생명 주기를 관리합니다. 
-     - Bean을 사용하면 개발자는 객체 생성, 소멸 등의 생명 주기 관리와 같은 부수적인 작업을 하지 않아도 되며, 객체의 의존성을 자동으로 관리해줍니다. 
-     - 또한, Bean을 사용하면 하나의 객체를 여러 컴포넌트에서 공유하여 사용할 수 있어 메모리 사용량을 줄일 수 있습니다.
-  </details>
-  <details>
-    <summary>Spring의 Bean 생명 주기(Life Cycle)에 대해 자세히 설명해 주세요.</summary>
-
-    1. Bean 정의 읽기: 
-      - Spring IoC 컨테이너는 Bean 정의를 읽어 들입니다. 
-      - 이는 XML 파일, Java Config, Annotation 등 여러 방식으로 제공될 수 있습니다.
-    2. Bean 인스턴스 생성: 
-      - Bean 정의에 따라 Spring 컨테이너는 Bean 인스턴스를 생성합니다.
-    3. 의존성 주입: 
-      - Bean이 다른 Bean에 의존하는 경우, Spring 컨테이너는 이 의존성을 주입합니다. 
-      - 이는 생성자 주입, 세터 주입, 필드 주입 등 여러 방식으로 이루어질 수 있습니다.
-    4. Bean 초기화: 
-      - Bean이 org.springframework.beans.factory.InitializingBean 인터페이스를 구현하는 경우, afterPropertiesSet() 메서드가 호출됩니다. 
-      - 또는, @PostConstruct 애노테이션이나 init-method 속성을 사용하여 초기화 메서드를 지정할 수 있습니다.
-    5. Bean 사용: 
-      - 이제 애플리케이션은 Bean을 사용하여 비즈니스 로직을 수행할 수 있습니다.
-    6. Bean 소멸: 
-      - Bean이 org.springframework.beans.factory.DisposableBean 인터페이스를 구현하는 경우, destroy() 메서드가 호출됩니다. 
-      - 또는, @PreDestroy 애노테이션이나 destroy-method 속성을 사용하여 소멸 메서드를 지정할 수 있습니다.
-  
-    이렇게 Spring 컨테이너는 Bean의 생성부터 소멸까지 전체 생명 주기를 관리합니다. 
-    이를 통해 개발자는 비즈니스 로직에 집중하고, 객체의 생명 주기 관리와 같은 부수적인 작업을 Spring에게 맡길 수 있습니다.
-  </details>
-  <details>
-    <summary>Spring Bean의 생명 주기 활용 방법에 대해 알려주세요.</summary>
-
-    1. 초기화 메서드 사용: 
-      - Bean이 생성되고 의존성이 주입된 후, 초기화 작업이 필요할 경우 사용합니다. 
-      - 예를 들어, 데이터베이스 커넥션 풀을 초기화하거나, 캐시를 미리 로딩하는 등의 작업을 수행할 수 있습니다. 
-      - 초기화 메서드 방법은 다음과 같습니다.
-        - @PostConstruct 애노테이션 사용
-        - InitializingBean 인터페이스의 afterPropertiesSet() 메서드를 오버라이드
-        - XML 설정에서 init-method 속성을 지정하여 사용
-    2. 소멸 메서드 사용: 
-      - Bean이 컨테이너에서 제거되기 전에 리소스를 해제하거나, 종료에 필요한 작업을 수행할 경우 사용합니다. 
-      - 소멸 메서드 방법은 다음과 같습니다.
-        - @PreDestroy 애노테이션 사용
-        - DisposableBean 인터페이스의 destroy() 메서드를 오버라이드
-        - XML 설정에서 destroy-method 속성을 지정하여 사용
-    3. BeanFactoryPostProcessor와 BeanPostProcessor 사용:
-      - 이들은 Bean의 생성과 초기화 과정을 좀 더 세밀하게 제어할 수 있게 해줍니다. 
-      - BeanFactoryPostProcessor : Bean 정의가 컨테이너에 로드되고, Bean 인스턴스가 생성되기 전에 작업을 수행합니다.
-      - BeanPostProcessor : Bean 인스턴스가 생성된 후, 초기화 메서드가 호출되기 전과 후에 작업을 수행합니다.
-    4. ApplicationListener 사용: 
-      - Spring에서 발생하는 이벤트를 처리하기 위해 사용합니다. 
-      - 예를 들어, 컨테이너가 시작하거나 종료될 때 특정 작업을 수행하고 싶다면 ContextStartedEvent나 ContextClosedEvent를 처리하는 ApplicationListener를 구현할 수 있습니다.
-
-    이처럼 Spring Bean의 생명주기를 활용하면, 
-    Bean의 생성과 소멸 시점에 특정 작업을 수행하거나, 
-    Bean의 생성과 초기화 과정을 세밀하게 제어하거나, 
-    Spring의 이벤트를 처리하는 등 다양한 작업을 할 수 있습니다.
-  </details>
-  <details>
     <summary>생성자 주입, 세터 주입과 필드 주입의 장단점에 대해 알려주세요.</summary>
 
     1. 생성자 주입
@@ -583,42 +524,23 @@
     또한, 순환 참조를 방지할 수 있으며, 테스트에도 유리합니다. 
     이런 이유로 Spring에서는 생성자 주입 방식을 권장하고 있습니다.
   </details>
-  <details>
-    <summary>Bean Scope 에 대해서 아시나요? 안다면, 해당 Scope들을 설명해주세요.</summary>
+</details>
 
-    - Singleton: 기본 Scope로, Spring 컨테이너 내에 하나의 Bean 인스턴스만 생성합니다. 
-    - Prototype: 요청할 때마다 새로운 Bean 인스턴스를 생성합니다. 
-    - Request: HTTP 요청당 하나의 Bean 인스턴스를 생성합니다. 
-    - Session: HTTP 세션당 하나의 Bean 인스턴스를 생성합니다. 
-    - Application: Servlet Context당 하나의 Bean 인스턴스를 생성합니다. 
-    - WebSocket: WebSocket당 하나의 Bean 인스턴스를 생성합니다.
-  </details>
-  <details>
-    <summary>default scope 가 어떤 scope인지 이유와 함께 설명하세요.</summary>
-    
-    - Spring의 기본 Bean Scope는 Singleton입니다. 
-    - 이는 Spring이 객체의 생명 주기를 관리하고, 객체 간의 의존성을 관리하는 DI 컨테이너의 특성상, 
-    - 대부분의 경우에 하나의 Bean 인스턴스만을 생성하여 재사용하는 것이 효율적이기 때문입니다.
-  </details>
-  <details>
-    <summary>인스턴스를 새로 만들지 않고 재사용하는 것은 어떤 장점이 있나요?</summary>
+<details>
+  <summary><h3>8. 빈과 컴포넌트 차이에 대해 설명해주세요.</h3></summary>
+  
+  - 빈(Bean): 
+    - 개발자가 컨트롤이 불가능한 외부 라이브러리들을 Bean으로 등록하고 싶은 경우에 사용합니다. 
+    - 스프링 IoC(Inversion of Control) 컨테이너가 관리하는 객체를 의미합니다. 
+    - 개발자가 직접 생성과 관리를 하지 않고, 스프링 컨테이너가 대신 생성, 관리, 제거하는 객체입니다. 
+    - @Bean 어노테이션을 이용해서 등록할 수 있습니다.
+  - 컴포넌트(Component): 
+    - 개발자가 직접 컨트롤이 가능한 Class들의 경우엔 @Component를 사용합니다.
+    - 스프링에서 직접 관리하는 빈 중에서 특별한 역할을 가진 빈을 가리키는 용어입니다. 
+    - @Component 어노테이션을 이용해서 등록할 수 있으며, @Controller, @Service, @Repository 등이 이에 속합니다.
 
-    - 인스턴스를 재사용하면 메모리 사용량을 줄일 수 있고, 객체 생성에 드는 비용도 절약할 수 있습니다. 
-    - 또한, 상태를 공유해야 하는 경우에도 인스턴스 재사용이 유용합니다.
-  </details>
-  <details>
-    <summary>prototype scope 는 어떨 때 사용하는 지 아시나요?</summary>
-
-    - Prototype Scope는 요청할 때마다 새로운 Bean 인스턴스를 생성하므로, 
-    - 상태를 유지해야 하는 경우나 여러 요청에서 독립적인 인스턴스가 필요한 경우에 사용합니다. 
-  </details>
-  <details>
-    <summary>스프링 컨테이너란 무엇인가요?</summary>
-
-    - 스프링 컨테이너는 스프링 프레임워크의 핵심 부분으로, Bean 객체의 생성과 관리, 그리고 Bean 간의 의존성을 처리하는 역할을 합니다. 
-    - 스프링 컨테이너는 ApplicationContext 인터페이스를 구현하여 제공되며, BeanFactory 인터페이스를 확장한 고급 컨테이너입니다. 
-    - 이를 통해 개발자는 객체의 생명 주기 관리와 같은 부수적인 작업을 스프링 컨테이너에게 맡기고, 비즈니스 로직에 집중할 수 있습니다.
-  </details>
+  ---
+  
   <details>
     <summary>어노테이션이란 무엇이란 무엇인가요?</summary>
 
@@ -627,7 +549,7 @@
     - 예를 들어, @Override 어노테이션은 메서드가 상위 클래스의 메서드를 오버라이드한다는 것을 컴파일러에게 알려줍니다.
     - 예를 들어, @Autowired 어노테이션은 스프링 프레임워크에게 의존성 주입을 요청합니다.
   </details>
-  <details>
+   <details>
     <summary>빈 혹은 컴포넌트 등록을 위한 각 어노테이션을 설명해주세요.</summary>
 
     - @Bean: 
@@ -659,17 +581,7 @@
     - 따라서 @Controller로도 JSON을 반환하는 것이 가능합니다.
   </details>
   <details>
-    <summary>빈과 컴포넌트 차이에 대해 설명해주세요.</summary>
-
-    - 빈(Bean): 
-      - 개발자가 컨트롤이 불가능한 외부 라이브러리들을 Bean으로 등록하고 싶은 경우에 사용합니다. 
-      - 스프링 IoC(Inversion of Control) 컨테이너가 관리하는 객체를 의미합니다. 
-      - 개발자가 직접 생성과 관리를 하지 않고, 스프링 컨테이너가 대신 생성, 관리, 제거하는 객체입니다. 
-      - @Bean 어노테이션을 이용해서 등록할 수 있습니다.
-    - 컴포넌트(Component): 
-      - 개발자가 직접 컨트롤이 가능한 Class들의 경우엔 @Component를 사용합니다.
-      - 스프링에서 직접 관리하는 빈 중에서 특별한 역할을 가진 빈을 가리키는 용어입니다. 
-      - @Component 어노테이션을 이용해서 등록할 수 있으며, @Controller, @Service, @Repository 등이 이에 속합니다.
+    <summary>@ControllerAdvice, @RestControllerAdvice 예외 처리 동작에 대해 설명해주세요. (답변 미작성)</summary>
   </details>
   <details>
     <summary>@Component 을 메서드 레벨에 선언할 수 있을까? 혹은 @Bean 을 클래스 레벨에 선언할 수 있을까?</summary>
@@ -678,8 +590,58 @@
     - @Bean과 @Component 는 각자 선언할 수 있는 타입이 정해져있어 해당 용도 외에는 컴파일 에러를 발생시킨다.
     - 예를 들어 @Bean 같은 경우에는 @Target이 METHOD로 지정되어 있지만, TYPE은 없습니다.
     - 반대로 @Component 는 @Target이 TYPE로 지정되어 Class위에서만 선언될수 있음을 알 수 있습니다.
-
   </details>
+</details>
+
+<details>
+  <summary><h3>8. Bean Scope 에 대해서 아시나요?</h3></summary>
+
+  - Singleton: 기본 Scope로, Spring 컨테이너 내에 하나의 Bean 인스턴스만 생성합니다. 
+  - Prototype: 요청할 때마다 새로운 Bean 인스턴스를 생성합니다. 
+  - Request: HTTP 요청당 하나의 Bean 인스턴스를 생성합니다. 
+  - Session: HTTP 세션당 하나의 Bean 인스턴스를 생성합니다. 
+  - Application: Servlet Context당 하나의 Bean 인스턴스를 생성합니다. 
+  - WebSocket: WebSocket당 하나의 Bean 인스턴스를 생성합니다.
+
+  ---
+    
+  <details>
+    <summary>default scope 가 어떤 scope인지 이유와 함께 설명하세요.</summary>
+    
+    - Spring의 기본 Bean Scope는 Singleton입니다. 
+    - 이는 Spring이 객체의 생명 주기를 관리하고, 객체 간의 의존성을 관리하는 DI 컨테이너의 특성상, 
+    - 대부분의 경우에 하나의 Bean 인스턴스만을 생성하여 재사용하는 것이 효율적이기 때문입니다.
+  </details>
+  <details>
+    <summary>인스턴스를 새로 만들지 않고 재사용하는 것은 어떤 장점이 있나요?</summary>
+
+    - 인스턴스를 재사용하면 메모리 사용량을 줄일 수 있고, 객체 생성에 드는 비용도 절약할 수 있습니다. 
+    - 또한, 상태를 공유해야 하는 경우에도 인스턴스 재사용이 유용합니다.
+  </details>
+  <details>
+    <summary>prototype scope 는 어떨 때 사용하는 지 아시나요?</summary>
+
+    - Prototype Scope는 요청할 때마다 새로운 Bean 인스턴스를 생성하므로, 
+    - 상태를 유지해야 하는 경우나 여러 요청에서 독립적인 인스턴스가 필요한 경우에 사용합니다. 
+  </details>
+  <details>
+    <summary>후보 없이 특정 기능을 하는 클래스가 딱 1개라면, 구체 클래스를 사용해도 되지 않을까요? 근데, 왜 Spring에선 Bean을 사용 할까요?</summary>
+
+     - Spring에서는 Bean을 사용하여 객체의 생명 주기를 관리합니다. 
+     - Bean을 사용하면 개발자는 객체 생성, 소멸 등의 생명 주기 관리와 같은 부수적인 작업을 하지 않아도 되며, 객체의 의존성을 자동으로 관리해줍니다. 
+     - 또한, Bean을 사용하면 하나의 객체를 여러 컴포넌트에서 공유하여 사용할 수 있어 메모리 사용량을 줄일 수 있습니다.
+  </details>
+</details>
+
+<details>
+  <summary><h3>8. 스프링 컨테이너란 무엇인가요?</h3></summary>
+
+  - 스프링 컨테이너는 스프링 프레임워크의 핵심 부분으로, Bean 객체의 생성과 관리, 그리고 Bean 간의 의존성을 처리하는 역할을 합니다. 
+  - 스프링 컨테이너는 ApplicationContext 인터페이스를 구현하여 제공되며, BeanFactory 인터페이스를 확장한 고급 컨테이너입니다. 
+  - 이를 통해 개발자는 객체의 생명 주기 관리와 같은 부수적인 작업을 스프링 컨테이너에게 맡기고, 비즈니스 로직에 집중할 수 있습니다.
+
+  ---
+
   <details>
     <summary>BeanFactory vs ApplicationContext 차이에 대해 설명해주세요.</summary>
 
@@ -700,8 +662,65 @@
     따라서 대부분의 경우 ApplicationContext를 사용하는 것이 좋습니다. 
     ApplicationContext는 BeanFactory를 상속받아 확장한 인터페이스이므로, 필요한 경우 BeanFactory의 기능도 사용할 수 있습니다.
   </details>
-</details>
+  <details>
+    <summary>Spring의 Bean 생명 주기(Life Cycle)에 대해 자세히 설명해 주세요.</summary>
+    
+    1. Bean 정의 읽기: 
+  
+        - Spring IoC 컨테이너는 Bean 정의를 읽어 들입니다.
+        - 이는 XML 파일, Java Config, Annotation 등 여러 방식으로 제공될 수 있습니다.
+    2. Bean 인스턴스 생성:
+    
+        - Bean 정의에 따라 Spring 컨테이너는 Bean 인스턴스를 생성합니다.
+    3. 의존성 주입: 
+  
+        - Bean이 다른 Bean에 의존하는 경우, Spring 컨테이너는 이 의존성을 주입합니다.
+        - 이는 생성자 주입, 세터 주입, 필드 주입 등 여러 방식으로 이루어질 수 있습니다.
+    4. Bean 초기화:
+  
+        - Bean이 org.springframework.beans.factory.InitializingBean 인터페이스를 구현하는 경우, afterPropertiesSet() 메서드가 호출됩니다.
+        - 또는, @PostConstruct 애노테이션이나 init-method 속성을 사용하여 초기화 메서드를 지정할 수 있습니다.
+    5. Bean 사용: 
+  
+        - 이제 애플리케이션은 Bean을 사용하여 비즈니스 로직을 수행할 수 있습니다.
+   6. Bean 소멸: 
+  
+        - Bean이 org.springframework.beans.factory.DisposableBean 인터페이스를 구현하는 경우, destroy() 메서드가 호출됩니다.
+        - 또는, @PreDestroy 애노테이션이나 destroy-method 속성을 사용하여 소멸 메서드를 지정할 수 있습니다.
+  
+    - 이렇게 Spring 컨테이너는 Bean의 생성부터 소멸까지 전체 생명 주기를 관리합니다. 
+    - 이를 통해 개발자는 비즈니스 로직에 집중하고, 객체의 생명 주기 관리와 같은 부수적인 작업을 Spring에게 맡길 수 있습니다.
+  </details>
+  <details>
+    <summary>Spring Bean의 생명 주기 활용 방법에 대해 알려주세요.</summary>
 
+    1. 초기화 메서드 사용: 
+      - Bean이 생성되고 의존성이 주입된 후, 초기화 작업이 필요할 경우 사용합니다. 
+      - 예를 들어, 데이터베이스 커넥션 풀을 초기화하거나, 캐시를 미리 로딩하는 등의 작업을 수행할 수 있습니다. 
+      - 초기화 메서드 방법은 다음과 같습니다.
+        - @PostConstruct 애노테이션 사용
+        - InitializingBean 인터페이스의 afterPropertiesSet() 메서드를 오버라이드
+        - XML 설정에서 init-method 속성을 지정하여 사용
+    2. 소멸 메서드 사용: 
+      - Bean이 컨테이너에서 제거되기 전에 리소스를 해제하거나, 종료에 필요한 작업을 수행할 경우 사용합니다. 
+      - 소멸 메서드 방법은 다음과 같습니다.
+        - @PreDestroy 애노테이션 사용
+        - DisposableBean 인터페이스의 destroy() 메서드를 오버라이드
+        - XML 설정에서 destroy-method 속성을 지정하여 사용
+    3. BeanFactoryPostProcessor와 BeanPostProcessor 사용:
+      - 이들은 Bean의 생성과 초기화 과정을 좀 더 세밀하게 제어할 수 있게 해줍니다. 
+      - BeanFactoryPostProcessor : Bean 정의가 컨테이너에 로드되고, Bean 인스턴스가 생성되기 전에 작업을 수행합니다.
+      - BeanPostProcessor : Bean 인스턴스가 생성된 후, 초기화 메서드가 호출되기 전과 후에 작업을 수행합니다.
+    4. ApplicationListener 사용: 
+      - Spring에서 발생하는 이벤트를 처리하기 위해 사용합니다. 
+      - 예를 들어, 컨테이너가 시작하거나 종료될 때 특정 작업을 수행하고 싶다면 ContextStartedEvent나 ContextClosedEvent를 처리하는 ApplicationListener를 구현할 수 있습니다.
+
+    이처럼 Spring Bean의 생명주기를 활용하면, 
+    Bean의 생성과 소멸 시점에 특정 작업을 수행하거나, 
+    Bean의 생성과 초기화 과정을 세밀하게 제어하거나, 
+    Spring의 이벤트를 처리하는 등 다양한 작업을 할 수 있습니다.
+  </details>  
+</details>
 <details>
   <summary><h3>9. AOP(Aspect Oriented Programming)에 대해 설명해 주세요.</h3></summary>
 
@@ -862,10 +881,13 @@
     하지만 CGLIB은 메소드가 처음 호출 됐을 때, 동적으로 타겟 클래스의 바이트 코드를 조작하고 이후 호출 시에는 조작된 바이트 코드를 재사용합니다. 
     즉, 성능면에서 Reflection을 사용하는 동적 프록시보다 좋을 수밖에 없습니다.
   </details>
+  <details>
+    <summary>Dynamic Proxy와 CGLIB에 대해 IoC 컨테이너와 연관지어 설명해주세요 (답변 미작성)</summary>
+  </details>
 </details>  
 
 <details>
-  <summary><h3>11. JPA와 같은 ORM을 사용하는 이유가 무엇인가요?</h3></summary>
+  <summary><h3>11. JPA와 같은 ORM을 사용하는 이유가 무엇인가요? (답변 미작성)</h3></summary>
 
   ---
 
@@ -887,7 +909,7 @@
 </details>
 
 <details>
-  <summary><h3>12. @Transactional 은 어떤 기능을 하나요?</h3></summary>
+  <summary><h3>12. @Transactional 은 어떤 기능을 하나요? (답변 미작성)</h3></summary>
 
   ---
   
@@ -930,5 +952,8 @@
     - DAO는 데이터베이스에 대한 CRUD 연산을 캡슐화하여 제공합니다. 
     - 이를 통해 데이터 접근 로직과 비즈니스 로직을 분리하여 코드의 가독성과 유지보수성을 높일 수 있습니다. 
     - 또한, DAO를 사용하면 데이터베이스 엔진이 변경되더라도 비즈니스 로직을 변경하지 않고 DAO만 변경하면 되므로, 유연성도 높일 수 있습니다.
+  </details>
+  <details>
+    <summary>DAO와 Repository 차이를 아시나요? (답변 미작성)</summary>
   </details>
 </details>
