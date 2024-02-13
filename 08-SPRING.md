@@ -475,6 +475,12 @@
     이처럼 스프링 프레임워크는 클라이언트의 요청을 받아 처리하고 결과를 반환하는 전체 과정을 통합적으로 관리합니다. 
     이를 통해 개발자는 비즈니스 로직에 집중할 수 있으며, 애플리케이션의 유지보수와 확장성도 향상시킬 수 있습니다.
   </details>
+  <details>
+    <summary>스프링 부트에서 에러가 발생했을 때 동작과정에 대해 설명해주세요. (답변 미작성)</summary>
+  </details>
+  <details>
+    <summary>springBootApplication run 이 일어나면 동작하는 과정에 대해 설명해주세요 (답변 미작성)</summary>
+  </details>
 </details>
 <details>
   <summary><h3>8. IoC와 DI에 대해 설명해 주세요.</h3></summary>
@@ -523,6 +529,9 @@
     생성자 주입 방식을 사용하면, 객체가 생성될 때 모든 의존성이 주입되므로 객체의 불변성을 보장할 수 있습니다. 
     또한, 순환 참조를 방지할 수 있으며, 테스트에도 유리합니다. 
     이런 이유로 Spring에서는 생성자 주입 방식을 권장하고 있습니다.
+  </details>  
+  <details>
+    <summary>@Autowird 동작과정에 대해 설명해주세요. (답변 미작성)</summary>
   </details>
 </details>
 
@@ -540,16 +549,8 @@
     - @Component 어노테이션을 이용해서 등록할 수 있으며, @Controller, @Service, @Repository 등이 이에 속합니다.
 
   ---
-  
-  <details>
-    <summary>어노테이션이란 무엇이란 무엇인가요?</summary>
 
-    - 어노테이션은 자바 소스 코드에 메타데이터를 제공하는 방법입니다. 
-    - 이는 코드의 의미를 설명하거나, 컴파일 시점이나 실행 시점에 특정 기능을 수행하도록 정보를 제공합니다. 
-    - 예를 들어, @Override 어노테이션은 메서드가 상위 클래스의 메서드를 오버라이드한다는 것을 컴파일러에게 알려줍니다.
-    - 예를 들어, @Autowired 어노테이션은 스프링 프레임워크에게 의존성 주입을 요청합니다.
-  </details>
-   <details>
+  <details>
     <summary>빈 혹은 컴포넌트 등록을 위한 각 어노테이션을 설명해주세요.</summary>
 
     - @Bean: 
@@ -590,6 +591,9 @@
     - @Bean과 @Component 는 각자 선언할 수 있는 타입이 정해져있어 해당 용도 외에는 컴파일 에러를 발생시킨다.
     - 예를 들어 @Bean 같은 경우에는 @Target이 METHOD로 지정되어 있지만, TYPE은 없습니다.
     - 반대로 @Component 는 @Target이 TYPE로 지정되어 Class위에서만 선언될수 있음을 알 수 있습니다.
+  </details>
+  <details>
+    <summary>스프링 프레임워크에서 Bean을 등록할 때는 Proxy가 적용될까요? (답변 미작성)</summary>
   </details>
 </details>
 
@@ -642,6 +646,9 @@
 
   ---
 
+  <details>
+    <summary>ApplicationContext에 대해 아는대로 설명해주세요. (답변 미작성)</summary>
+  </details>
   <details>
     <summary>BeanFactory vs ApplicationContext 차이에 대해 설명해주세요.</summary>
 
@@ -883,6 +890,9 @@
   </details>
   <details>
     <summary>Dynamic Proxy와 CGLIB에 대해 IoC 컨테이너와 연관지어 설명해주세요 (답변 미작성)</summary>
+  </details>
+  <details>
+    <summary>프록시가 스프링 싱글톤 빈에서 동시성 처리에 용이한 이유를 아시나요? (답변 미작성)</summary>
   </details>
 </details>  
 
