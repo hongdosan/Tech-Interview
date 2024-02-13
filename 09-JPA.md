@@ -1,5 +1,7 @@
+## JPA
+
 <details>
-  <summary><h3>* JPA와 같은 ORM을 사용하는 이유가 무엇인가요? (답변 미작성)</h3></summary>
+  <summary><h3>JPA와 같은 ORM을 사용하는 이유가 무엇인가요? (답변 미작성)</h3></summary>
 
   ---
 
@@ -21,7 +23,7 @@
 </details>
 
 <details>
-  <summary><h3>* @Transactional 은 어떤 기능을 하나요? (답변 미작성)</h3></summary>
+  <summary><h3>@Transactional 은 어떤 기능을 하나요? (답변 미작성)</h3></summary>
 
   ---
   
