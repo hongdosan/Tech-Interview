@@ -476,7 +476,11 @@
     이를 통해 개발자는 비즈니스 로직에 집중할 수 있으며, 애플리케이션의 유지보수와 확장성도 향상시킬 수 있습니다.
   </details>
   <details>
-    <summary>스프링 부트에서 에러가 발생했을 때 동작과정에 대해 설명해주세요. (답변 미작성)</summary>
+    <summary>스프링부트에서 에러가 발생했을 때 동작과정에 대해 설명해주세요.</summary>
+
+    - 스프링부트는 예외 발생 시, 기본적으로 예외 요청을 다시 전달하도록 WAS 설정이 되어 있습니다. 
+    - 즉, 별도 설정이 없을 때, 예외 발생 시, BasicErrorController가 동작합니다.
+    - 이 BasicErrorController의 예외 경로는 기본적으로 `/error`입니다.
   </details>
   <details>
     <summary>springBootApplication run 이 일어나면 동작하는 과정에 대해 설명해주세요 (답변 미작성)</summary>
@@ -593,7 +597,19 @@
     - 반대로 @Component 는 @Target이 TYPE로 지정되어 Class위에서만 선언될수 있음을 알 수 있습니다.
   </details>
   <details>
-    <summary>스프링 프레임워크에서 Bean을 등록할 때는 Proxy가 적용될까요? (답변 미작성)</summary>
+    <summary>스프링 프레임워크에서 Bean을 등록할 때는 Proxy가 적용될까요? </summary>
+
+    - 기본적으로 프록시가 적용됩니다. 
+    - @SpringBootApplication 어노테이션 내부를 보면 빈으로 등록하는 메소드에 프록시 패턴을 적용할 것인지를 결정하는 속성인 proxyBeanMethods()가 있습니다. 
+    - 이 proxyBeanMethods의 기본값은 true이기 때문에, 별다른 설정을 하지 않았다면 @Bean 메소드에 프록시가 기본으로 적용됩니다.
+  </details>
+  <details>
+    <summary>스프링 프레임워크에서 Bean을 등록할 때 왜 프록시를 적용할까요?</summary>
+
+    - 메소드를 직접 호출하는 경우에도 항상 싱글톤 스코프를 강제하여 1개의 객체만을 생성하기 위함입니다.
+    - 만약 proxyBeanMethods를 false로 설정하면 프록시가 적용되지 않아서 2개의 컴포넌트 빈이 생성됩니다.
+    - 따라서 스프링은 기본적으로 proxyBeanMethods를 true로 설정하고 CGLib을 통해 프록시 패턴을 적용합니다.
+    - 즉, 기본적으로 @Bean 메서드가 호출될 때, 이미 빈이 생성되어 있으면 존재하는 빈을 찾아 1개의 빈이 생성되도록 처리합니다.
   </details>
 </details>
 
