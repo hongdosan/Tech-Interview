@@ -179,6 +179,36 @@
   </details>
 </details>
 
+<details>
+  <summary><h3>Spring MVC(Model-View-Controller) 란?</h3></summary>
+
+  - Spring MVC는 Dispatcher Servlet, ModelAndVidew, View Resolver와 같은 간단한 개념으로 <br/>
+    웹 애플리케이션을 개발할 수 있도록 돕는 프레임워크입니다.
+  
+  ---
+
+  <details>
+    <summary>MVC 패턴이란?</summary>
+
+    MVC 패턴은 애플리케이션을 세 가지 역할로 구분한 개발 방법론입니다. 
+      - Model: 애플리케이션의 정보, 데이터를 나타내며, 비즈니스 로직을 처리합니다.
+      - View: 사용자에게 보여지는 화면입니다. Model이 처리한 데이터를 사용자에게 보여주는 역할을 합니다.
+      - Controller: 사용자의 입력을 받아 Model에 작업을 지시하고, 그 결과를 View에 반영하여 사용자에게 전달하는 역할을 합니다.
+  </details>
+  <details>
+    <summary>Spring MVC1, Spring MVC2 패턴 차이에 대해 설명해주세요.</summary>
+
+    - Spring MVC1: 
+      - View와 Controller를 JSP가 모두 담당하는 형태를 의미합니다.
+      - JSP에 모든 정보가 담겨 있기 때문에, 읽기가 힘들고 유지보수성이 떨어집니다.
+    - Spring MVC2: 
+      - 요청을 하나의 Controller(Servlet)가 먼저 받아 View와 Model의 중간 역할을 하는 형태입니다.
+      - 예를 들어, 스프링에서는 Dispatcher Servlet이 프론트 컨트롤러 역할을 맡아 요청에 맞는 컨트롤러를 찾아 요청을 위임합니다.
+      - 때문에 Spring MVC1보다 역할 명확하게 분리되어, 유지보수성 및 확장성이 용이합니다.
+  </details>
+</details>
+
+## 스프링 심화
   <details>
     <summary>스프링의 전체 동작 과정에 대해 설명해주세요.</summary>
 
@@ -216,51 +246,6 @@
   <details>
     <summary>springBootApplication run 이 일어나면 동작하는 과정에 대해 설명해주세요 (답변 미작성)</summary>
   </details>
-
-<details>
-  <summary><h3>MVC(Model-View-Controller)패턴이란?</h3></summary>
-  
-  MVC 패턴은 애플리케이션을 세 가지 역할로 구분한 개발 방법론입니다. 
-  - Model: 애플리케이션의 정보, 데이터를 나타내며, 비즈니스 로직을 처리합니다.
-  - View: 사용자에게 보여지는 화면입니다. Model이 처리한 데이터를 사용자에게 보여주는 역할을 합니다.
-  - Controller: 사용자의 입력을 받아 Model에 작업을 지시하고, 그 결과를 View에 반영하여 사용자에게 전달하는 역할을 합니다.
-  
-  ---
-
-  <details>
-    <summary>Spring MVC란 무엇인가요?</summary>
-
-    - Spring MVC는 Spring Framework의 일부로서, 웹 애플리케이션 제작을 위한 MVC 패턴 기반의 프레임워크입니다. 
-    - Spring MVC는 웹 요청을 처리하고 응답을 생성하는 데 필요한 여러 기능을 제공합니다. 
-    - 이에는 요청 매핑, 데이터 바인딩, 유효성 검사, 페이지 이동 등이 포함됩니다. 
-  </details>
-  <details>
-    <summary>MVC1이랑 MVC2 패턴 차이에 대해 설명해주세요.</summary>
-
-    - Spring MVC1: 
-      - 모든 요청과 응답이 JSP 페이지를 통해 처리되는 구조입니다. 
-      - JSP 페이지가 Controller와 View의 역할을 모두 수행합니다. 
-      - 단순한 웹 애플리케이션에 적합하나, JSP에 모든 정보가 담겨있기 때문에, 복잡한 애플리케이션에서는 코드 관리가 어렵습니다. 
-    - Spring MVC2: 
-      - 서블릿이 Controller 역할을, JSP가 View 역할을 수행하는 구조입니다. 
-      - 즉, 요청을 하나의 컨트롤러(서블릿)가 먼저 받아서, 뷰와 모델의 중간 역할을 합니다.
-      - 따라서, 컴포넌트 간 역할이 분리되어 있기 때문에, 유지보수 및 확장성이 좋아 대부분의 웹 애플리케이션은 MVC2 방식을 사용하고 있습니다.
-      - 스프링에서는 디스패처 서블릿이 프론트 컨트롤러의 역할을 맡고 요청에 맞는 컨트롤러를 찾아 요청을 위임합니다.
-  </details>
-  <details>
-    <summary>스프링 MVC 구조 흐름에 대해 과정대로 설명해보세요.</summary>
-
-    1) 클라이언트의 요청이 들어오면, 디스패처 서블릿이 이를 가장 먼저 받습니다. 
-    2) 디스패처 서블릿은 HandlerMapping에게 요청을 처리할 Handler를 물어봅니다. 
-    3) HandlerMapping은 요청 URL, HTTP 메서드 등을 기준으로 적절한 Handler를 찾아 디스패처 서블릿에게 반환합니다. 
-    4) 디스패처 서블릿은 반환받은 Handler를 실행시킵니다. 
-    5) Handler(일반적으로 컨트롤러)는 비즈니스 로직을 처리하고 그 결과를 모델에 담아서 반환합니다. 
-    6) 디스패처 서블릿은 Handler가 반환한 모델을 ViewResolver에 전달하고, 어떤 뷰를 사용할지 결정하게 합니다. 
-    7) 디스패처 서블릿은 결정된 뷰를 사용해 클라이언트에게 응답을 보냅니다.
-
-    이런 방식으로 스프링 MVC는 클라이언트의 요청을 적절한 컨트롤러에 연결하고, 그 결과를 클라이언트에게 반환하는 역할을 수행합니다.
-  </details>
-</details>
 
 <details>
   <summary><h3>5. DispatcherServlet 이란?</h3></summary>
