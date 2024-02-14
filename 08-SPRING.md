@@ -204,7 +204,61 @@
     - Spring MVC2: 
       - 요청을 하나의 Controller(Servlet)가 먼저 받아 View와 Model의 중간 역할을 하는 형태입니다.
       - 예를 들어, 스프링에서는 Dispatcher Servlet이 프론트 컨트롤러 역할을 맡아 요청에 맞는 컨트롤러를 찾아 요청을 위임합니다.
-      - 때문에 Spring MVC1보다 역할 명확하게 분리되어, 유지보수성 및 확장성이 용이합니다.
+      - 때문에 Spring MVC1보다 역할이 명확하게 분리되어, 유지보수성 및 확장성이 용이합니다.
+  </details>
+</details>
+
+<details>
+  <summary><h3>DispatcherServlet 이란?</h3></summary>
+    
+   - Http 프로토콜로 들어오는 모든 클라이언트 요청을 최초로 받아 적합한 컨트롤러에 위임해주는 프론트 컨트롤러입니다.
+     - 프론트 컨트롤러란 서블릿 컨테이너의 제일 앞에서 서버로 들어오는 클라이언트의 모든 요청을 받아 처리해주는 컨트롤러입니다.
+     - web.xml에 맵핑되는 컨트롤러를 모두 등록해야 하던 것을, Dispatcher Servlet을 통해 모든 요청을 핸들링하고 공통 작업을 처리해주면서 web.xml의 역할이 축소되었습니다.
+
+  ---
+
+  <details>
+    <summary>Dispatcher Servlet의 동작 과정에 대해서 설명해주세요.</summary>
+
+    1. 첫 번째로, 클라이언트 요청이 들어오면 웹 컨텍스트를 지나 스프링 컨텍스트에 있는 Dispatcher Servlet이 가장 먼저 요청을 받습니다.
+    2. Dispatcher Servlet은 사용자가 요청한 URL을 기반으로 HandlerMapping을 통해 어떤 컨트롤러로 요청을 위임할 지 찾습니다.
+    3. 찾았다면 HandlerExecutionChain으로 감싸서 반환합니다.
+      - 컨트롤러로 요청을 넘기기 전 처리해야하는 인터셉터 등을 포함하기 위해 감싸서 반환합니다.
+    4. 반환된 값을 기반으로 HandlerAdapter를 통해 컨트롤러로 요청을 위임합니다.
+      - HandlerAdapter에서는 컨트롤러로 요청을 위임하기 전/후에 Interceptor와 @RequestParam, @RequestBody 등을 처리하기 위한
+        ArgumentResolver들과 직렬화와 같은 기능을 처리하게 됩니다.
+    5. 요청을 위임받은 컨트롤러가 비지니스 로직을 수행 후 응답합니다.
+      - 웹 페이지를 사용할 경우 View Name을 String으로 반환합니다.
+      - 응답 데이터를 JSON으로 반환할 경우 주로 ResponseEntity를 반환하게 됩니다.
+      - HandlerAdapter에서 반환된 값을 파악해 해당하는 것에 맞는 Converter를 이용하여 클라이언트로 반환합니다.
+  </details>
+
+  <details>
+    <summary>여러 요청이 들어온다고 가정할 때, DispatcherServlet은 한번에 여러 요청을 모두 받을 수 있나요?</summary>
+    
+    - DispatcherServlet은 멀티스레드 환경에서 동작하므로 한 번에 여러 요청을 받아 처리할 수 있습니다.
+    - 각 요청은 별도의 스레드에서 처리되며, 이를 통해 동시에 여러 사용자의 요청을 처리할 수 있습니다.
+    
+  </details>    
+  <details>
+    <summary>수많은 Controller 를 DispatcherServlet은 어떻게 구분 할까요?</summary>
+    
+    - DispatcherServlet은 요청 URL을 분석하여 해당 요청을 처리할 Controller를 결정합니다.
+    - 스프링에서는 HandlerMapping이 @Controller 어노테이션이 적용된 모든 컨트롤러를 찾아 파싱하여 HashMap<요청 정보, 처리할 대상>으로 관리합니다.
+  </details>
+  <details>
+    <summary>용어</summary>
+
+    HandlerMapping
+      - 요청을 처리할 컨트롤러를 찾아주는 역할을 합니다.
+      - 요청 URL, HTTP Method 등을 기준으로 적절한 핸들러를 찾아 DispatcherServlet에게 반환합니다.
+    HandlerAdapter
+      - 요청을 컨트롤러로 위임하기 위한 어댑터입니다.
+      - DispatcherServlet은 이를 이용해 각각의 핸들러 타입에 맞는 방식으로 요청을 처리합니다.
+    HandlerInterceptor
+      - 핸들러의 처리 전/후에 특정 작업을 수행할 수 있게 해주는 역할을 합니다.
+    ViewResolver
+      - 뷰를 반환하기 위한 리졸버입니다.
   </details>
 </details>
 
@@ -247,102 +301,6 @@
     <summary>springBootApplication run 이 일어나면 동작하는 과정에 대해 설명해주세요 (답변 미작성)</summary>
   </details>
 
-<details>
-  <summary><h3>5. DispatcherServlet 이란?</h3></summary>
-    
-   - DispatcherServlet은 스프링 MVC의 핵심 컴포넌트로, 모든 클라이언트 요청을 최초로 받아들이는 프론트 컨트롤러 역할을 합니다. 
-   - 요청에 따라 적절한 컨트롤러로 분배하고, 처리 결과를 사용자에게 반환하는 역할을 수행합니다.
-
-  ---
-
-  <details>
-    <summary>Dispatcher Servlet의 동작 과정에 대해서 간단하게 설명해주세요.</summary>
-
-    1. 클라이언트의 요청이 오면 디스패처 서블릿이 이를 가장 먼저 받습니다.
-    2. 디스패처 서블릿은 HandlerMapping에게 요청을 처리할 Handler를 물어봅니다. 
-    3. HandlerMapping은 요청 URL, HTTP 메서드 등을 기준으로 적절한 Handler를 찾아 디스패처 서블릿에게 반환합니다.
-    4. 디스패처 서블릿은 반환받은 Handler를 실행시킵니다. 
-    5. Handler(일반적으로 컨트롤러)는 비즈니스 로직을 처리하고 그 결과를 모델에 담아서 반환합니다.
-    6. 디스패처 서블릿은 Handler가 반환한 모델을 ViewResolver에 전달하고, 어떤 뷰를 사용할지 결정하게 합니다.
-    7. 디스패처 서블릿은 결정된 뷰를 사용해 클라이언트에게 응답을 보냅니다.
-    
-    이런 방식으로 디스패처 서블릿은 클라이언트의 요청을 적절한 컨트롤러에 연결하고, 그 결과를 클라이언트에게 반환하는 중심적인 역할을 수행합니다.
-  </details>
-  <details>
-    <summary>Spring 에서 DispatcherServlet 은 왜 있어야 할까요?</summary>
-
-    1. 프론트 컨트롤러 패턴 구현: 
-      - 디스패처 서블릿은 디자인 패턴 중 하나인 프론트 컨트롤러 패턴을 구현합니다. 
-      - 이 패턴은 모든 클라이언트 요청을 한 곳에서 받아 적절한 처리를 위임하는 역할을 합니다. 
-      - 이를 통해 요청 처리 로직을 효율적으로 관리할 수 있게 됩니다.
-    2. 요청 라우팅: 
-      - 디스패처 서블릿은 클라이언트의 요청을 적절한 컨트롤러에게 전달하는 역할을 합니다. 
-      - 이를 통해 요청에 따라 적절한 컨트롤러가 선택되고 실행됩니다.
-    3. 뷰 렌더링: 
-      - 컨트롤러의 처리 결과를 바탕으로 적절한 뷰를 선택하고 렌더링하는 역할을 합니다. 
-      - 이를 통해 클라이언트에게 적절한 응답을 반환할 수 있습니다.
-    4. 예외 처리: 
-      - 디스패처 서블릿은 요청 처리 과정에서 발생하는 예외를 일관되게 처리합니다. 
-      - 이를 통해 에러 페이지를 표시하거나 적절한 응답 코드를 반환하는 등의 예외 처리를 진행할 수 있습니다.
-
-    따라서 DispatcherServlet은 스프링 MVC의 핵심적인 요소로서, 
-    클라이언트의 요청 처리와 응답 반환, 예외 처리 등을 총괄하는 역할을 수행합니다. 
-    이런 기능을 통해 개발자는 요청 처리 로직에 집중할 수 있게 됩니다.
-    더 자세하게 설명하자면, web.xml에 맵핑되는 컨트롤러를 모두 등록해야 했는데, 
-    현재는 디스패처 서블릿을 통해 모든 요청을 핸들링해주고 공통 작업을 처리해주면서 web.xml의 역할을 축소시켜 줬습니다.
-  </details>
-  <details>
-    <summary>여러 요청이 들어온다고 가정할 때, DispatcherServlet은 한번에 여러 요청을 모두 받을 수 있나요?</summary>
-    
-    - DispatcherServlet은 멀티스레드 환경에서 동작하므로 한 번에 여러 요청을 받아 처리할 수 있습니다. 
-    - 각 요청은 별도의 스레드에서 처리되며, 이를 통해 동시에 여러 사용자의 요청을 처리할 수 있습니다.
-  </details>  
-  <details>
-    <summary>수많은 @Controller 를 DispatcherServlet은 어떻게 구분 할까요?</summary>
-    
-    - DispatcherServlet은 요청 URL을 분석하여 해당 요청을 처리할 @Controller를 결정합니다. 
-    - 이는 스프링의 HandlerMapping이 수행하며, URL, HTTP 메서드, 요청 파라미터 등을 기반으로 적절한 컨트롤러를 찾습니다.
-  </details>
-  <details>
-    <summary>handlerAdapter 는 무엇인가요?</summary>
-
-    - HandlerAdapter는 핸들러의 메서드를 실행하는 역할을 합니다. 
-    - DispatcherServlet은 HandlerAdapter를 사용하여 각각의 핸들러 타입에 맞는 방식으로 요청을 처리하게 합니다. 
-    - 이를 통해 다양한 타입의 핸들러를 유연하게 지원할 수 있습니다.
-  </details>
-  <details>
-    <summary>handlerMapping 는 무엇인가요?</summary>
-
-    - HandlerMapping은 클라이언트의 요청을 처리할 핸들러를 찾아주는 역할을 합니다. 
-    - DispatcherServlet은 요청이 들어오면 HandlerMapping에게 이 요청을 처리할 핸들러를 물어봅니다. 
-    - HandlerMapping은 요청 URL, HTTP 메서드 등을 기준으로 적절한 핸들러를 찾아 DispatcherServlet에게 반환합니다. 
-  </details>
-  <details>
-    <summary>handlerInterceptor 는 무엇인가요? </summary>
-    - HandlerInterceptor는 핸들러의 처리 전후에 특정 작업을 수행할 수 있게 해주는 역할을 합니다. 
-    - 예를 들어, 핸들러의 처리 전에 로그인 여부를 체크하거나, 처리 후에 공통적으로 로깅하는 등의 작업을 할 수 있습니다. 
-    - 이를 통해 공통적인 로직을 중복 없이 효율적으로 처리할 수 있습니다.
-  </details>
-  <details>
-    <summary>핸들러와 컨트롤러의 차이에 대해 설명해주세요.</summary>
-
-    - 핸들러: 
-      - 핸들러는 클라이언트의 요청을 처리하는 일반적인 개념입니다. 
-      - 스프링 MVC에서 핸들러는 클라이언트의 요청을 처리하는 객체를 의미하며, 이는 일반적으로 컨트롤러를 말합니다. 
-      - 따라서 HandlerMapping은 요청 URL을 기반으로 적절한 컨트롤러를 찾아내는 역할을 수행합니다.
-    - 컨트롤러: 
-      -  컨트롤러는 핸들러의 한 형태로, MVC 패턴에서 클라이언트의 요청을 처리하는 컴포넌트를 의미합니다. 
-      - 스프링 MVC에서 컨트롤러는 @Controller 어노테이션이 붙은 클래스를 말하며, 이 클래스의 메서드가 실제로 클라이언트의 요청을 처리합니다.
-    
-    따라서, 스프링 MVC에서는 '핸들러'가 요청을 처리하는 일반적인 개념으로 사용되며, 
-    '컨트롤러'는 그 중에서도 MVC 패턴에 따라 요청을 처리하는 구체적인 구현체를 말합니다. 
-    다시 말해, 모든 컨트롤러는 핸들러이지만, 모든 핸들러가 컨트롤러는 아닙니다.
-  </details>
-  <details>
-    <summary>Spring에서 Interceptor를 사용해본 경험이 있나요?</summary>
-    JWT 어쩌구... 저쩌구.. 헤더에서 토큰 추출 어쩌구 저쩌구.. 토큰 유효성 검증 어쩌구.. 쓰레드로컬 관리 어쩌구.. 모든 패키지에서 쓰레드로컬에 저장된 사용자 정보 사용 어쩌구...
-  </details>
-</details>
 <details>
   <summary><h3>8. IoC와 DI에 대해 설명해 주세요.</h3></summary>
 
