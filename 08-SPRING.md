@@ -17,21 +17,11 @@
   
   - 클라이언트의 요청을 처리하고, 그 결과를 반환하는 Servlet 클래스의 구현 규칙을 지킨 자바 웹 프로그래밍 기술입니다.
     - 클라이언트의 요청에 대해 동적으로 작동하는 웹 어플리케이션 컴포넌트입니다.
-    - 요청/응답을 일일히 처리하지 않고 서블릿을 통해 웹 요청과 응답의 흐름을 간단한 메서드 호출만으로 다룰 수 있게 합닌다.
+    - 요청/응답을 일일히 처리하지 않고 서블릿을 통해 웹 요청과 응답의 흐름을 간단한 메서드 호출만으로 다룰 수 있게 합니다.
     - MVC 패턴에서 Controller로 이용됩니다.
   
   ---
   
-  <details>
-    <summary>서블릿 동작과정에 대해 설명해주세요.</summary>
-    
-    1. 사용자가 URL을 통해 요청을 보내면, 웹 서버는 이 요청을 서블릿 컨테이너에 전달합니다. 
-    2. Servlet Container는 HttpServletRequest와 HttpServletResponse 객체를 생성합니다.
-    3. 서블릿 컨테이너가 web.xml을 기반으로 어느 서블릿에 대한 요청인지 찾습니다.
-    4. 찾은 서블릿에서 service() 메서드를 호출한 후 클라이언트의 Get, Post 여부에 따라 doGet(), doPost()를 호출합니다.
-    5. 호출된 메서드는 동적 페이지 생성 후 HttpServletResponse 객체에 응답을 보냅니다.
-    6. 응답이 끝나고 HttpServletRequest/HttpServletResponse 객체를 소멸시킵니다.
-  </details>  
   <details>
     <summary>서블릿 생명주기에 대해 설명해주세요.</summary>
 
@@ -39,7 +29,8 @@
       - 클라이언트의 요청이 들어오면 컨테이너는 해당 서블릿이 메모리에 올라와있는지 확인하고, 없을 경우 init() 메서드를 통해 메모리에 적재합니다.
       - 처음 한 번만 실행되고 서블릿의 모든 쓰레드에서 공통적으로 사용해야 한다면 오버라이딩해서 구현하면 됩니다.
     - service():
-      - 클라이언트의 요청이 들어왔을 때, service() 메서드를 통해 요청에 대한 응답이 doGet()과 doPost()로 나뉘며 HttpServletRequest와 HttpServletResponse 객체가 제공됩니다.
+      - 클라이언트의 요청이 들어왔을 때, service() 메서드를 통해 요청에 대한 응답이 doGet()과 doPost()로 나뉘며 
+        HttpServletRequest와 HttpServletResponse 객체가 제공됩니다.
       - 실질적으로 요청에 대한 처리를 수행하는 곳입니다.
     - destroy():
       - 컨테이너가 서블릿에 종료 요청을 하면 발생되는 메서드로, 서블릿의 처리가 모두 끝났을 때 발생합니다.
@@ -89,7 +80,7 @@
   ---
 
   <details>
-    <summary>내장 톰캣과 외장 톰캣의 차이점에 대해서 아는대로 설명해주세요.</summary>
+    <summary>내장 톰캣과 외장 톰캣이 어떤 식으로 활용되는 지, 차이점에 대해서 아는대로 설명해주세요.</summary>
 
     주로 톰캣은 스프링 프레임워크를 사용할 때 이용합니다.
     예를 들어, 기본 스프링을 이용할 땐 외장 톰캣을 이용하고 스프링부트를 사용할 때는 내장 톰캣을 이용합니다.
@@ -107,47 +98,24 @@
         - 내장 톰캣도 가능하긴 하지만 매우 복잡하기 때문에, 웹 서버를 별도로 두고 하나의 웹 애플리케이션은 하나의 내장 WAS를 갖는 것이 더 효율적
   </details>
   <details>
-    <summary>톰캣 동작과정에 대해 설명해주세요.</summary>
-
-    1) 클라이언트로부터 HTTP 요청이 들어오면, 톰캣이 이 요청을 받습니다. 
-    2) 톰캣은 요청을 처리하기 위한 새로운 쓰레드를 생성하고, 요청 정보를 바탕으로 HttpRequest, HttpResponse 객체를 생성합니다. 
-    3) 생성된 HttpRequest 객체는 Engine으로 전달되어 적절한 Context에 요청을 라우팅합니다. 
-    4) Context는 요청 URI를 기반으로 적절한 Servlet을 찾습니다. 
-    5) 찾아진 Servlet은 요청을 처리하고 그 결과를 HttpResponse 객체에 채워넣습니다. 
-    6) 이렇게 생성된 HttpResponse 객체는 다시 Connector를 통해 클라이언트에게 전달됩니다.
+    <summary>Tomcat 동작과정에 대해 설명해주세요.</summary>
+    
+    1. 클라이언트가 요청을 하면 웹 서버에서 톰캣과 같은 WAS에 위임합니다.
+    2. 서블릿 컨테이너가 HttpServletRequest, HttpServletResponse(빈객체) 객체를 생성합니다.
+    3. web.xml을 기반으로 해당 URL이 어떤 서블릿에 대한 요청인지 찾습니다.
+    4. 해당 서블릿이 최초 요청이면 init()를 통해 메모리에 로드하고 아니라면 기존 서블릿 인스턴스를 가져옵니다.
+    5. 가져온 서블릿에서 service()를 호출 후 doGet() 또는 doPost()를 호출합니다.
+    6. doGet() 혹은 doPost()가 동적 페이지를 생성해 HttpServletResponse 객체에 응답을 보냅니다.
+    7. 응답이 끝나면 HttpServletRequest와 HttpServletResponse 객체를 소멸시킵니다.
   </details>
   <details>
     <summary>Spring 환경에서 tomcat 에 request 가 들어왔을 때 RequestMapping 에 도달하기까지 과정을 설명해주세요.</summary>
 
-     1) 톰캣은 클라이언트의 요청을 받아 새로운 쓰레드를 생성하고, HttpServletRequest와 HttpServletResponse 객체를 생성합니다. 
-     2) 스프링의 DispatcherServlet에 이 두 객체를 전달합니다. 
-     3) DispatcherServlet은 HandlerMapping에게 이 요청을 처리할 Handler를 물어봅니다. 
-     4) HandlerMapping은 요청의 URI, HTTP 메서드 등을 기준으로 @RequestMapping이 붙은 적절한 메서드를 찾아 반환합니다. 
-     5) DispatcherServlet은 반환받은 Handler를 실행시킵니다. 이때 Handler는 대부분의 경우 @RequestMapping이 붙은 컨트롤러의 메서드가 됩니다.
-  </details>
-  <details>
-    <summary>내장 톰캣과 외장 톰캣은 어떤식으로 구성되어 활용되나요?</summary>
-
-    - 내장 톰캣: 
-      - 스프링 부트 애플리케이션에 포함되어 있는 톰캣입니다. 
-      - 애플리케이션이 시작될 때 톰캣 서버도 함께 시작되며, 애플리케이션이 종료될 때 톰캣 서버도 함께 종료됩니다. 
-    - 외장 톰캣: 
-      - 별도로 설치되어 있는 톰캣으로, WAR 파일 등을 배포하여 사용합니다. 
-      - 서버의 시작과 종료는 별도로 관리되며, 여러 개의 애플리케이션을 한 서버에서 동작시킬 수 있습니다.
-  </details>
-  <details>
-    <summary>혹시 Netty에 대해 들어보셨나요? 무엇인가요?</summary>
-    
-    - Netty는 자바 네트워크 프로그래밍 라이브러리로, 비동기 이벤트 주도 네트워크 애플리케이션을 쉽게 개발할 수 있게 설계되었습니다.
-    - Netty를 사용하면 TCP/UDP 소켓 서버와 클라이언트, HTTP/HTTPS 서버와 클라이언트 등을 쉽게 구현할 수 있습니다. 
-    - 또한, 네트워크 프로그래밍에서 발생할 수 있는 다양한 이슈들(예: 접속 수락, 메시지 읽기/쓰기, 에러 처리 등)을 효율적으로 처리할 수 있습니다.
-  </details>
-  <details>
-    <summary>왜 Netty란 것을 사용할까요?</summary>
-
-    1. 효율적인 리소스 관리: Netty는 비동기 이벤트 주도 모델을 사용하여 리소스를 효율적으로 관리하여 높은 동시 접속 처리 성능을 제공합니다.
-    2. 쉬운 프로그래밍 모델: 복잡한 네트워크 프로그래밍을 보다 쉽게 구현할 수 있도록 도와줍니다.
-    3. 높은 확장성: 다양한 프로토콜을 지원하며, 사용자가 직접 프로토콜을 구현할 수 있도록 지원합니다.
+    1) 톰캣이 HttpServletRequest와 HttpServletResponse 객체를 생성합니다.
+    2) 스프링이 DispatcherServlet에 이 두 객체를 전달합니다. 
+    3) DispatcherServlet은 HandlerMapping에게 이 요청을 처리할 Handler(컨트롤러)를 물어봅니다. 
+    4) HandlerMapping은 요청의 URI, HTTP 메서드 등을 기준으로 Handler를 찾아 DispatcherServlet에 반환합니다.
+    5) DispatcherServlet은 반환받은 Handler(@RequestMapping이 붙은 컨트롤러의 메서드)를 실행합니다.
   </details>
 </details>
 
