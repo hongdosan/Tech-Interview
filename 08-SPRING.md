@@ -262,54 +262,40 @@
   </details>
 </details>
 
-## 스프링 심화
+<details>
+  <summary><h3>IoC(Inversion of Control)에 대해 설명해 주세요.</h3></summary>
+
+  - IoC는 제어의 역전이라해서, 개발자가 아닌 다른 곳, 프레임워크 같은 곳에 제어권을 맡기는 것을 의미합니다.
+  - 예를 들어, 스프링의 경우 빈의 생성과 의존성 주입 등 여러가지 일을 스프링 컨테이너에서 하게 되는데, <br/>
+    이것을 개발자가 관리하지 않고 프레임워크에서 한다고 하여 제어의 역전이라고 부릅니다.
+
   <details>
-    <summary>스프링의 전체 동작 과정에 대해 설명해주세요.</summary>
+    <summary>IoC 컨테이너(Spring 컨테이너)란 무엇인가요?</summary>
 
-    1. 클라이언트의 요청: 
-      - 사용자가 웹 브라우저를 통해 특정 URL에 요청을 보냅니다.
-    2. DispatcherServlet: 
-      - 스프링 MVC에서 가장 먼저 요청을 받는 것은 디스패처 서블릿입니다. 
-      - 이는 프론트 컨트롤러 패턴을 구현한 것으로, 모든 클라이언트의 요청을 한 곳에서 받아 적절한 컨트롤러에게 요청을 위임합니다.
-    3. HandlerMapping: 
-      - 디스패처 서블릿은 HandlerMapping에게 어떤 컨트롤러(핸들러)에게 요청을 위임할지 물어봅니다. 
-      - HandlerMapping은 요청 URL을 분석하여 해당 URL을 처리할 수 있는 가장 적합한 컨트롤러를 찾아 반환합니다.
-    4. 컨트롤러 실행: 
-      - 디스패처 서블릿은 HandlerMapping이 반환한 컨트롤러를 실행시킵니다. 
-      - 컨트롤러는 비즈니스 로직을 처리하고, 그 결과를 저장하는 모델 객체와 결과를 보여줄 뷰 이름을 반환합니다.
-    5. ViewResolver: 
-      - 디스패처 서블릿은 컨트롤러가 반환한 뷰 이름을 ViewResolver에게 전달합니다. 
-      - ViewResolver는 이 뷰 이름을 기반으로 실제로 결과를 보여줄 뷰 객체를 찾아 반환합니다.
-    6. 뷰 처리: 
-      - 디스패처 서블릿은 ViewResolver가 반환한 뷰 객체에 모델 데이터를 전달하여 처리를 요청합니다. 
-      - 뷰 객체는 모델 데이터를 사용하여 결과 페이지를 생성합니다.
-    7. 클라이언트에게 응답 반환: 
-      - 디스패처 서블릿은 생성된 결과 페이지를 클라이언트에게 반환합니다. 
-      - 이로써 클라이언트의 요청 처리가 완료됩니다.
+    - 빈의 생명주기를 관리하고 의존성 주입과 같은 DI 역할을 도와주는 컨테이너로, 
+      스프링에서는 BeanFactory와 ApplicationContext라고도 불립니다.
 
-    이처럼 스프링 프레임워크는 클라이언트의 요청을 받아 처리하고 결과를 반환하는 전체 과정을 통합적으로 관리합니다. 
-    이를 통해 개발자는 비즈니스 로직에 집중할 수 있으며, 애플리케이션의 유지보수와 확장성도 향상시킬 수 있습니다.
+    - 스프링에서 IoC를 담당하는 컨테이너를 Bean Factory, DI Container, Application Context라 부릅니다.
+      - BeanFactory
+        - Spring 컨테이너의 최상위 인터페이스로 getBean() 메서드를 제공합니다.
+        - 이는 Spring Bean을 관리하고 조회하는 역할을 담당합니다.
+      - ApplicationContext
+        - BeanFactory의 자식 컨테이너로 BeanFactory보다 더 많은 기능을 수행합니다.
+        - 예를 들어, 국제화 기능, 이벤트 발행, 환경 변수와 같은 추가적인 기능을 수행합니다.
   </details>
   <details>
-    <summary>스프링부트에서 에러가 발생했을 때 동작과정에 대해 설명해주세요.</summary>
+    <summary>IoC 컨테이너 동작과정에 대해 설명해주세요.</summary>
 
-    - 스프링부트는 예외 발생 시, 기본적으로 예외 요청을 다시 전달하도록 WAS 설정이 되어 있습니다. 
-    - 즉, 별도 설정이 없을 때, 예외 발생 시, BasicErrorController가 동작합니다.
-    - 이 BasicErrorController의 예외 경로는 기본적으로 `/error`입니다.
+    - XML 혹은 어노테이션 등의 Bean 설정을 읽어 Bean을 생성하고 Bean 간의 의존성을 주입합니다.
   </details>
-  <details>
-    <summary>springBootApplication run 이 일어나면 동작하는 과정에 대해 설명해주세요 (답변 미작성)</summary>
-  </details>
+
+  <details><summary>(미작성) BeanFactory과 ApplicationContext 차이에 대해 설명해주세요.</summary></details>
+</details>
 
 <details>
-  <summary><h3>8. IoC와 DI에 대해 설명해 주세요.</h3></summary>
-
-  - IoC(Inversion of Control, 제어의 역전)
-    - 프로그램의 제어 흐름 구조가 뒤바뀌는 것을 말합니다.
-    - 전통적인 프로그래밍에서는 사용자가 작성한 코드가 제어의 흐름을 담당하지만,
-    - IoC를 적용한 경우에는 프레임워크나 컨테이너가 주도권을 가지고 객체의 생성부터 생명주기 관리까지를 담당합니다.
-  - DI(Dependency Injection, 의존성 주입)
-    - IoC를 구현하는 방법 중 하나입니다.
+  <summary><h3>DI(Dependency Injection)에 대해 설명해 주세요.</h3></summary>
+  
+  - 의존성 주입은 IoC를 구현하는 방법 중 하나입니다.
     - 객체가 필요로 하는 의존성을 외부에서 주입해주는 방식으로, 객체 간의 결합도를 낮추고 코드의 재사용성과 유지보수성을 높입니다.
   ---
 
@@ -353,6 +339,105 @@
     <summary>@Autowird 동작과정에 대해 설명해주세요. (답변 미작성)</summary>
   </details>
 </details>
+
+  <details>
+    <summary>Spring의 Bean 생명 주기(Life Cycle)에 대해 자세히 설명해 주세요.</summary>
+    
+    1. Bean 정의 읽기: 
+  
+        - Spring IoC 컨테이너는 Bean 정의를 읽어 들입니다.
+        - 이는 XML 파일, Java Config, Annotation 등 여러 방식으로 제공될 수 있습니다.
+    2. Bean 인스턴스 생성:
+    
+        - Bean 정의에 따라 Spring 컨테이너는 Bean 인스턴스를 생성합니다.
+    3. 의존성 주입: 
+  
+        - Bean이 다른 Bean에 의존하는 경우, Spring 컨테이너는 이 의존성을 주입합니다.
+        - 이는 생성자 주입, 세터 주입, 필드 주입 등 여러 방식으로 이루어질 수 있습니다.
+    4. Bean 초기화:
+  
+        - Bean이 org.springframework.beans.factory.InitializingBean 인터페이스를 구현하는 경우, afterPropertiesSet() 메서드가 호출됩니다.
+        - 또는, @PostConstruct 애노테이션이나 init-method 속성을 사용하여 초기화 메서드를 지정할 수 있습니다.
+    5. Bean 사용: 
+  
+        - 이제 애플리케이션은 Bean을 사용하여 비즈니스 로직을 수행할 수 있습니다.
+   6. Bean 소멸: 
+  
+        - Bean이 org.springframework.beans.factory.DisposableBean 인터페이스를 구현하는 경우, destroy() 메서드가 호출됩니다.
+        - 또는, @PreDestroy 애노테이션이나 destroy-method 속성을 사용하여 소멸 메서드를 지정할 수 있습니다.
+  
+    - 이렇게 Spring 컨테이너는 Bean의 생성부터 소멸까지 전체 생명 주기를 관리합니다. 
+    - 이를 통해 개발자는 비즈니스 로직에 집중하고, 객체의 생명 주기 관리와 같은 부수적인 작업을 Spring에게 맡길 수 있습니다.
+  </details>
+  <details>
+    <summary>Spring Bean의 생명 주기 활용 방법에 대해 알려주세요.</summary>
+
+    1. 초기화 메서드 사용: 
+      - Bean이 생성되고 의존성이 주입된 후, 초기화 작업이 필요할 경우 사용합니다. 
+      - 예를 들어, 데이터베이스 커넥션 풀을 초기화하거나, 캐시를 미리 로딩하는 등의 작업을 수행할 수 있습니다. 
+      - 초기화 메서드 방법은 다음과 같습니다.
+        - @PostConstruct 애노테이션 사용
+        - InitializingBean 인터페이스의 afterPropertiesSet() 메서드를 오버라이드
+        - XML 설정에서 init-method 속성을 지정하여 사용
+    2. 소멸 메서드 사용: 
+      - Bean이 컨테이너에서 제거되기 전에 리소스를 해제하거나, 종료에 필요한 작업을 수행할 경우 사용합니다. 
+      - 소멸 메서드 방법은 다음과 같습니다.
+        - @PreDestroy 애노테이션 사용
+        - DisposableBean 인터페이스의 destroy() 메서드를 오버라이드
+        - XML 설정에서 destroy-method 속성을 지정하여 사용
+    3. BeanFactoryPostProcessor와 BeanPostProcessor 사용:
+      - 이들은 Bean의 생성과 초기화 과정을 좀 더 세밀하게 제어할 수 있게 해줍니다. 
+      - BeanFactoryPostProcessor : Bean 정의가 컨테이너에 로드되고, Bean 인스턴스가 생성되기 전에 작업을 수행합니다.
+      - BeanPostProcessor : Bean 인스턴스가 생성된 후, 초기화 메서드가 호출되기 전과 후에 작업을 수행합니다.
+    4. ApplicationListener 사용: 
+      - Spring에서 발생하는 이벤트를 처리하기 위해 사용합니다. 
+      - 예를 들어, 컨테이너가 시작하거나 종료될 때 특정 작업을 수행하고 싶다면 ContextStartedEvent나 ContextClosedEvent를 처리하는 ApplicationListener를 구현할 수 있습니다.
+
+    이처럼 Spring Bean의 생명주기를 활용하면, 
+    Bean의 생성과 소멸 시점에 특정 작업을 수행하거나, 
+    Bean의 생성과 초기화 과정을 세밀하게 제어하거나, 
+    Spring의 이벤트를 처리하는 등 다양한 작업을 할 수 있습니다.
+  </details>  
+</details>
+
+## 스프링 심화
+  <details>
+    <summary>스프링의 전체 동작 과정에 대해 설명해주세요.</summary>
+
+    1. 클라이언트의 요청: 
+      - 사용자가 웹 브라우저를 통해 특정 URL에 요청을 보냅니다.
+    2. DispatcherServlet: 
+      - 스프링 MVC에서 가장 먼저 요청을 받는 것은 디스패처 서블릿입니다. 
+      - 이는 프론트 컨트롤러 패턴을 구현한 것으로, 모든 클라이언트의 요청을 한 곳에서 받아 적절한 컨트롤러에게 요청을 위임합니다.
+    3. HandlerMapping: 
+      - 디스패처 서블릿은 HandlerMapping에게 어떤 컨트롤러(핸들러)에게 요청을 위임할지 물어봅니다. 
+      - HandlerMapping은 요청 URL을 분석하여 해당 URL을 처리할 수 있는 가장 적합한 컨트롤러를 찾아 반환합니다.
+    4. 컨트롤러 실행: 
+      - 디스패처 서블릿은 HandlerMapping이 반환한 컨트롤러를 실행시킵니다. 
+      - 컨트롤러는 비즈니스 로직을 처리하고, 그 결과를 저장하는 모델 객체와 결과를 보여줄 뷰 이름을 반환합니다.
+    5. ViewResolver: 
+      - 디스패처 서블릿은 컨트롤러가 반환한 뷰 이름을 ViewResolver에게 전달합니다. 
+      - ViewResolver는 이 뷰 이름을 기반으로 실제로 결과를 보여줄 뷰 객체를 찾아 반환합니다.
+    6. 뷰 처리: 
+      - 디스패처 서블릿은 ViewResolver가 반환한 뷰 객체에 모델 데이터를 전달하여 처리를 요청합니다. 
+      - 뷰 객체는 모델 데이터를 사용하여 결과 페이지를 생성합니다.
+    7. 클라이언트에게 응답 반환: 
+      - 디스패처 서블릿은 생성된 결과 페이지를 클라이언트에게 반환합니다. 
+      - 이로써 클라이언트의 요청 처리가 완료됩니다.
+
+    이처럼 스프링 프레임워크는 클라이언트의 요청을 받아 처리하고 결과를 반환하는 전체 과정을 통합적으로 관리합니다. 
+    이를 통해 개발자는 비즈니스 로직에 집중할 수 있으며, 애플리케이션의 유지보수와 확장성도 향상시킬 수 있습니다.
+  </details>
+  <details>
+    <summary>스프링부트에서 에러가 발생했을 때 동작과정에 대해 설명해주세요.</summary>
+
+    - 스프링부트는 예외 발생 시, 기본적으로 예외 요청을 다시 전달하도록 WAS 설정이 되어 있습니다. 
+    - 즉, 별도 설정이 없을 때, 예외 발생 시, BasicErrorController가 동작합니다.
+    - 이 BasicErrorController의 예외 경로는 기본적으로 `/error`입니다.
+  </details>
+  <details>
+    <summary>springBootApplication run 이 일어나면 동작하는 과정에 대해 설명해주세요 (답변 미작성)</summary>
+  </details>
 
 <details>
   <summary><h3>8. 빈과 컴포넌트 차이에 대해 설명해주세요.</h3></summary>
@@ -468,97 +553,6 @@
   </details>
 </details>
 
-<details>
-  <summary><h3>8. 스프링 컨테이너란 무엇인가요?</h3></summary>
-
-  - 스프링 컨테이너는 스프링 프레임워크의 핵심 부분으로, Bean 객체의 생성과 관리, 그리고 Bean 간의 의존성을 처리하는 역할을 합니다. 
-  - 스프링 컨테이너는 ApplicationContext 인터페이스를 구현하여 제공되며, BeanFactory 인터페이스를 확장한 고급 컨테이너입니다. 
-  - 이를 통해 개발자는 객체의 생명 주기 관리와 같은 부수적인 작업을 스프링 컨테이너에게 맡기고, 비즈니스 로직에 집중할 수 있습니다.
-
-  ---
-
-  <details>
-    <summary>ApplicationContext에 대해 아는대로 설명해주세요. (답변 미작성)</summary>
-  </details>
-  <details>
-    <summary>BeanFactory vs ApplicationContext 차이에 대해 설명해주세요.</summary>
-
-    - BeanFactory와 ApplicationContext는 둘 다 스프링 컨테이너로 빈의 생성과 관리를 담당합니다. 
-    - 하지만 ApplicationContext는 BeanFactory의 모든 기능을 포함하면서도 그 이상의 기능을 제공합니다.
-    - 또한 BeanFactory 는 요청 시 빈을 로드하고, ApplicationContext는 시작 시 모든 빈을 로드합니다. 
-    - 따라서 BeanFactory 는 ApplicationContext 에 비해 가볍습니다.
-
-    - BeanFactory: 
-      - 빈의 생성, 설정, 보관, 재사용 등의 기본적인 기능을 제공합니다.
-      - BeanFactory는 모든 기능이 Lazy 하게 동작합니다. 즉, Lazy-loading 방식을 사용합니다.
-      - 실제 빈이 요청될 때까지 빈의 생성을 늦추기에, 빈을 사용할 때 빈을 로딩하기 때문에, 경량 컨테이너로, 성능상 이점이 있습니다.
-      - 하지만 실제 다 작동하기 전까지는 어떤 부분에서 문제가 발생하는 것인지를 알 수 없다는 단점이 있기에, 사용하는 경우는 많지 않습니다.
-    - ApplicationContext: 
-      - BeanFactory의 기능을 모두 포함하고, 추가로 메시지 소스 처리(국제화 지원), 이벤트 발행, 웹 애플리케이션에 필요한 여러 기능 등을 제공합니다.
-      - BeanFactory와는 다르게 런타임 실행시 모든 빈을 미리 로딩시킵니다. 즉, Eager-loading 방식을 사용합니다.
-  
-    따라서 대부분의 경우 ApplicationContext를 사용하는 것이 좋습니다. 
-    ApplicationContext는 BeanFactory를 상속받아 확장한 인터페이스이므로, 필요한 경우 BeanFactory의 기능도 사용할 수 있습니다.
-  </details>
-  <details>
-    <summary>Spring의 Bean 생명 주기(Life Cycle)에 대해 자세히 설명해 주세요.</summary>
-    
-    1. Bean 정의 읽기: 
-  
-        - Spring IoC 컨테이너는 Bean 정의를 읽어 들입니다.
-        - 이는 XML 파일, Java Config, Annotation 등 여러 방식으로 제공될 수 있습니다.
-    2. Bean 인스턴스 생성:
-    
-        - Bean 정의에 따라 Spring 컨테이너는 Bean 인스턴스를 생성합니다.
-    3. 의존성 주입: 
-  
-        - Bean이 다른 Bean에 의존하는 경우, Spring 컨테이너는 이 의존성을 주입합니다.
-        - 이는 생성자 주입, 세터 주입, 필드 주입 등 여러 방식으로 이루어질 수 있습니다.
-    4. Bean 초기화:
-  
-        - Bean이 org.springframework.beans.factory.InitializingBean 인터페이스를 구현하는 경우, afterPropertiesSet() 메서드가 호출됩니다.
-        - 또는, @PostConstruct 애노테이션이나 init-method 속성을 사용하여 초기화 메서드를 지정할 수 있습니다.
-    5. Bean 사용: 
-  
-        - 이제 애플리케이션은 Bean을 사용하여 비즈니스 로직을 수행할 수 있습니다.
-   6. Bean 소멸: 
-  
-        - Bean이 org.springframework.beans.factory.DisposableBean 인터페이스를 구현하는 경우, destroy() 메서드가 호출됩니다.
-        - 또는, @PreDestroy 애노테이션이나 destroy-method 속성을 사용하여 소멸 메서드를 지정할 수 있습니다.
-  
-    - 이렇게 Spring 컨테이너는 Bean의 생성부터 소멸까지 전체 생명 주기를 관리합니다. 
-    - 이를 통해 개발자는 비즈니스 로직에 집중하고, 객체의 생명 주기 관리와 같은 부수적인 작업을 Spring에게 맡길 수 있습니다.
-  </details>
-  <details>
-    <summary>Spring Bean의 생명 주기 활용 방법에 대해 알려주세요.</summary>
-
-    1. 초기화 메서드 사용: 
-      - Bean이 생성되고 의존성이 주입된 후, 초기화 작업이 필요할 경우 사용합니다. 
-      - 예를 들어, 데이터베이스 커넥션 풀을 초기화하거나, 캐시를 미리 로딩하는 등의 작업을 수행할 수 있습니다. 
-      - 초기화 메서드 방법은 다음과 같습니다.
-        - @PostConstruct 애노테이션 사용
-        - InitializingBean 인터페이스의 afterPropertiesSet() 메서드를 오버라이드
-        - XML 설정에서 init-method 속성을 지정하여 사용
-    2. 소멸 메서드 사용: 
-      - Bean이 컨테이너에서 제거되기 전에 리소스를 해제하거나, 종료에 필요한 작업을 수행할 경우 사용합니다. 
-      - 소멸 메서드 방법은 다음과 같습니다.
-        - @PreDestroy 애노테이션 사용
-        - DisposableBean 인터페이스의 destroy() 메서드를 오버라이드
-        - XML 설정에서 destroy-method 속성을 지정하여 사용
-    3. BeanFactoryPostProcessor와 BeanPostProcessor 사용:
-      - 이들은 Bean의 생성과 초기화 과정을 좀 더 세밀하게 제어할 수 있게 해줍니다. 
-      - BeanFactoryPostProcessor : Bean 정의가 컨테이너에 로드되고, Bean 인스턴스가 생성되기 전에 작업을 수행합니다.
-      - BeanPostProcessor : Bean 인스턴스가 생성된 후, 초기화 메서드가 호출되기 전과 후에 작업을 수행합니다.
-    4. ApplicationListener 사용: 
-      - Spring에서 발생하는 이벤트를 처리하기 위해 사용합니다. 
-      - 예를 들어, 컨테이너가 시작하거나 종료될 때 특정 작업을 수행하고 싶다면 ContextStartedEvent나 ContextClosedEvent를 처리하는 ApplicationListener를 구현할 수 있습니다.
-
-    이처럼 Spring Bean의 생명주기를 활용하면, 
-    Bean의 생성과 소멸 시점에 특정 작업을 수행하거나, 
-    Bean의 생성과 초기화 과정을 세밀하게 제어하거나, 
-    Spring의 이벤트를 처리하는 등 다양한 작업을 할 수 있습니다.
-  </details>  
-</details>
 <details>
   <summary><h3>9. AOP(Aspect Oriented Programming)에 대해 설명해 주세요.</h3></summary>
 
@@ -767,3 +761,8 @@
     <summary>DAO와 Repository 차이를 아시나요? (답변 미작성)</summary>
   </details>
 </details>
+
+## Reference
+
+- [https://inpa.tistory.com/](https://inpa.tistory.com/)
+- [https://mangkyu.tistory.com/](https://mangkyu.tistory.com/)
