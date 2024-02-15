@@ -27,5 +27,6 @@
 
 ## 답변 정리 진행 중
 
-- [Operating System](https://github.com/HyuckJuneHong/Tech-Interview/blob/main/02-OPERATING_SYSTEM.md)
-- [Spring](https://github.com/HyuckJuneHong/Tech-Interview/blob/main/08-SPRING.md)
+- 1차 : [Operating System](https://github.com/HyuckJuneHong/Tech-Interview/blob/main/02-OPERATING_SYSTEM.md)
+- 1차 : [Spring](https://github.com/HyuckJuneHong/Tech-Interview/blob/main/08-SPRING.md)
+- 1차 : [JPA](https://github.com/HyuckJuneHong/Tech-Interview/blob/main/09-JPA.md)
