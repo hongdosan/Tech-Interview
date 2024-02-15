@@ -12,7 +12,7 @@
 
 ## Contents
 
-- [Data Structure, Algorithm (이론)](https://github.com/HyuckJuneHong/Tech-Interview/blob/main/01-DATA_STRUCTURE_ALGORITHM.md)
+- [Data Structure](https://github.com/HyuckJuneHong/Tech-Interview/blob/main/01-DATA_STRUCTURE.md)
 - [Operating System](https://github.com/HyuckJuneHong/Tech-Interview/blob/main/02-OPERATING_SYSTEM.md)
 - [Network](https://github.com/HyuckJuneHong/Tech-Interview/blob/main/03-NETWORK.md)
 - [Database](https://github.com/HyuckJuneHong/Tech-Interview/blob/main/04-DATABASE.md)
@@ -20,11 +20,13 @@
 - [Algorithm](https://github.com/HyuckJuneHong/Tech-Interview/blob/main/06-ALGORITHM.md)
 - [Java](https://github.com/HyuckJuneHong/Tech-Interview/blob/main/07-JAVA.md)
 - [Spring](https://github.com/HyuckJuneHong/Tech-Interview/blob/main/08-SPRING.md)
+- [JPA](https://github.com/HyuckJuneHong/Tech-Interview/blob/main/09-JPA.md)
 - [Project](https://github.com/HyuckJuneHong/Tech-Interview/blob/main/09-PROJECT.md)
 
 ## 답변 정리 완료
 
 ## 답변 정리 진행 중
 
-- [Operating System](https://github.com/HyuckJuneHong/Tech-Interview/blob/main/02-OPERATING_SYSTEM.md)
-- [Spring](https://github.com/HyuckJuneHong/Tech-Interview/blob/main/08-SPRING.md)
+- 1차 : [Operating System](https://github.com/HyuckJuneHong/Tech-Interview/blob/main/02-OPERATING_SYSTEM.md)
+- 1차 : [Spring](https://github.com/HyuckJuneHong/Tech-Interview/blob/main/08-SPRING.md)
+- 1차 : [JPA](https://github.com/HyuckJuneHong/Tech-Interview/blob/main/09-JPA.md)
