@@ -10,7 +10,7 @@
 </details> 
 -->
 
-## JDBC, JPA(ORM), MyBayis(SQL Mapper), JPQL
+## JDBC, MyBayis(SQL Mapper), JPA(ORM)
 
 <details>
   <summary><h3>JDBC란 무엇인가요?</h3></summary>
