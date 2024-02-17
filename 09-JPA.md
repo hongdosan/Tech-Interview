@@ -196,36 +196,75 @@
 <details>
   <summary><h3>@Transactional 어노테이션은 어떤 기능을 하나요? (답변 불충분)</h3></summary>
 
-  - 해당 어노테이션을 메소드나 클래스에 적용하면 해당 메소드 혹은 클래스 내의 작업들이 하나의 트랜잭션으로 묶입니다.
-  - 즉, @Transactional 어노테이션이 적용된 메소드에서 오류가 발생하면, 그 동안의 모든 데이터베이스 작업이 롤백되어 데이터의 일관성을 유지할 수 있습니다. 
-  - 반대로 오류 없이 모든 작업이 성공적으로 마무리되면, 데이터베이스에 변경 사항이 커밋되어 반영됩니다.
+  - 선언적 트랜잭션 관리 방법을 제공하는 어노테이션으로 클래스와 메서드 레벨에서 사용이 가능합니다.
+  - 예를 들어, 해당 어노테이션을 붙이면 메서드나 클래스 내의 작업들이 하나의 트랜잭션으로 묶여 데이터 일관성을 유지할 수 있습니다.
+  - 이는 JDBC에서 트랜잭션 사용을 위해 사용되던 코드를 단축시켜주기 때문에 매우 편리합니다.
+  - 추가적으로 Spring AOP 방식으로 동작하기 때문에, 프록시 객체로 외부에서 접근이 간으한 인터페이스를 제공해야 합니다. 즉, public 메서드여야 합니다. <br/>
+    또한 다른 AOP 기능들과 충돌을 고려도 하고 기본적으로 대부분의 Checked Exception은 롤백되지 않으니 예외처리도 고려해야 합니다.
 
   ---
 
   <details>
-    <summary>@Transactional(readonly=true)는 어떤 기능인가요? (답변 불충분)</summary>
+    <summary>@Transactional 동작원리에 대해 설명해주세요.</summary>
 
-    이는 해당 트랜잭션이 읽기 전용이라는 것을 나타내는 것으로 데이터의 변경이 없는 조회 작업에 사용되며, 성능 최적화를 위해 사용됩니다. 
-    일반적으로, 읽기 전용 트랜잭션에서는 더티 체킹 등의 불필요한 연산을 생략하여 처리 성능을 향상시킬 수 있습니다. 
+    1. 일단 @Transactional 어노테이션은 Spring AOP Spring AOP를 통해 프록시 객체를 생성하여 사용됩니다.
+    2. 트랜잭션 어노테이션이 붙은 메서드가 실행되면 스프링은 트랜잭션을 시작합니다.
+    3. 메서드가 정상적으로 종료된다면 커밋, 예외가 발생하면 롤백 처리를 합니다.
+    4. 즉, 비정상 종료되어 롤백 발생 시, 트랜잭션 작업만 데이터베이스에 반영되는 것을 방지해, 데이터 일관성을 유지합니다.
   </details>
   <details>
-    <summary>읽기에 트랜잭션을 걸 필요가 있을까요? @Transactional 어노테이션을 안 붙이면 되지 않을까요? (답변 불충분)</summary>
+    <summary>@Transactional 특징을 말해보세요.</summary>
 
-    읽기 작업에 대해 트랜잭션을 걸지 않으면, 데이터의 일관성을 보장할 수 없습니다. 
-    동시에 다른 트랜잭션에서 데이터 변경이 일어날 경우, 읽기 작업 중인 트랜잭션에서는 변경 전의 데이터를 읽거나, 변경 중인 데이터를 읽는 등의 문제가 발생할 수 있습니다. 
-    따라서 읽기 작업에도 트랜잭션을 걸어 데이터의 일관성을 보장하는 것이 중요합니다.
+    1. 자동 롤백 : 트랜잭션 내 예외 발생 시, 스프링은 자동으로 롤백한다.
+    2. 전파 행위 지정 : 트랜잭션의 전파행위를 지정할 수 있다.
+    3. 격리 수준 설정 : 데이터베이스의 트랜잭션 거리 수준을 설정할 수 있다.
+    4. 읽기 전용 설정 : 트랜잭션을 읽기 전용으로 설정해, 데이터 변경이 없는 작업에 대해 성능 최적화를 할 수 있다.
+    5. 타임아웃 설정 : 트랜잭션이 너무 오래 실행되는 것을 방지하기 위해 타임아웃을 설정할 수 있다.
+  </details>
+  <details>
+    <summary>@Transactional(readonly=true)는 어떤 기능인가요?</summary>
+
+    조회용 메서드에 붙이는 것으로 영속성 컨텍스트에 snapshot을 찍지 않고, flush 모드를 수동으로 바꿔 
+    의도치 않은 변경이 일어나지 않고 메모리의 성능을 높여주는 장점이 있습니다.
+
+    - 이는 JPA의 플러시 모드를 MANUAL로 설정합니다. 즉, 트랜잭션 내에서 강제로 flush()를 호출하지 않는 한, 
+      커밋 시 영속성 컨텍스트가 자동으로 flush 되지 않으므로 조회 용으로 가져온 Entity의 예상치 못한 수정을 방지할 수 있습니다.
+    - 또한, JPA는 해당 트랜잭션 내에서 조회하는 Entity는 조회 용임을 인식해 변경 감지를 위한 
+      Snapshot을 따로 보관하지 않으므로 메모리가 절약되기 때문에, 성능면에서의 이점도 존재합니다.
+
+    MANUAL 모드
+      - 하이버네이트 스펙에서만 지원하는 모드
+      - 모든 자동 플러시가 비활성화되고, 개발자가 명시적으로 플러시 코드를 작성해야 플러시가 동작
+  </details>
+  <details>
+    <summary>조회용 메서드에 @Transactional 어노테이션을 안 붙여도 되지 않을까요? </summary>
+
+    - 조회용 메서드에 대해 @Transactional 어노테이션 유무의 차이는 OSIV가 꺼져있을 때 알 수 있습니다.
+    - 즉, 기본적으로 별도의 설정을 하지 않는다면 OSIV는 true로 설정되어 있어 @Transactional 어노테이션 유무의 차이를 알 수 없지만,
+    - OSIV를 false로 설정한다면 영속성 컨텍스트는 트랜잭션 범위를 벗어나는 순간 Entity는 영속성 컨텍스트의 관리를 받지 않는 준영속 상태가 됩니다. 
+    - 따라서 영속성 컨텍스트의 관리를 받지 않는 준영속 상태는 Lazy Loading의 동작도 불가능해져 LazyInitializationException이 발생할 수 있습니다.
+    - 결론저긍로 OSIV가 꺼져있는 상태에서는 @Transactional 어노테이션이 없을 때에 Lazy Loading의 동작을 수행할 수 없다는 문제점이 있으므로 
+      조회용 메서드에 대해서도 @Transactional 어노테이션을 붙여주어야 한다고 생각합니다.
+
+    OSIV(Open Session In View)
+      - 영속성 컨텍스트를 View Layer까지 유지하는 속성
+      - 클라이언트의 요청 시점(Filter/Interceptor-Controller)부터 영속성 컨텍스트를 생성되어 유지됨으로써 View Layer에서도 Entity의 지연 로딩이 가능
+      - OSIV를 켠 상태에서는 @Transactional 어노테이션의 유무와 상관없이 다음 Lazy Loading을 수행하는 코드의 동작은 Exception 없이 정상적으로 동작
+      - OSIV는 기본적으로 true이지만, OSIV 전략은 클라이언트 요청시점부터 API 응답이 끝날 때까지 영속성 컨텍스트와 데이터베이스 커넥션을 유지하므로 
+        실시간 트래픽이 중요한 애플리케이션 서비스에서 커넥션 부족으로 이어질 수 있다는 큰 단점이 있다.
+      - OSIV가 false이고 @Transactional 를 안붙인 경우 조회는 되나 바로 준영속상태가 되어 lazyloading 시, LazyInitializationException 발생
   </details>  
   <details>
-    <summary>JPA Propagation 전파 단계를 설명해주세요. (답변 불충분)</summary>
+    <summary>그렇다면, 무조건 @Transactional 어노테이션을 붙이는 것이 좋을까요?</summary>
 
-    JPA Propagation은 트랜잭션 동작 도중 다른 트랜잭션을 호출하는 상황에 선택할 수 있는 옵션입니다.
-    이는 @Transactional 어노테이션의 propagation 속성을 통해 설정하여 호출한 쪽의 트랜잭션을 그대로 사용할 수도 있고, 새롭게 트랜잭션을 생성할 수도 있습니다.
-
-    예를 들어, 기본값은 REQUIRED로 부모 트랜잭션 내에서 실행하며 부모 트랜잭션이 없을 경우 새로운 트랜잭션을 생성합니다.
+    - @Transactional 어노테이션을 붙이게 되면 해당 영역에서는 JPA의 스냅샷 유지, flush의 필요성, DB 커넥션을 오래 물고 있는 등의 관리적인 측면이 발생합니다.
+    - 따라서, 지연로딩, 레플리케이션과 같이 트랜잭션 범위 내에서 수행해야 되는 동작이 있는 경우에 대해서 적절히 @Transactional 어노테이션을 활용하는 것이 좋다고 생각합니다.
+    - 만약, 무분별하게 @Transactional 어노테이션을 사용한다면, 스냅샷 유지, flush의 필요 등 관리적/메모리적 측면에서 오히려 좋지 않을 수 있고, 
+      커넥션을 오래 가지고 있어 커넥션 부족 등의 문제가 발생할 수도 있을 거라 생각합니다.
   </details>
   <details>
-    <summary>OSIV에 대해 설명해주세요. (답변 미작성)</summary>
-  </details> 
+    <summary>JPA @Transactional Propagation 전파 단계를 설명해주세요. (답변 미작성)</summary>
+  </details>
 </details>
 
 <details>
@@ -314,6 +353,9 @@
       - 트랜잭션 커밋 : 자동 호출
       - JPQL 쿼리 실행 : 자동 호출
   </details> 
+  <details>
+    <summary>OSIV에 대해 설명해주세요. (답변 미작성)</summary>
+  </details> 
 </details>
 
 <details>
@@ -350,3 +392,5 @@
 - [https://www.inflearn.com/course/ORM-JPA-Basic](https://www.inflearn.com/course/ORM-JPA-Basic)
 - [https://hongguri.tistory.com/](https://hongguri.tistory.com)
 - [https://code-lab1.tistory.com/](https://code-lab1.tistory.com/)
+- [https://jojoldu.tistory.com/](https://jojoldu.tistory.com/)
+- [https://hungseong.tistory.com/74](https://hungseong.tistory.com/74)
