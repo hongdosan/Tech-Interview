@@ -1,6 +1,6 @@
 <!--
 <details>
-  <summary><h3></h3></summary>
+  <summary><b></b></summary>
 
   ---
 
@@ -13,7 +13,7 @@
 ## JPA 기본 - JDBC, SQL Mapper, ORM, Hibernate
 
 <details>
-  <summary><h3>JDBC(Java Database Connectivity)란 무엇인가요?</h3></summary>
+  <summary><b>JDBC(Java Database Connectivity)란 무엇인가요?</b></summary>
 
   - 자바와 데이터베이스를 연결하기 위한 Java 표준 인터페이스입니다.
   - MySQL, PostgreSQL, SQL Server 등 다양한 DB 미들웨어의 드라이버를 제공합니다.
@@ -94,10 +94,13 @@
   <details>
       <summary>HikariCP에 대해 설명해주세요. (답변 미작성)</summary>
   </details>
+  
+  ---
+
 </details> 
 
 <details>
-  <summary><h3>SQL Mapper에 대해 설명해주세요.</h3></summary>
+  <summary><b>SQL Mapper에 대해 설명해주세요.</b></summary>
 
   - 객체와 SQL의 필드를 매핑해 데이터를 객체화하는 기술입니다.
   - 이는 객체와 테이블 간 관계를 매핑하는 것이 아니라, SQL문을 직접 작성하여 쿼리 수행 결과를 어떤 객체에 매핑하는 것을 말합니다.
@@ -157,10 +160,13 @@
     그리고 JPA는 처음엔 사용하기 쉬울지 몰라도 점차 애플리케이션이 고도화된다면 오히려 더 손이 많이 가는 경우가 많아 
     아직까지 MyBatis를 사용하는 곳이 있다고 생각합니다.
   </details>
+  
+  ---
+
 </details>
 
 <details>
-  <summary><h3>ORM(Object Relational Mapping)이란 무엇인가요?</h3></summary>
+  <summary><b>ORM(Object Relational Mapping)이란 무엇인가요?</b></summary>
 
   - 객체와 Database 테이블을 매핑하여 데이터를 객체화하는 기술입니다.
   - 즉, 객체지향 프로그래밍 언어를 사용해 데이터베이스를 관리할 수 있게 합니다.
@@ -199,11 +205,14 @@
       - 초기에는 생산성이 높을 수 있으나 점차 사용하다 보면 N+1과 같은 성능상 이슈가 발생할 수 있습니다.
       - 고도화 될수록 성능 이슈를 해결하기 위해, 학습 곡선이 높아질 수 있습니다.
   </details>
+  
+  ---
+
 </details>
 
 ## JPA 심화 - JPQL, 영속성 컨텍스트
 <details>
-  <summary><h3>@Transactional 어노테이션은 어떤 기능을 하나요?</h3></summary>
+  <summary><b>@Transactional 어노테이션은 어떤 기능을 하나요?</b></summary>
 
   스프링에서 트랜잭션 처리는 이 어노테이션을 많이 사용하는데, 이는 클래스 또는 메소드 레벨에 사용할 수 있으며,
   @Transactional이 포함된 메소드가 호출될 경우, 프록시 객체가 생성됩니다. 이 프록시 객체는 해당 메소드 실행 이전에 
@@ -270,10 +279,13 @@
   <details>
     <summary>JPA @Transactional Propagation 전파 단계를 설명해주세요. (답변 미작성)</summary>
   </details>
+  
+  ---
+
 </details>
 
 <details>
-  <summary><h3>JPQL(Java Persistence Query Language)이란 무엇인가요?</h3></summary>
+  <summary><b>JPQL(Java Persistence Query Language)이란 무엇인가요?</b></summary>
 
   - JPQL은 SQL과 비슷한 문법을 가지고 있지만, JPQL은 엔티티 객체를 조회하는 객체지향 쿼리입니다.
   - 또한 JPQL은 SQL을 추상화한 것이기 때문에, 특정 데이터베이스에 의존하지 않습니다. <br/>
@@ -303,10 +315,13 @@
     - AUTO : 커밋 또는 쿼리 실행 시, 플러시
     - COMMIT : 커밋 시, 플러시
   </details>
+  
+  ---
+
 </details>
 
 <details>
-  <summary><h3>영속성 컨텍스트란 무엇인가요?</h3></summary>
+  <summary><b>영속성 컨텍스트란 무엇인가요?</b></summary>
 
   - Server와 Database 사이에 엔티티를 저장하는 논리적인 영역이라고 할 수 있습니다.
   - 예를 들어, 엔티티 매니저로 엔티티를 저장하거나 조회하면 엔티티 매니저가 영속성 컨텍스트에 엔티티를 보관하고 관리합니다.
@@ -358,11 +373,15 @@
   <details>
     <summary>영속성은 정말 성능 향상에 큰 도움이 되나요? (답변 미작성)</summary>
   </details>
+  
+  ---
+
 </details>
 
 <details>
-  <summary><h3>OSIV(Open Session In View)에 대해 설명해주세요.</h3></summary>
+  <summary><b>OSIV(Open Session In View)에 대해 설명해주세요. (답변 미작성)</b></summary>
 
+<!--
   - 영속성 컨텍스트를 View Layer까지 유지하는 속성입니다.
   - 클라이언트의 요청 시점(Filter/Interceptor-Controller)부터 영속성 컨텍스트를 생성되어 유지됨으로써 <br/>
     View Layer에서도 Entity의 지연 로딩이 가능합니다.
@@ -372,16 +391,20 @@
     실시간 트래픽이 중요한 애플리케이션 서비스에서 커넥션 부족으로 이어질 수 있다는 큰 단점이 있습니다.
   - OSIV가 false이고 @Transactional 를 안붙인 경우 조회는 되나 바로 준영속상태가 되어 lazyloading 시, <br/>
     LazyInitializationException 발생합니다.
+-->
 
   ---
 
   <details>
     <summary>한 가지 기능을 두개의 트랜잭션으로 처리할 경우 어떻게 될까요? (답변 미작성)</summary>
   </details>
+  
+  ---
+
 </details>
 
 <details>
-  <summary><h3>즉시 로딩과 지연 로딩에 대해 설명해주세요.</h3></summary>
+  <summary><b>즉시 로딩과 지연 로딩에 대해 설명해주세요.</b></summary>
 
   - 지연로딩
     - 실제 객체가 사용되는 시점에 쿼리가 나가는 방식입니다.
@@ -396,19 +419,18 @@
 
   <details>
     <summary>N + 1 문제 무엇인지 원인과 해결방안을 함께 설명해주세요. (답변 미작성)</summary>
-  </details>   
+  </details>
+  
+  ---
+
 </details>
 
 
 <details>
-  <summary><h3>플러시란 무엇인지 설명하고 플러시 발생 시, 일어나는 일을 설명하세요.</h3></summary>
+  <summary><b>플러시란 무엇인가요?</b></summary>
 
-  플러시는 영속성 컨텍스트의 내용을 데이터베이스에 반영하는 것을 말합니다. 이때 영속성 컨텍스트를 비우지는 않습니다.
-  즉, 영속성 컨텍스트의 내용을 데이터베이스와 동기화하는 것입니다.
-
-  때문에, 플러시가 발생한다면 가장 먼저, 변경 감지가 일어납니다.
-  그리고 변경된 것이 있다면, 데이터베이스에도 반영하기 위해 쓰기 지연 SQL 저장소에 해당 변경 쿼리를 추가합니다.
-  마지막으로 쓰기 지연 저장소의 쿼리를 데이터베이스에 전송합니다.
+  플러시는 영속성 컨텍스트의 내용을 데이터베이스에 반영하는 것을 말합니다. <br/>
+  즉, 영속성 컨텍스트의 내용을 데이터베이스와 동기화하는 것입니다. 단, 영속성 컨텍스트를 비우지는 않습니다.
 
   - 플러시 방법
     - EntityManager.flush() : 직접 호출
@@ -416,7 +438,17 @@
     - JPQL 쿼리 실행 : 자동 호출
    
   ---
+
+  <details>
+    <summary>플러시 발생 시, 일어나는 일을 설명하세요.</summary>
+
+    - 영속성 컨텍스트의 내용을 데이터베이스와 동기화하는 것이기 때문에, 플러시가 발생한다면 가장 먼저, 변경 감지가 일어납니다.
+    - 그리고 변경된 것이 있다면, 데이터베이스에도 반영하기 위해 쓰기 지연 SQL 저장소에 해당 변경 쿼리를 추가합니다.
+    - 마지막으로 쓰기 지연 저장소의 쿼리를 데이터베이스에 전송합니다.
+  </details>
   
+  ---
+
 </details>
 
 ## Reference
