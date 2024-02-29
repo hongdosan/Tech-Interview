@@ -1,6 +1,6 @@
 <!--
 <details>
-  <summary><h3></h3></summary>
+  <summary><b></b></summary>
 
   ---
 
@@ -13,7 +13,7 @@
 ## 서블릿
 
 <details>
-  <summary><h3>서블릿(Servlet)에 대해 설명하세요.</h3></summary>
+  <summary><b>서블릿(Servlet)에 대해 설명하세요.</b></summary>
   
   - 클라이언트의 요청을 처리하고, 그 결과를 반환하는 Servlet 클래스의 구현 규칙을 지킨 자바 웹 프로그래밍 기술입니다.
     - 클라이언트의 요청에 대해 동적으로 작동하는 웹 어플리케이션 컴포넌트입니다.
@@ -65,10 +65,13 @@
       - 서블릿 컨테이너는 요청이 들어올 때마다 새로운 자바 쓰레드를 생성합니다.
       - 이를 통해 여러 사용자의 요청을 동시에 처리할 수 있습니다.
   </details>
+
+  ---
+  
 </details> 
 
 <details>
-  <summary><h3>Tomcat이란 무엇인가요?</h3></summary>
+  <summary><b>Tomcat이란 무엇인가요?</b></summary>
 
    - 웹 서버(WS)와 웹 컨테이너(=서블릿 컨테이너)의 결합인 웹 애플리케이션 서버(WAS)입니다.
      - 보통 Apache Tomcat이라 하는데, Tomcat에서 편의를 위해 Apache 기능을 포함해 Tomcat이라 부릅니다.
@@ -117,10 +120,13 @@
     4) HandlerMapping은 요청의 URI, HTTP 메서드 등을 기준으로 Handler를 찾아 DispatcherServlet에 반환합니다.
     5) DispatcherServlet은 반환받은 Handler(@RequestMapping이 붙은 컨트롤러의 메서드)를 실행합니다.
   </details>
+  
+  ---
+  
 </details>
 
 <details>
-  <summary><h3>필터(Filter)란?</h3></summary>
+  <summary><b>필터(Filter)란?</b></summary>
 
   - 서블릿으로 전달되는 클라이언트의 요청 혹은 서블릿에서 클라이언트로 전달되는 응답을 중간에 가로채 필터링을 위한 객체와 메서드를 정의해둔 인터페이스입니다.
 
@@ -154,13 +160,16 @@
     <summary>필터를 사용해본 경험이 있나요? 있다면 필터에서 예외 처리를 해봤나요? 없다면 어떻게 할 것 같은가요?</summary>
 
     이 답변은 개인적으로 준비하는 것이 좋을 것 같습니다.
-  </details>  
+  </details>
+  
+  ---
+  
 </details>
 
 ## 스프링 기본
 
 <details>
-  <summary><h3>Spring과 SpringBoot 차이에 대해 설명하세요.</h3></summary>
+  <summary><b>Spring과 SpringBoot 차이에 대해 설명하세요.</b></summary>
 
   - Spring Boot는 WAS 서버를 내장하고 있어, Jar 파일로 배포가 용이합니다. <br/>
     또한 의존성을 관리해주기 때문에 손쉽게 사용이 가능합니다.
@@ -180,7 +189,7 @@
 </details>
 
 <details>
-  <summary><h3>Spring MVC(Model-View-Controller) 란?</h3></summary>
+  <summary><b>Spring MVC(Model-View-Controller) 란?</b></summary>
 
   - Spring MVC는 Dispatcher Servlet, ModelAndVidew, View Resolver와 같은 간단한 개념으로 <br/>
     웹 애플리케이션을 개발할 수 있도록 돕는 프레임워크입니다.
@@ -206,10 +215,13 @@
       - 예를 들어, 스프링에서는 Dispatcher Servlet이 프론트 컨트롤러 역할을 맡아 요청에 맞는 컨트롤러를 찾아 요청을 위임합니다.
       - 때문에 Spring MVC1보다 역할이 명확하게 분리되어, 유지보수성 및 확장성이 용이합니다.
   </details>
+  
+  ---
+  
 </details>
 
 <details>
-  <summary><h3>DispatcherServlet 이란?</h3></summary>
+  <summary><b>DispatcherServlet 이란?</b></summary>
     
    - Http 프로토콜로 들어오는 모든 클라이언트 요청을 최초로 받아 적합한 컨트롤러에 위임해주는 프론트 컨트롤러입니다.
      - 프론트 컨트롤러란 서블릿 컨테이너의 제일 앞에서 서버로 들어오는 클라이언트의 모든 요청을 받아 처리해주는 컨트롤러입니다.
@@ -260,10 +272,13 @@
     ViewResolver
       - 뷰를 반환하기 위한 리졸버입니다.
   </details>
+  
+  ---
+  
 </details>
 
 <details>
-  <summary><h3>IoC(Inversion of Control)에 대해 설명해 주세요.</h3></summary>
+  <summary><b>IoC(Inversion of Control)에 대해 설명해 주세요.</b></summary>
 
   - IoC는 제어의 역전이라해서, 개발자가 아닌 다른 곳, 프레임워크 같은 곳에 제어권을 맡기는 것을 의미합니다.
   - 예를 들어, 스프링의 경우 빈의 생성과 의존성 주입 등 여러가지 일을 스프링 컨테이너에서 하게 되는데, <br/>
@@ -299,10 +314,13 @@
       - BeanFactory의 자식 컨테이너로 BeanFactory보다 더 많은 기능을 수행합니다.
       - 예를 들어, 국제화 기능, 이벤트 발행, 환경 변수와 같은 추가적인 기능을 수행합니다.
   </details>
+  
+  ---
+  
 </details>
 
 <details>
-  <summary><h3>DI(Dependency Injection)에 대해 설명해 주세요.</h3></summary>
+  <summary><b>DI(Dependency Injection)에 대해 설명해 주세요.</b></summary>
   
   - 의존 관계를 외부에서 결정하는 것을 의존 관계 주입이라 합니다.
     - 예를 들어, 자바에서 클래스 내 new 키워드로 직접 생성하는 것이 아닌, 외부에서 클래스를 생성할 때 생성자 매개변수로 넣어주는 것을 의미합니다.
@@ -343,10 +361,13 @@
     3. 찾은 빈을 객체에 주입할 때 reflection을 이용해 의존성을 주입합니다.
       - reflection : 구체적인 클래스 타입을 몰라도, 해당 클래스의 메서드, 타입, 변수들에 접근할 수 있도록 해주는 자바 API
   </details>
+  
+  ---
+  
 </details>
 
 <details>
-  <summary><h3>@Bean과 @Component 어노테이션 차이에 대해 설명해주세요.</h3></summary>
+  <summary><b>@Bean과 @Component 어노테이션 차이에 대해 설명해주세요.</b></summary>
 
   - @Bean: 
     - 개발자가 컨트롤이 불가능한 외부 라이브러리들을 Bean으로 등록하고 싶을 때, 메서드에 해당 어노테이션을 붙여 사용할 수 있습니다. 단, 클래스에 @Configuration을 붙어야 합니다.
@@ -386,10 +407,13 @@
     - 예를 들어 @Bean 같은 경우에는 @Target이 METHOD로 지정되어 있지만, TYPE은 없고,
     - @Component 는 @Target이 TYPE로 지정되어 Class위에서만 선언될수 있음을 알 수 있습니다.
   </details>
+  
+  ---
+  
 </details>
 
 <details>
-  <summary><h3>싱글턴 빈과 프로토타입 빈의 차이에 대해 설명해 주세요.</h3></summary>
+  <summary><b>싱글턴 빈과 프로토타입 빈의 차이에 대해 설명해 주세요.</b></summary>
   
   - 싱글턴 스코프의 스프링 빈은 스프링 컨테이너와 생명주기를 같지만, 프로토타입 스코프의 스프링 빈은 생명주기를 달리합니다.
   - 예를 들어, 싱글톤 스코프의 스프링 빈은 매번 Spring 컨테이너에서 동일한 인스턴스 참조 주소 값을 반환하고 스프링 컨테이너 종료 시, 소멸 메서드도 자동으로 실행됩니다.
@@ -457,10 +481,13 @@
      - Bean을 사용하면 개발자는 객체 생성, 소멸 등의 생명 주기 관리와 같은 부수적인 작업을 하지 않아도 되며, 객체의 의존성을 자동으로 관리해줍니다. 
      - 또한, Bean을 사용하면 하나의 객체를 여러 컴포넌트에서 공유하여 사용할 수 있어 메모리 사용량을 줄일 수 있습니다.
   </details>
+  
+  ---
+  
 </details>
 
 <details>
-  <summary><h3>DTO, VO, DAO, ENTITY의 각 정의를 말해주세요.</summary>
+  <summary><b>DTO, VO, DAO, ENTITY의 각 정의를 말해주세요.</summary>
 
   - DAO
     - Database에 접근하는 역할을 가진 객체입니다.
@@ -488,6 +515,9 @@
     - 즉, Repository는 객체 중심이고 DAO는 데이터 저장소인 Database 테이블 중심이라 생각합니다.
     - 하지만 둘다 개념의 차이일뿐 실제로 개발할 때는 비슷하게 사용되는 것 같습니다.
   </details>
+  
+  ---
+  
 </details>
 
 ## 스프링 심화
@@ -539,7 +569,7 @@
   </details>
   
 <details>
-  <summary><h3>9. AOP(Aspect Oriented Programming)에 대해 설명해 주세요.</h3></summary>
+  <summary><b>9. AOP(Aspect Oriented Programming)에 대해 설명해 주세요.</b></summary>
 
   - AOP, 즉 관점 지향 프로그래밍은 횡단 관심사를 분리하여 모듈화하는 프로그래밍 패러다임입니다. 
   - 로깅, 트랜잭션 관리, 보안 등 여러 곳에서 공통으로 사용되는 코드를 분리하여 중복을 제거하고, 코드의 가독성을 높이는 데 도움을 줍니다.
@@ -657,7 +687,7 @@
 </details>
 
 <details>
-  <summary><h3>10. 프록시가 무엇인지 아시나요?</h3></summary>
+  <summary><b>10. 프록시가 무엇인지 아시나요?</b></summary>
 
   - 프록시는 '대리인'이라는 의미를 가지며, 다른 객체를 대신하여 그 객체의 기능을 사용하거나 제어하는 역할을 합니다. 
   - 컴퓨터 과학에서는 프록시를 통해 인터페이스를 제공하고, 이를 통해 실제 객체의 기능을 사용하거나 추가적인 기능을 제공합니다
