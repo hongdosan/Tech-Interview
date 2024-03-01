@@ -66,10 +66,110 @@
 </details>
 <details>
   <summary><b>Java의 Exception에 대해 설명해 주세요.</b></summary>
-  
-  - 예외처리를 하는 방법에 대해 설명해 주세요.
-  - CheckedException, UncheckedException 의 차이에 대해 설명해 주세요.
-  - 예외처리가 성능에 큰 영향을 미치나요? 만약 그렇다면, 어떻게 하면 부하를 줄일 수 있을까요?
+
+  ![image](https://github.com/HyuckJuneHong/Tech-Interview/assets/31675711/56efe881-6e81-4275-8d1b-d55b7c674c34)
+  > [그림 출처](https://velog.io/@agugu95/java-exception-and-error)
+
+  ---
+
+  <details>
+    <summary>프로그래밍의 오류 종류는 무엇이 있을까요?</summary>
+
+    - 컴파일 에러
+      - 컴파일 시 발생하는 에러입니다.
+      - 컴파일 단계에서 오류 발견 시, 컴파일러가 에러 메시지를 출력해주는 에러를 말합니다.
+    - 런타임 에러
+      - 실행 시 발생하는 에러입니다.
+      - 컴파일 문제가 없더라도, 프로그램 실행 중에 에러가 발생해 잘못된 결과를 얻거나, 
+        외부적인 요인으로 프로그램이 비정상 종료되는 에러를 말합니다.
+    - 논리적 에러
+      - 실행은 되지만, 의도와 다르게 동작하는 에러입니다.
+      - 일종의 버그라고 할 수 있습니다.
+      - 실행 및 작동에 아무 문제가 없지만, 결과가 예상과 다른 에러입니다.
+  </details>
+  <details>
+    <summary>Error와 Exception의 차이점에 대해 설명해주세요.</summary>
+
+    자바에서의 오류는 프로그램 실행 중 어떤 원인에 의해 오작동 혹은 비정상 종료되는 경우를 프로그램 오류라고 합니다.
+    자바에서 이 오류가 Error(에러)와 Exception(예외)로 나뉘는데, 메모리 부족같은 복구할 수 없는 오류를 에러라고 하고
+    NPE와 같이, 예측해서 상황에 맞게 처리할 수 있는 오류를 예외라고 합니다.
+    
+    - 에러(Error)
+      - 시스템이 종료되어야할 수준과 같이 수습할 수 없는 심각한 문제입니다.
+      - 이는 개발자가 미리 예측하여 방지할 수 없습니다.
+      - Ex) StackOverflowError : 호출의 깊이가 깊어지거나, 재귀가 지속되어 stack overflow 발생 시, 던지는 에러입니다.
+      - Ex) OutOfMemoryError : JVM이 할당한 메모리 부족으로 더 이상 객체를 할당할 수 없을 때 던지는 에러입니다.
+                               이는, GC에 의해 추가적인 메모리가 확보되지 못하는 상황이기도 합니다.
+    - 예외(Exception)
+      - 이는 개발자가 미리 예측해서 상황에 맞는 예외처리를 할 수 있습니다.
+      - 예외는 오류와 다르게 개발자가 임의로 예외를 던질 수 있습니다.
+      - 예외는 RuntimeException과 Exception으로 나뉩니다.
+      - Ex) NullPointerException : 객체가 필요한 경우에 null을 사용하려고 시도한 경우 던지는 예외입니다.
+      - Ex) IllegalArgumentException : 메서드가 허가되지 않거나 부적절한 Argument를 받았을 때, 던지는 예외입니다.
+    
+    - 공통점
+      - 오류나 예외 모두 Object 클래스를 상속 받는 Throwable 클래스를 상속 받습니다.
+      - Throwable 객체는 오류나 예외에 대한 메시지를 담고, 예외가 연결될 때 해당 예외의 정보를 기록합니다.
+        이를 위해, Throwable 클래스에는 getMessage()와 printStackTrace() 함수가 구현되어 있습니다.
+  </details>
+  <details>
+    <summary>CheckedException, UncheckedException 의 차이에 대해 설명해 주세요.</summary>
+
+    - CheckedException (컴파일 에외 클래스들)
+      - 예외 처리하지 않을 시, 컴파일되지 않기 때문에, 예외 처리가 필수입니다.
+      - JVM 외부와 통신(네트워크, 파일 시스템 등) 시, 주로 사용됩니다.
+      - RuntimeException을 상속받지 않는 모든 예외를 말합니다.
+      - Ex) IOExceptiom, SQLException 등
+    - UncheckedException (런타임 예외 클래스들)
+      - 예외 처리하지 않아도, 컴파일이 가능합니다.
+      - RuntimeException을 상속받는 모든 예외입니다.
+      - Ex) NPE, IndexOutOfBoundException 등
+  </details>
+  <details>
+    <summary>예외 처리(Exception Handling)를 하는 방법에 대해 설명해 주세요.</summary>
+
+    - `try-catch`문으로 감싸서 복구 및 전환하거나, Throws로 던져서 회피하여 처리할 수 있습니다.
+  </details>
+  <details>
+    <summary>예외처리가 성능에 큰 영향을 미치나요? 만약 그렇다면, 어떻게 하면 부하를 줄일 수 있을까요?</summary>
+  </details>
+  <details>
+    <summary>try-with-resource에 대해 설명하세요.</summary>
+
+    try-with-resource는 try 블록이 끝날 때, 자동으로 자원을 해제해주는 기능입니다.
+
+    - 보통 DB, Network, File 등과 같은 자원을 사용 후 자원을 해제해야 하는데, 실수 및 에러로 인해, 자원이 해제되지 않을 수 있습니다.
+    - 이 `try-with-resource`문을 이용하면, try 블록이 끝나자마자 자동으로 할당된 자원을 해제해 줍니다.
+    - 단, `try-with-resource`을 사용하려면, AutoCloseable 인터페이스를 구현하고 있어야 합니다.
+
+    - 특징
+      - 자원 반납에 의해 코드가 복잡해지던 문제를 해결
+      - 실수 및 에러로 인해 자원을 반납하지 못하던 문제 해결
+      - 에러 스택 트레이스가 누락되던 문제 해결
+      - Java 7에 도입
+  </details>
+  <details>
+    <summary>AutoCloseable, Closeable 차이점에 대해 설명하세요.</summary>
+
+    이 둘은 거의 똑같은데, Closeable은 IOException으로 범위가 더 좁습니다. 
+    하지만 Closeable이 AutoCLoseable보다 더 오래된 인터페이스입니다.
+    때문에, Closeable 인터페이스 부모 인터페이스인 AutoCloseable을 추가함으로써, 
+    하위 호환성을 달성함과 동시에 변경 작업에 대한 수고를 덜었습니다.
+    만약, Closeable을 부모로 만들었다면, 기존에 이를 사용하던 클래스들을 모두 AutoCloseable로 수정해야 합니다.
+
+    - Closeable
+      - backward compatiblity를 유지하기 위해 남아 있습니다.
+      - JDK 5에 도입되었습니다.
+      - `void close() throws IOException`
+      - AutoCloseable의 자식 인터페이스입니다.      
+    - AutoCloseable
+      - try-with-resources statement를 위해 도입 되었습니다.
+      - JDK 7에 도입되었습니다.
+      - `void close() throws Exception`
+      - Closeable의 부모 인터페이스입니다.
+  </details>
+
+  ---
 </details>
 <details>
   <summary><b>static에 대해 설명해주세요.</b></summary>
@@ -177,6 +277,12 @@
   <summary><b>`Parallel GC`, `G1 GC`, `ZGC`를 설명해주세요.</b></summary>
 
 </details>
+
+## Reference
+
+- [https://mangkyu.tistory.com/](https://mangkyu.tistory.com/)
+- [https://inpa.tistory.com/](https://inpa.tistory.com/)
+- [https://gyoogle.dev/blog/computer-language/Java/Error%20&%20Exception.html](https://gyoogle.dev/blog/computer-language/Java/Error%20&%20Exception.html)
 
 <!-- 
 
