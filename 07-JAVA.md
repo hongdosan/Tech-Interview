@@ -173,11 +173,122 @@
 </details>
 <details>
   <summary><b>static에 대해 설명해주세요.</b></summary>
+
+  - 공유되는 변수나 메서드를 정의할 때 사용되는 키워드입니다. <br/>
+    즉, 정적(=클래스) 멤버인 정적 필드나 정적 메서드를 정의할 때 사용됩니다.
+  - 정적 멤버는 프로그램이 종료되기 전까지 사용할 수 있고, GC에 의해 수집되지 않습니다. <br/>
+    반면, 정적 객체는 GC에 의해 수집될 수 있습니다.
+  - 정적은 프로그램이 시작되는 시점에 클래스 로더가 클래스를 해석해 메소드 영역 혹은 힙 영역에 <br/>
+    클래스 메타 데이터 및 정적 변수로 적재합니다.
+
+  ---
+
+  <details>
+    <summary>인스턴스 변수, static 변수와 static 메서드, static 클래스를 비교해 주세요.</summary>
+
+    - 인스턴스 변수(non-static 변수)
+      - 클래스 내에 선언된 변수를 말합니다.
+      - 객체 생성 시마다 매번 새로운 변수가 생성됩니다.
+      - 클래스 변수와 달리 공유되지 않습니다.
+    - static 변수
+      - 특정 클래스에서 공용으로 함께 사용할 수 있는 변수를 만들고자 하는 경우 사용됩니다.
+      - 힙 영역이 아닌, 메서드 영역에 저장되며, 클래스 당 단 하나만 생성됩니다.
+      - 접근의 경우 클래스, 인스턴스 둘 다 가능하지만, 클래스 접근을 권장합니다.
+    - static 메서드
+      - 인스턴스 변수가 별도로 필요하지 않고, 단순히 기능만 제공할 때 사용됩니다.
+      - static 메서드 내에서는 static method와 static 변수만 사용 가능합니다.
+    - static 클래스
+  </details>
+  <details>
+    <summary>static 사용을 왜 지양해야 할까요?</summary>
+
+    - `메모리가 낭비`됩니다.
+      - 대부분의 static은 프로그램 실행 시점에 메모리에 할당하며, 프로그램 종료 시점까지 메모리에서 해제되지 않기 때문입니다.
+    - `별도의 동기화 전략을 수립`해야 합니다.
+      - static은 전역에서 접근이 가능하기 때문입니다.
+    - `런타임 다형성이 불가능`합니다.
+      - static으로만 이뤄진 메서드를 사용하는 객체는 메모리를 할당해서 사용하지 않고 해당 메서드에 바로 접근하여 호출하기 때문입니다.
+    - `객체 상태를 이용할 수 없습니다.`
+      - 정적 메서드 안에는 클래스의 인스턴스 필드를 사용할 수 없기 때문에,
+        정적 메서드를 사용하기 위해선 필요로 하는 인자를 모두 외부에서 주입해야 합니다.
+      - 대부분의 static은 프로그램 실행 시점에 메모리에 올라가기 때문에, 정적 메서드 안에서 초기화되지 않은 필드를 사용하면, 
+        문제가 생길 수 있습니다. 즉, 정적 메서드 안에선 정적 변수만 사용할 수 있습니다.
+      - 반대로, 정적 메서드가 아닌 일반 메서드들은 객체 내의 상태를 통해 메서드를 구현해줄 수 있으므로 상태에 따라 다양한 구현이 가능합니다.
+        즉, 객체 내에 정적 메서드가 많을 수록 외부 값에 의존하는 수동적인 객체가 됩니다.
+    - `테스트하기가 어렵습니다.`
+      - 정적 변수는 전역으로 관리되기 때문에, 프로그램 전체에서 이 필드에 접근하고 수정할 수 있습니다.
+        즉, 해당 필드를 추론하기 어려워 테스트하기가 까다롭습니다.
+  </details>
+  <details>
+    <summary>그렇다면, static은 어떤 시점에 사용해야 하고, 사용 시, 어떤 이점을 얻을 수 있나요?</summary>
+
+    - 자주 사용되는 상수를 정의할 때 사용할 수 있습니다.
+      - `private static final` 키워드를 이용해 절대 변하지 않는 변수인 상수를 정의하여 메모리를 아낄 수 있습니다.
+    - 유틸리티 클래스를 정의할 때 사용할 수 있습니다.
+      - 인스턴스 메서드와 인스턴스 변수를 제공하지 않고, 데이터 처리만을 위한 정적 메서드인 유틸리티 클래스를 정의하여 유용하게 사용할 수 있습니다.
+      - 즉, 객체 상태가 필요 없고 여러 객체에서 데이터를 처리하는 공통 로직이 필요할 때 사용할 수 있습니다.
+      - Ex) Java의 Math Class는 상수 외에 인스턴스 변수가 하나도 없고 오로지 계산을 위한 정적 메서드만 제공합니다.
+  </details>
+  <details>
+    <summary>static이 저장되는 위치는 어디인가요?</summary>
+
+    - Java 8 이전
+      - 8 이전의 Heap을 보면 Permanent 영역이 존재하고 이 안에 클래스 메타 데이터, 정적 변수 등이 저장됩니다.
+      - 이때, Permanent 영역은 메소드 영역에 해당하므로 Java 8 이전의 static 변수는 메소드 영역에 저장되는 것이 맞습니다.
+    - Java 8 이후
+      - 8 이후 힙은 Permanent 영역이 사라지고 해당 영역에서 관리하던 클래스 메타 데이터는 Heap 외부의 Metaspace라는
+        네이티브 메모리에 관리되도록 바뀌었고, interned String과 클래스 정적 변수는 Heap 영역에서 관리되도록 바뀌었습니다.
+      - 즉, Java 8 이후부터 static은 Heap 영역에서 관리됩니다.   
+  </details>
+  <details>
+    <summary>static 키워드 동작 흐름을 설명해주세요.</summary>
+
+    [static 키워드만 사용된 변수 호출 동작 흐름]
+      - 초기화 단계
+        1. 클래스로더에 의해 메모리를 할당받고 static initializer에 의해 값을 초기화합니다.
+        2. 메모리 영역의 Class Variable 영역에 변수값이 저장됩니다.
+        3. 클래스의 Constant Pool에 Class Variable의 참조 값이 저장됩니다.
+      - 호출 단계
+        1. Constant Pool의 메모리 공간의 시작 지점을 조회합니다.
+        2. Constant Pool에 저장된 참조 값을 읽습니다.
+        3. Class Variables에서 실제 값을 읽습니다.
+    [static과 final 키워드가 사용된 변수 호출 동작]
+      - 초기화 단계
+        1. 선언된 변수는 메모리를 할당받고 static initializer에 의해 값을 초기화합니다.
+        2. 메모리 영역의 Class Variable 영역에 실제 값이 저장됩니다.
+        3. 클래스의 Constant Pool에 Class Variable의 실제 값이 복사됩니다.
+      - 호출 단계
+        1. Constant Pool의 메모리 공간의 시작 지점을 조회합니다.
+        2. Constant Pool에 저장된 실제 값을 읽습니다.
+    [소멸 동작]
+      - Class Metadata가 저장되는 Method Area(Metaspace)는 Heap 영역에 관리되기 때문에,
+        static 변수를 참조하지 않는 상황이 온다면, GC 대상이 될 수 있습니다.
+      - 즉, Class Metadata가 GC 대상이 되면 자동적으로 static 변수들도 GC 대상이 된다고 볼 수 있습니다.
+    [왜, 차이가 발생할까?]
+      - Constant Pool에 복사된 값을 수정하는 연산이 진행되면, Class Metadata를 갱신해야 하고,
+        데이터 정합성을 위해 생기는 락에 의해 성능이 떨어질 수 있기 때문입니다.
+      - 즉, 변경 가능성이 있는 변수를 따로 관리한다고 볼 수 있습니다.
+    [그 밖의 단점]
+      - 가변성을 가진 상수는 모든 스레드에서 접근하기 때문에, 동시성 이슈가 발생할 수 있습니다.
+      - 즉, 동시성을 제어해 Thread-safe하게 구현한다면 성능이 떨어지게 됩니다.
+    [static 변수가 바로 초기화되지 않는 상황]
+      - static 변수들이 초기화되는 시점은 항상 클래스의 인스턴스가 생성되는 시점이라고 볼 수 없습니다.
+        즉, static 변수를 Lazy Loading해 효율적으로 메모리를 사용할 수 있습니다.
+      - 예를 들어, static 메서드는 호출 시점에 초기화되는 방식을 이용해 static variables가 선언된 inner class 인스턴스 생성을 제어하면,
+        static 변수의 초기화 시점을 원하는 순간으로 조절할 수 있습니다.
+    [결론 : static 키워드로 선언된 변수는 어디에 저장되나요?]
+      - static 키워드로 선언된 변수는 Class Variables 또는 Static Pool에 저장됩니다.
+      - static 키워드와 final 키워드로 선언된 변수는 Constant Pool에 값이 복사됩니다.
+      - 추가로 Lazy-loading으로 static 변수 초기화 시점을 조절해 메모리를 효율적으로 사용할 수도 있습니다.
+  </details>
+  <details>
+    <summary>static과 싱글톤의 차이점에 대해 설명해주세요.</summary>
+  </details>
+  <details>
+    <summary>컴파일 과정에서 static 이 어떻게 처리되는지 설명해주세요.</summary>
+  </details>
   
-  - static class와 static method를 비교해 주세요.
-  - static 을 사용하면 어떤 이점을 얻을 수 있나요?
-  - static 을 사용하면 어떤 제약이 걸릴까요?
-  - 컴파일 과정에서 static 이 어떻게 처리되는지 설명해 주세요.
+  ---
 </details>
 <details>
   <summary><b>final에 대해 설명해주세요.</b></summary>
@@ -253,6 +364,8 @@
   - Stack과 Heap 메모리 차이점을 설명하세요.
   - Heap에 메모리를 할당하는 과정에 대해 설명하세요.
   - TLAB Thread-Local Allocation Buffer가 무엇인지 아시나요?
+  - Permanent, Metaspace 영역 차이에 대해 설명해주세요.
+  - Java 8 이후 Permanent 영역이 왜 사라졌을까요?
 </details>
 <details>
   <summary><b>자바는 컴파일 언어인가요? 인터프리터 언어인가요?</b></summary>
@@ -282,7 +395,9 @@
 
 - [https://mangkyu.tistory.com/](https://mangkyu.tistory.com/)
 - [https://inpa.tistory.com/](https://inpa.tistory.com/)
-- [https://gyoogle.dev/blog/computer-language/Java/Error%20&%20Exception.html](https://gyoogle.dev/blog/computer-language/Java/Error%20&%20Exception.html)
+- [https://gyoogle.dev/blog/](https://gyoogle.dev/blog/)
+- [https://steady-coding.tistory.com/](https://steady-coding.tistory.com/)
+- [변수는 어디에 저장되는가?](https://velog.io/@this-is-spear/%EA%B7%B8%EB%9E%98%EC%84%9C-static-%EB%B3%80%EC%88%98%EB%8A%94-%EC%96%B4%EB%94%94%EC%97%90-%EC%A0%80%EC%9E%A5%EB%90%98%EB%8A%94%EA%B0%80)
 
 <!-- 
 
