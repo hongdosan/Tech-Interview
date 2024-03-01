@@ -398,6 +398,8 @@
 - [https://gyoogle.dev/blog/](https://gyoogle.dev/blog/)
 - [https://steady-coding.tistory.com/](https://steady-coding.tistory.com/)
 - [변수는 어디에 저장되는가?](https://velog.io/@this-is-spear/%EA%B7%B8%EB%9E%98%EC%84%9C-static-%EB%B3%80%EC%88%98%EB%8A%94-%EC%96%B4%EB%94%94%EC%97%90-%EC%A0%80%EC%9E%A5%EB%90%98%EB%8A%94%EA%B0%80)
+- [https://incheol-jung.gitbook.io/docs/q-and-a/java/static](https://incheol-jung.gitbook.io/docs/q-and-a/java/static)
+
 
 <!-- 
 
