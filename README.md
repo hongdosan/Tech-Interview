@@ -31,3 +31,4 @@
 ## 답변 정리 진행 중
 
 - 1차 진행 : [Operating System](https://github.com/HyuckJuneHong/Tech-Interview/blob/main/02-OPERATING_SYSTEM.md)
+- 1차 진행 : [Java](https://github.com/HyuckJuneHong/Tech-Interview/blob/main/07-JAVA.md)
