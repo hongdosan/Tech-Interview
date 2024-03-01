@@ -10,8 +10,60 @@
 </details> 
 -->
 
+## 객체지향
+<details>
+  <summary><b>객체지향 4가지 특징에 대해 설명하세요.</b></summary>
+
+  - 객체지향 4가지 특성 중 적용한 특성이 있나요?
+  - 오버로딩과 오버라이딩 차이점에 대해 설명하세요.
+  - 클래스, 객체, 인스턴스 차이에 대해 설명하세요.
+  - 접근 제어자에 대해 설명하세요.
+  - 추상 클래스와 인터페이스 차이점에 대해 설명하세요.
+  - 본인은 어떤 기준으로 추상 클래스와 인터페이스를 사용하는지 알려주세요.
+</details>
+<details>
+  <summary><b>SOLID 5원칙에 대해 설명하세요.</b></summary>
+
+  - SOLID 원칙에서 가장 중요하다고 생각하는 원칙이 있나요?
+  - DIP를 적용해본 경험이 있나요?
+</details>
+<details>
+  <summary><b>객체지향, 절차지향, 함수형 프로그래밍 차이점에 대해 설명하세요.</b></summary>
+
+  - 자바의 함수형 프로그래밍 예시를 설명하세요.
+  - 일급 객체에 대해 설명하세요.
+</details>
+
+## Java Version
+
+<details>
+  <summary><b>Java 8에 대해 설명해주세요.</b></summary>
+
+</details>
+<details>
+  <summary><b>Java 11에 대해 설명해주세요.</b></summary>
+
+</details>
+
+<details>
+  <summary><b>Java 17에 대해 설명해주세요.</b></summary>
+
+</details>
+
+<details>
+  <summary><b>Java 21에 대해 설명해주세요.</b></summary>
+
+  - Virtual Thread에 대해 설명해주세요.
+</details>
+
 ## Java 기초
 
+<details>
+  <summary><b>Primitive Type과 Reference Type의 차이점에 대해 설명하세요.</b></summary>
+
+  - Wrapper Class에 대해 설명하세요.
+  - Call By Reference와 Call By Value에 대해 설명하세요.
+</details>
 <details>
   <summary><b>Java의 Exception에 대해 설명해 주세요.</b></summary>
   
@@ -83,15 +135,51 @@
   - `String a = ""`과 `String a = new String("")`의 차이점을 설명해주세요.
 </details>
 
-<!-- 
+## JVM & Garbage Collector
+
 <details>
   <summary><b>JVM이 정확히 무엇이고, 어떤 기능을 하는지 설명해 주세요.</b></summary>
 
-  - 그럼, 자바 말고 다른 언어는 JVM 위에 올릴 수 없나요?
-  - 반대로 JVM 계열 언어를 일반적으로 컴파일해서 사용할 순 없나요?
+  - JDK, JRE, JVM 차이점을 설명해주세요.
+  - 자바 말고 다른 언어는 JVM 위에 올릴 수 없나요?
+  - JVM 계열 언어를 일반적으로 컴파일해서 사용할 순 없나요?
   - VM을 사용함으로써 얻을 수 있는 장점과 단점에 대해 설명해 주세요.
-  - JVM과 내부에서 실행되고 있는 프로그램은 부모 프로세스 - 자식 프로세스 관계를 갖고 있다고 봐도 무방한가요?
+  - JVM과 내부에서 실행되고 있는 프로그램은 부모 프로세스, 자식 프로세스 관계를 갖고 있다고 봐도 무방한가요?
+  - JVM의 성능을 모니터링하고 분석해본 경험이 있나요? 있다면 설명해주세요.
 </details>
+<details>
+  <summary><b>JVM 메모리 구조를 설명해주세요.</b></summary>
+
+  - Stack과 Heap 메모리 차이점을 설명하세요.
+  - Heap에 메모리를 할당하는 과정에 대해 설명하세요.
+  - TLAB Thread-Local Allocation Buffer가 무엇인지 아시나요?
+</details>
+<details>
+  <summary><b>자바는 컴파일 언어인가요? 인터프리터 언어인가요?</b></summary>
+  
+  - 컴파일 언어와 인터프리터 언어의 차이점은?
+  - 자바 컴파일 과정을 설명해주세요.
+</details>
+<details>
+  <summary><b>Java의 GC에 대해 설명해 주세요.</b></summary>
+
+  - GC는 왜 필요할까요?
+  - finalize() 를 수동으로 호출하는 것은 왜 문제가 될 수 있을까요?
+  - 어떤 변수의 값이 null이 되었다면, 이 값은 GC가 될 가능성이 있을까요?
+  - GC의 대상을 어떻게 판별할까요?
+  - GC 동작과정을 설명해주세요.
+</details>
+<details>
+  <summary><b>STW (Stop-The-World)에 대해 설명하세요.</b></summary>
+
+</details>
+<details>
+  <summary><b>`Parallel GC`, `G1 GC`, `ZGC`를 설명해주세요.</b></summary>
+
+</details>
+
+<!-- 
+
 
 <details>
   <summary><b>인터페이스와 추상 클래스의 차이에 대해 설명해 주세요.</b></summary>
@@ -100,13 +188,7 @@
 
 </details>
 
-<details>
-  <summary><b>Java의 GC에 대해 설명해 주세요.</b></summary>
 
-- finalize() 를 수동으로 호출하는 것은 왜 문제가 될 수 있을까요?
-- 어떤 변수의 값이 null이 되었다면, 이 값은 GC가 될 가능성이 있을까요?
-
-</details>
 
 <details>
   <summary><b>Java 에서 Annotation 은 어떤 기능을 하나요?</b></summary>
