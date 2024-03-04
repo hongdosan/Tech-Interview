@@ -129,9 +129,9 @@
     <summary>예외 처리(Exception Handling)를 하는 방법에 대해 설명해 주세요.</summary>
 
     - `try-catch`문으로 감싸서 복구 및 전환하거나, Throws로 던져서 회피하여 처리할 수 있습니다.
-  </details>
-  <details>
-    <summary>예외처리가 성능에 큰 영향을 미치나요? 만약 그렇다면, 어떻게 하면 부하를 줄일 수 있을까요?</summary>
+      1. 예외 복구 전략 : try-catch를 사용해 예외가 발생해도 애플리케이션이 정상적으로 동작할 수 있도록 처리하는 전략
+      2. 예외 회피 전략 : 예외 발생 시, throws를 활용해 호출된 부분으로 예외를 던져서 회피하는 전략
+      3. 예외 전환 전략 : Checked Exception을 명확하게 어떤 문제가 발생하는 지 Unchecked Exception으로 전환하는 전략
   </details>
   <details>
     <summary>try-with-resource에 대해 설명하세요.</summary>
@@ -168,6 +168,24 @@
       - `void close() throws Exception`
       - Closeable의 부모 인터페이스입니다.
   </details>
+  <details>
+    <summary>JVM에서 예외 처리하는 흐름을 설명하세요.</summary>
+
+    1. 예외 발생
+      - JVM은 예외 객체를 생성하고 예외를 발생시킨 메서드의 호출 스택을 추적합니다.
+    2. 예외 객체 전파
+      - JVM은 예외를 발생시킨 메서드에서 예외 처리 코드를 찾고, 없는 경우 예외 객체를 호출 스택에서 상위 메서드로 전파합니다.
+      - 예외 처리 코드 : 프로그램의 갑작스런 종료를 막고, 정상 실행을 유지할 수 있는 코드, 예를 들어 try-catch
+    3. 예외 처리
+      - 예외 객체가 상위로 전파되면 catch 블록을 찾고 없다면, 예외를 다시 상위 메서드로 전파합니다.
+    4. 예외 처리 실패
+       - 상위에서도 catch가 없으면 JVM은 처리하지 못한 것으로 판단하고 해당 예외를 처리할 수 있는 DefaultExceptionHandler를 호출합니다.
+    5. DefaultExceptionHandler 실행
+       - 예외 객체에 대한 정보, 예외를 처리하거나 스냅샷 정보를 수집해 디버깅을 위한 정보로 제공합니다.   
+  </details>
+  <details>
+    <summary>예외처리가 성능에 큰 영향을 미치나요? 만약 그렇다면, 어떻게 하면 부하를 줄일 수 있을까요? (답변 미작성)</summary>
+  </details>
 
   ---
 </details>
@@ -180,7 +198,7 @@
     클래스 메타 데이터 및 정적 변수로 적재됩니다.
   - 대부분의 static은 런타임에 적재되고 프로그램 종료까지 GC 대상이 아니지만, <br/>
     Java 8 이후부터 Static 객체는 Heap 영역에 저장되고 주소값은 metaspace에서 <br/>
-    관리되기 때문에, 참조를 잃은 Static 객체는 GC 대상이 될 수 있습니다.
+    관리되기 때문에, 참조를 잃은 Static 객체는 GC 대상이 될 수 있습니다.
   - Static 객체는 Java 8이전에 Permanent 영역, 이후에는 Heap 영역에서 관리됩니다.
 
   ---
@@ -327,6 +345,11 @@
     - 이는 컴파일 과정에서 이뤄지는 것이 아닌 JVM이 클래스를 로딩하고 초기화하는 과정에서 이뤄집니다.
     - static 키워드가 붙은 멤버는 클래스 레벨에서 관리되기 때문에, 해당 클래스의 모든 인스턴스에서 동일한 멤버에 접근할 수 있습니다.
   </details>
+  <details>
+    <summary>main 메서드가 static인 이유를 아시나요?</summary>
+    
+    - 프로그램 실행 순간에 메모리에 할당되어야 하고 GC의 정리 대상이 되어서는 안되기 때문입니다.
+  </details>
   
   ---
 </details>
@@ -352,12 +375,37 @@
     - 이는 Lambda가 final을 명시하지 않은 지역 변수를 사용할 수 있도록 하기 위해 Java 8이후로 도입된 기능입니다.
   </details>
   <details>
-    <summary>그렇다면 컴파일 과정에서, final 키워드는 다르게 취급되나요?</summary>
+    <summary>익명 클래스나 람다 표현식에서 외부 지역변수를 참조할 때, final 혹은 effective final이어야 하는 이유가 있나요?</summary>
+
+    - 멀티 스레드에서는 지역 변수를 사용하는 스레드와 람다식을 사용하는 스레드가 다를 수 있습니다.
+      예를 들어, 지역변수는 클래스 변수나 인스턴스 변수와는 달리, 각 스레드의 스택 프래임에 독립적으로 생성됩니다.
+      즉, 다른 스레드를 사용하는 람다식에선 해당 지역변수의 최신값을 동기화할 수 있어서 변경 가능성이 없어야 합니다.
+  </details>
+  <details>
+    <summary>final은 완벽한 불변을 보장하나요?</summary>
+
+    - 아닙니다. final은 변수의 재할당은 막지만, 참조하고 있는 객체 내부 상태의 불변은 보장하지 못합니다.
+      예를 들어, final 키워드로 ArrayList 타입의 변수를 선언해도 add() 메서드를 통해 내부에 값을 추가할 수 있습니다.
+  </details>
+  <details>
+    <summary>그렇다면, 어떻게 불변성을 보장할까요?</summary>
+
+    - 객체의 경우에는 생성자를 통해 값을 주입받도록 합니다.
+    - 컬렉션의 경우에는 Unmodifiable Collection을 활용하거나 직접 복사해서 사용하는 것도 하나의 방법입니다.
+  </details>
+  <details>
+    <summary>컴파일 과정에서, final 키워드는 다르게 취급되나요?</summary>
 
     - final 키워드가 붙은 변수는 컴파일러에 의해 한 번만 초기화될 수 있음을 표시하는 것입니다.
       즉, 이는 불변성을 보장하는 키워드입니다. 
     - 예를 들어, 해당 키워드 사용 시, 해당 변수가 한 번 초기화 된 후 다시 값을 변경하는 코드가 있는 지 검사 후,
       있다면 컴파일 에러가 발생합니다.
+  </details>
+  <details>
+    <summary>finally와 finalize 용어도 간단하게 설명해주세요.</summary>
+
+    - finally는 try-catch 블록이 종료될 때, 실행될 코드 블록을 정의하기 위해 사용합니다.
+    - finalize는 GC가 더 이상 참조하지 않는 객체를 메모리에서 삭제하겠다고 결정하는 순간 호출됩니다.
   </details>
 
   ---
@@ -399,21 +447,149 @@
 <details>
   <summary><b>Java Stream에 대해 설명해 주세요.</b></summary>
 
-  - Stream과 for ~ loop의 성능 차이를 비교해 주세요.
-  - Stream은 병렬처리 할 수 있나요?
-  - Stream에서 사용할 수 있는 함수형 인터페이스에 대해 설명해 주세요.
-  - 가끔 외부 변수를 사용할 때, final 키워드를 붙여서 사용하는데 왜 그럴까요? 꼭 그래야 할까요?
+  - Java 8에 추가된 것으로 데이터를 쉽게 필터링, 변환, 집계할 수 있는 기능입니다.
+  - 이는 선언형으로 컬렉션 데이터를 간결하고 가독성 좋게 처리가 가능합니다.
+
+  ---
+
+  <details>
+    <summary>스트림의 특징을 말해주세요.</summary>
+
+    - 파이프라이닝
+      - 스트림 연산끼리 연결하여 커다란 파이프라인을 구성할 수 있습니다.
+      - 대부분의 스트림 연산은 자신을 반환하기 때문에 파이프라이닝이 가능합니다.
+    - 내부 반복
+      - 명시적으로 반복자를 통해 반복하지 않고, 스트림 내부에서 일어나는 반복을 수행합니다.
+      - 즉, for 혹은 while을 사용하지 않아도 됩니다.
+  </details>
+  <details>
+    <summary>스트림의 연산과 흐름에 대해 설명하세요.</summary>
+
+    - 중간 연산
+      - 스트림을 연결할 수 있는 연산을 말합니다.
+      - Ex) filter, sorted, map 등처럼 다른 스트림을 반환합니다.
+    - 최종 연산
+      - 스트림을 닫는 연산을 말합니다.
+      - Ex) void, array, list 등 스트림 외의 값을 반환합니다.
+    - 흐름
+      1. 가장 먼저 소스를 지정합니다.
+      2. 이후 중간 연산을 연결해 파이프라인을 구성합니다.
+      3. 파이프라인을 실행하여 최종 연산으로 결과값을 반환합니다.
+  </details>
+  <details>
+    <summary>Stream과 foreach 기능에 대해 설명해주세요.</summary>
+
+    - 이는 모두 순회하는 기능으로 강제 종료가 불가능합니다.
+    - foreach 내부에서 로직이 추가되면 동시성이나 가독성이 떨어집니다.
+  </details>
+  <details>
+    <summary>Stream과 for ~ loop의 성능 차이를 비교해 주세요. (답변 미작성)</summary>
+  </details>
+  <details>
+    <summary>Stream은 병렬처리 할 수 있나요? (답변 미작성)</summary>
+  </details>
+
+  ---
 </details>
 <details>
   <summary><b>Java Lambda에 대해 설명해 주세요.</b></summary>
 
+  - 함수를 하나의 식으로 표현하는 기능을 말합니다.
+  - 이 기능은 익명 함수를 지칭합니다. 이는 이름이 없는 함수를 의미하며, 일급 객체라는 특징을 가지고 있습니다.
+  - 추가적으로 람다식 내부에서 사용되는 지역 변수는 상수로 간주되고 람다 변수명은 다른 변수명과 중복될 수 없습니다.
+
+  ---
+  
+  <details>
+    <summary>람다의 장/단점을 설명하세요.</summary>
+
+    - 장점
+      - 코드를 간결하게 만들고 식 자체에 의도가 명확해 가독성을 높입니다.
+      - 함수를 만드는 과정없이 한 번에 처리할 수 있어 생산성이 높아집니다.
+      - 병렬 프로그래밍에 용이합니다.
+    - 단점
+      - 만든 함수는 재사용이 불가능합니다.
+      - 디버깅이 어렵습니다.
+      - 재귀로 만들 경우 부적합합니다.
+  </details>
+  <details>
+    <summary>일급 객체란 무엇인가요?</summary>
+
+    - 다른 객체들이 적용 가능한 연산을 모두 지원하는 객체를 의미합니다. 즉, 함수를 값으로 사용할 수 있어야 합니다.
+    - 예를 들어, 변수나 데이터에 담을 수 있고, 파라미터 전달 가능 및 반환값으로 사용이 가능해야 합니다.
+  </details>
+  <details>
+    <summary>함수형 인터페이스에 대해 설명해 주세요.</summary>
+
+    - 함수를 일급 객체처럼 이용할 수 있도록 해주는 어노테이션입니다.
+      - Supplier T : 매개변수 없이 반환 값만을 갖는 함수형 인터페이스
+      - Consumer T : 객체 T를 받아 사용하며 반환 값이 없는 함수형 인터페이스
+      - Function T, R : 객체 T를 받아 처리 후 R로 반환하는 함수형 인터페이스
+      - Predicate T : 객체 T를 받아 처리 후 Boolean을 반환하는 함수형 인터페이스
+  </details>
+  <details>
+    <summary>익명 클래스나 람다 표현식에서, 주의해야할 점을 말해주세요.</summary>
+
+    - final이거나 effective final인 경우에만 참조할 수 있습니다.
+      그렇지 않은 경우, 동시성 문제가 생길 수 있기 때문에, 컴파일러 단계에서 에러가 발생합니다.
+    - 람다 표현식은 익명 클래스 구현체와 달리 쉐도잉하지 않습니다. 
+      예를 들어, 익명 클래스는 새로운 영역을 만들지만, 람다는 람다를 감싸고 있는 영역과 같습니다.
+  </details>
+  
+  ---
 </details>
 <details>
   <summary><b>Reflection에 대해 설명해 주세요.</b></summary>
+
+  - 클래스의 구체적인 타입을 알지 못해도 해당 클래스에 접근할 수 있도록 해주는 자바 API 기능입니다.
+  - 이 기능은 자바 컴파일 단계에 타입을 결정하기 때문에 Object 객체로 타입이 결정된 변수는 그에 대한 인스턴스 변수와 메서드만 사용이 가능합니다.
+
+  ---
+
+  <details>
+    <summary>리플렉션의 장/단점에 대해 설명하세요.</summary>
+
+    - 장점
+      - 런타임 시점에 클래스 인스턴스를 생성하고 접근 제어자와 관계없이, 
+        필드와 메서드에 접근해 필요한 작업을 수행할 수 있는 유연성을 가집니다.
+    - 단점
+      - 캡슐화가 깨집니다.
+      - 런타임 시점에 클래스를 분석하기 때문에, 존재하지 않는 클래스명의 경우 실행 시에 오류가 발생합니다.
+      - JVM 최적화가 불가능합니다.
+        - 일반적으로 메서드는 컴파일 단계에 분석된 클래스를 활용하는데, 리플렉션은 런타임 시점에 클래스를 분석해 속도가 느립니다.
+        - JIT 컴파일러는 클래스 타입을 모르기 때문에, 매번 명시된 클래스 타입이 맞는지, 생성자가 존재하는 지 검증해야 합니다.
+  </details>
+  <details>
+    <summary>의미만 들어보면 리플렉션은 보안적인 문제가 있을 가능성이 있어보이는데, 어떻게 방지할 수 있을까요?</summary>
+  </details>
+  <details>
+    <summary>실제로 어디서 리플렉션이 활용되고 있을까요?</summary>
+
+    - 스프링 컨테이너인 BeanFactory
+      - 빈은 애플리케이션 실행 후 런타임에 객체가 호출될 때, 동적으로 객체의 인스턴스를 생성합니다.
+      - 예를 들어, 스프링에서 @Controller, @Service 같은 어노테이션을 붙이면 BeanFactory에서 해당 어노테이션이 붙은 클래스를 생성하고 관리합니다.
+      - 즉, 리플렉션을 통해 클래스의 인스턴스를 생성하고 필요한 필드를 주입해 BeanFactory에 저장하여 사용하는 것을 알 수 있습니다.
+    - Spring Data JPA
+      - 리플렉션 API로는 생성자의 인자 정보는 가져올 수 없습니다.
+      - 때문에, 리플렉션 API를 활용하는 JPA에서는 동적으로 객체 생성 시, Entity에 기본 생성자가 반드시 있어야만, 객체를 생성할 수 있습니다.
+    - Dynamic Proxy
+      - Dynamic Proxy는 런타임 시점에 프록시 클래스를 만들어줍니다.
+      - Dynamic Proxy는 JDK에서 지원하는 프록시를 생성합니다.
+      - Dynamic Proxy는 리플렉션 API를 사용합니다.
+      - invocationHandler를 구현한 invoke() 메서드를 정의해야 합니다.
+      - 인터페이스가 반드시 있어야 합니다.
+  </details>
+  <details>
+    <summary>그렇다면, 리플렉션을 언제 활용할 수 있을까요? (답변 미작성)</summary>
+  </details>
+  <details>
+    <summary>Dynamic Proxy에 대해 설명해 주세요. (답변 미작성)</summary>
+  </details>
+  <details>
+    <summary>Dynamic Proxy 동작 과정에 대해 설명해 주세요. (답변 미작성)</summary>
+  </details>
   
-  - 의미만 들어보면 리플렉션은 보안적인 문제가 있을 가능성이 있어보이는데, 어떻게 방지할 수 있을까요?
-  - 리플렉션을 언제 활용할 수 있을까요?
-  - Dynamic Proxy에 대해 설명해 주세요.
+  ---
 </details>
 
 ## Java Collection
@@ -421,25 +597,87 @@
 <details>
   <summary><b>equals()와 hashcode()에 대해 설명해 주세요.</b></summary>
 
-  - hashcode() 를 정의해야 한다면, 어떤 점을 염두에 두고 구현할 것 같으세요?
-  - equals() 를 재정의해야 할 때, 어떤 점을 염두에 두어야 하는지 설명해 주세요.
+  - equals()
+    - Object의 equals()의 경우 객체의 참조값이 동일한 지 비교합니다.
+    - 동등성 비교를 위해서는 equals() 메서드를 오버라이딩해서 사용해야 합니다.
+    - String과 특정 클래스들은, 이미 내부에서 주소값이 아닌 내용을 비교하도록 오버라이딩되어 있습니다.
+  - hashcode()
+    - Object의 hashcode()는 각 객체의 주소 값을 해싱하여 해시 코드를 만든 후 반환합니다.
+    - equals()의 결과가 true인 경우 두 객체의 해시코드는 반드시 같아야 합니다.
+    - equals()의 결과가 false의 경우 두 객체의 해시코드가 꼭 다를 필요는 없습니다. <br/>
+      단, 달라야 해시 테이블 성능이 좋아집니다.
+    
+  ---
+
+  <details>
+    <summary>동등성과 동일성을 비교해주세요.</summary>
+
+      - 동일성
+        - 객체 주소를 비교합니다.
+      - 동등성
+        - 값 자체를 비교합니다.
+  </details>
+  <details>
+    <summary>hashcode() 를 정의해야 한다면, 어떤 점을 염두에 두고 구현할 것 같으세요?</summary>
+
+    - equals 비교에 사용되는 핵심 필드들을 이용해 hashcode()를 반환하도록 구현할 것 같습니다.
+      - 핵심 필드가 변경되지 않았다면, 해시 코드 값을 일관되게 반환하도록 할 것 같습니다.
+      - equals()가 true이면 hashcode() 반환값도 동일하도록 구현할 것 같습니다.
+  </details>
+  <details>
+    <summary>equals() 를 재정의해야 할 때, 어떤 점을 염두에 두어야 하는지 설명해 주세요.</summary>
+
+    1. 반사성) null 이 아닌 모든 참조값 x에 대해 : x.equals(x) == true
+    2. 대칭성) null 이 아닌 모든 참조값 x,y에 대해 : x.equals(y) == true -> y.equals(x) == true
+    3. 추이성) null 이 아닌 모든 참조값 x,y,z에 대해 : x.eqauls(y) == true && y.equlas(z) == true -> x.eqauls(z) == true
+    4. 일관성) null 이 아닌 모든 참조값 x,y에 대해 : 반복해서 호출했을 때, 항상 x.equals(y) == true 또는 x.equals(y) == false
+    5. null-아님) null이 아닌 모든 참조값 x, y에 대해 : x.equals(null) == false
+  </details>
+      
+  ---
 </details>
 <details>
   <summary><b>Synchronized 키워드에 대해 설명해 주세요.</b></summary>
 
-  - Synchronized 키워드가 어디에 붙는지에 따라 의미가 약간씩 변화하는데, 각각 어떤 의미를 갖게 되는지 설명해 주세요.
-  - 효율적인 코드 작성 측면에서, Synchronized는 좋은 키워드일까요?
-  - Synchronized 를 대체할 수 있는 자바의 다른 동기화 기법에 대해 설명해 주세요.
-  - Thread Local에 대해 설명해 주세요.
-  - Volatile에 대해 설명해주세요.
-  - AtomicInteger에 대해 설명해주세요.
+  ---
+  
+  <details>
+    <summary>Synchronized 키워드가 어디에 붙는지에 따라 의미가 약간씩 변화하는데, 각각 어떤 의미를 갖게 되는지 설명해 주세요.</summary>
+  </details>
+  <details>
+    <summary>효율적인 코드 작성 측면에서, Synchronized는 좋은 키워드일까요?</summary>
+  </details>
+  <details>
+    <summary>Synchronized 를 대체할 수 있는 자바의 다른 동기화 기법에 대해 설명해 주세요.</summary>
+  </details>
+  <details>
+    <summary>Thread Local에 대해 설명해 주세요.</summary>
+  </details>
+  <details>
+    <summary>Volatile에 대해 설명해주세요.</summary>
+  </details>
+  <details>
+    <summary>AtomicInteger에 대해 설명해주세요.</summary>
+  </details>
+  
+  ---
 </details>
 <details>
   <summary><b>String에 대해 설명해 주세요.</b></summary>
 
-  - String, StringBuffer, StringBuilder 차이점을 설명해주세요.
-  - Immutable Object에 대해 설명해주세요.
-  - `String a = ""`과 `String a = new String("")`의 차이점을 설명해주세요.
+  ---
+
+  <details>
+    <summary>String, StringBuffer, StringBuilder 차이점을 설명해주세요.</summary>
+  </details>
+  <details>
+    <summary>Immutable Object에 대해 설명해주세요.</summary>
+  </details>
+  <details>
+    <summary>`String a = ""`과 `String a = new String("")`의 차이점을 설명해주세요.</summary>
+  </details>
+
+  ---
 </details>
 
 ## JVM & Garbage Collector
@@ -499,16 +737,11 @@
 
 <!-- 
 
-
 <details>
   <summary><b>인터페이스와 추상 클래스의 차이에 대해 설명해 주세요.</b></summary>
 
-- 왜 클래스는 단일 상속만 가능한데, 인터페이스는 2개 이상 구현이 가능할까요?
-
+  - 왜 클래스는 단일 상속만 가능한데, 인터페이스는 2개 이상 구현이 가능할까요?
 </details>
-
-
-
 <details>
   <summary><b>Java 에서 Annotation 은 어떤 기능을 하나요?</b></summary>
 
