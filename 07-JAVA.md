@@ -413,7 +413,9 @@
   - 타입을 클래스 내부에서 지정하는 것이 아닌 외부에서 사용자에 의해 지정하는 기능입니다.
   - 예를 들어, 변수 선언 시 타입을 지정해주듯, 재네릭은 객체에 타입을 지정해주는 것입니다.
   - 이 기능은 JDK 1.5에 추가된 Spec입니다.
-  
+
+  ---
+    
   <details>
     <summary>제네릭 사용 이유 및 이점믈 설명해주세요.</summary>
 
@@ -440,6 +442,8 @@
     <summary>제네릭 타입 소거 컴파일 과정에 대해서 아시나요? (답변 미작성)</summary>
 
   </details>
+
+  ---
 </details>
 <details>
   <summary><b>Java Stream에 대해 설명해 주세요.</b></summary>
@@ -745,7 +749,7 @@
       - 한 번 생성 시, 불변 특성으로 인해 매 연산마다, 새로운 인스턴스를 생성하는 String과 달리 가변성을 가지기 때문에, 동일 객채 내에서 크기 변경이 가능합니다.
       - String은 euqals()로 값 비교가 가능하지만 이는 equals를 오버라이딩하지 않아 비교가 불가능합니다. 즉, toString()으로 꺼낸 후 비교해야 합니다.
       - 메서드 내에서 synchronized 키워드를 사용해 동기화를 지원하기 때문에, 멀티스레드 환경에서 안전하게 사용할 수 있습니다.
-  </details>
+  </details>
   <details>
     <summary>Immutable Object에 대해 설명해주세요.</summary>
 
@@ -786,45 +790,69 @@
 
 <details>
   <summary><b>JVM이 정확히 무엇이고, 어떤 기능을 하는지 설명해 주세요.</b></summary>
-
+  
+  ---
+  
   - JDK, JRE, JVM 차이점을 설명해주세요.
   - 자바 말고 다른 언어는 JVM 위에 올릴 수 없나요?
   - JVM 계열 언어를 일반적으로 컴파일해서 사용할 순 없나요?
   - VM을 사용함으로써 얻을 수 있는 장점과 단점에 대해 설명해 주세요.
   - JVM과 내부에서 실행되고 있는 프로그램은 부모 프로세스, 자식 프로세스 관계를 갖고 있다고 봐도 무방한가요?
   - JVM의 성능을 모니터링하고 분석해본 경험이 있나요? 있다면 설명해주세요.
+
+  ---
 </details>
 <details>
   <summary><b>JVM 메모리 구조를 설명해주세요.</b></summary>
-
+  
+  ---
+  
   - Stack과 Heap 메모리 차이점을 설명하세요.
   - Heap에 메모리를 할당하는 과정에 대해 설명하세요.
   - TLAB Thread-Local Allocation Buffer가 무엇인지 아시나요?
   - Permanent, Metaspace 영역 차이에 대해 설명해주세요.
   - Java 8 이후 Permanent 영역이 왜 사라졌을까요?
+
+  ---
 </details>
 <details>
   <summary><b>자바는 컴파일 언어인가요? 인터프리터 언어인가요?</b></summary>
   
+  ---
+  
   - 컴파일 언어와 인터프리터 언어의 차이점은?
   - 자바 컴파일 과정을 설명해주세요.
+
+  ---
 </details>
 <details>
   <summary><b>Java의 GC에 대해 설명해 주세요.</b></summary>
+
+  ---
 
   - GC는 왜 필요할까요?
   - finalize() 를 수동으로 호출하는 것은 왜 문제가 될 수 있을까요?
   - 어떤 변수의 값이 null이 되었다면, 이 값은 GC가 될 가능성이 있을까요?
   - GC의 대상을 어떻게 판별할까요?
-  - GC 동작과정을 설명해주세요.
+  - GC 동작과정을 설명해주세요.  
+  
+  ---
 </details>
 <details>
   <summary><b>STW (Stop-The-World)에 대해 설명하세요.</b></summary>
+  
+  ---
 
+  
+  ---
 </details>
 <details>
   <summary><b>`Parallel GC`, `G1 GC`, `ZGC`를 설명해주세요.</b></summary>
+  
+  ---
 
+  
+  ---
 </details>
 
 ## Reference
