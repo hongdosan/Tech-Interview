@@ -313,7 +313,6 @@
   </details>
   <details>
     <summary>Java 8이후로 Heap의 Permanent(PermGen) 영역이 Native Memory 영역의 Metaspace로 대체된 이유는? </summary>
-
     
     - 결론부터 말씀드리면, OOM(OutOfMemory) 에러의 발생 가능성을 줄이기 위해서입니다.
     - PermGen은 고정 메모리 사이즈를 가지고 있기 때문에, MAX 값이 반드시 설정해야 해서 메모리 관리의 불편함이 있었습니다.
@@ -322,7 +321,11 @@
     - Metaspace의 메모리 MAX 값은 기본값이 64 bit Integer의 최댓값이기 때문에, 특별한 경우가 아닌 이상 신경쓰지 않아도 됩니다.
   </details>
   <details>
-    <summary>컴파일 과정에서 static 이 어떻게 처리되는지 설명해주세요. (답변 미작성)</summary>
+    <summary>컴파일 과정에서 static 이 어떻게 처리되는지 설명해주세요.</summary>
+
+    - static 키워드가 붙은 멤버는 클래스 로딩 시점(런타임 시점)에 메모리에 할당됩니다.
+    - 이는 컴파일 과정에서 이뤄지는 것이 아닌 JVM이 클래스를 로딩하고 초기화하는 과정에서 이뤄집니다.
+    - static 키워드가 붙은 멤버는 클래스 레벨에서 관리되기 때문에, 해당 클래스의 모든 인스턴스에서 동일한 멤버에 접근할 수 있습니다.
   </details>
   
   ---
@@ -330,8 +333,34 @@
 <details>
   <summary><b>final에 대해 설명해주세요.</b></summary>
 
-  - final 키워드를 사용하면, 어떤 이점이 있나요?
-  - 그렇다면 컴파일 과정에서, final 키워드는 다르게 취급되나요?
+  - 자바에서 불변성을 확보할 수 있도록 제공하는 키워드입니다.
+    - final Variables, Arguments : 불변값이 되도록 합니다.
+    - final Class : 상속받지 못하도록 합니다.
+    - final Method : 오버라이딩이 되지 못하도록 합니다.
+    
+  ---
+  
+  <details>
+    <summary>final 키워드를 사용하면, 어떤 이점이 있나요?</summary>
+
+    - 최초 할당 후 해당 값을 변경할 수 없어 안정성을 높이고, 버그를 방지할 수 있습니다.
+  </details>
+  <details>
+    <summary>Effective Final 키워드에 대해 아시나요?</summary>
+
+    - 변수에 final 키워드를 사용하지 않아도 초기화 후 변경되지 않는 변수라면, 컴파일러가 final 변수로 인식하는 것을 말합니다.
+    - 이는 Lambda가 final을 명시하지 않은 지역 변수를 사용할 수 있도록 하기 위해 Java 8이후로 도입된 기능입니다.
+  </details>
+  <details>
+    <summary>그렇다면 컴파일 과정에서, final 키워드는 다르게 취급되나요?</summary>
+
+    - final 키워드가 붙은 변수는 컴파일러에 의해 한 번만 초기화될 수 있음을 표시하는 것입니다.
+      즉, 이는 불변성을 보장하는 키워드입니다. 
+    - 예를 들어, 해당 키워드 사용 시, 해당 변수가 한 번 초기화 된 후 다시 값을 변경하는 코드가 있는 지 검사 후,
+      있다면 컴파일 에러가 발생합니다.
+  </details>
+
+  ---
 </details>
 <details>
   <summary><b>generic에 대해 설명해주세요.</b></summary>
