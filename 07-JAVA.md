@@ -176,10 +176,12 @@
 
   - 공유되는 변수나 메서드를 정의할 때 사용되는 키워드입니다. <br/>
     즉, 정적(=클래스) 멤버인 정적 필드나 정적 메서드를 정의할 때 사용됩니다.
-  - 정적 멤버는 프로그램이 종료되기 전까지 사용할 수 있고, GC에 의해 수집되지 않습니다. <br/>
-    반면, 정적 객체는 GC에 의해 수집될 수 있습니다.
-  - 정적은 런타임 시, 클래스 로더에 의해, 메소드 영역 혹은 힙 영역에 <br/>
-    클래스 메타 데이터 및 정적 변수로 적재합니다.
+  - static은 런타임 시, 클래스 로더에 의해서 Method Area 혹은 Heap 영역에 <br/>
+    클래스 메타 데이터 및 정적 변수로 적재됩니다.
+  - 대부분의 static은 런타임에 적재되고 프로그램 종료까지 GC 대상이 아니지만, <br/>
+    Java 8 이후부터 Static 객체는 Heap 영역에 저장되고 주소값은 metaspace에서 <br/>
+    관리되기 때문에, 참조를 잃은 Static 객체는 GC 대상이 될 수 있습니다.
+  - Static 객체는 Java 8이전에 Permanent 영역, 이후에는 Heap 영역에서 관리됩니다.
 
   ---
 
@@ -308,6 +310,16 @@
         즉, static 변수를 Lazy Loading해 효율적으로 메모리를 사용할 수 있습니다.
       - 예를 들어, static 메서드는 호출 시점에 초기화되는 방식을 이용해 static variables가 선언된 inner class 인스턴스 생성을 제어하면,
         static 변수의 초기화 시점을 원하는 순간으로 조절할 수 있습니다.
+  </details>
+  <details>
+    <summary>Java 8이후로 Heap의 Permanent(PermGen) 영역이 Native Memory 영역의 Metaspace로 대체된 이유는? </summary>
+
+    
+    - 결론부터 말씀드리면, OOM(OutOfMemory) 에러의 발생 가능성을 줄이기 위해서입니다.
+    - PermGen은 고정 메모리 사이즈를 가지고 있기 때문에, MAX 값이 반드시 설정해야 해서 메모리 관리의 불편함이 있었습니다.
+      만약, MAX 값을 설정하지 않으면 Default 값이 설정됩니다.
+    - 어쨌든, 이 MAX 값을 넘어서는 순간, OOM이 발생하는데, 이 문제점을 해결하기 위해 Metaspace로 대체된 것입니다.
+    - Metaspace의 메모리 MAX 값은 기본값이 64 bit Integer의 최댓값이기 때문에, 특별한 경우가 아닌 이상 신경쓰지 않아도 됩니다.
   </details>
   <details>
     <summary>컴파일 과정에서 static 이 어떻게 처리되는지 설명해주세요. (답변 미작성)</summary>
