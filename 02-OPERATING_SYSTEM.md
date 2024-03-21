@@ -796,4 +796,5 @@
 
 ## Reference
 
+- [큰돌 - CS 지식의 정석](https://www.inflearn.com/course/%EA%B0%9C%EB%B0%9C%EC%9E%90-%EB%A9%B4%EC%A0%91-cs-%ED%8A%B9%EA%B0%95)
 - [스택이 왜 힙보다 빠르다고 하는 걸까?](https://arca.live/b/programmer/67268686)
