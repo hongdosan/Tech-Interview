@@ -25,10 +25,10 @@
 
 ## 답변 정리 완료
 
-- 1차 완료 : [Spring](https://github.com/HyuckJuneHong/Tech-Interview/blob/main/08-SPRING.md)
-- 1차 완료 : [JPA](https://github.com/HyuckJuneHong/Tech-Interview/blob/main/09-JPA.md)
-- 1차 완료 : [Java](https://github.com/HyuckJuneHong/Tech-Interview/blob/main/07-JAVA.md)
+- v1.0.0 완료 : [Operating System](https://github.com/HyuckJuneHong/Tech-Interview/blob/main/02-OPERATING_SYSTEM.md)
+- v1.0.0 완료 : [Spring](https://github.com/HyuckJuneHong/Tech-Interview/blob/main/08-SPRING.md)
+- v1.0.0 완료 : [JPA](https://github.com/HyuckJuneHong/Tech-Interview/blob/main/09-JPA.md)
 
 ## 답변 정리 진행 중
 
-- 1차 진행 : [Operating System](https://github.com/HyuckJuneHong/Tech-Interview/blob/main/02-OPERATING_SYSTEM.md)
+- v1.1.0 진행 : [Java](https://github.com/HyuckJuneHong/Tech-Interview/blob/main/07-JAVA.md)
