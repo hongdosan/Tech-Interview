@@ -786,6 +786,25 @@
   ---
 </details>
 
+<details>
+  <summary><b>Java에서 제공되는 List, Set, Map에 대해서 설명해주세요.</b></summary>
+
+  ---
+
+  <details>
+    <summary>각 컬렉션들의 차이점은 무엇이고 언제 어떤 컬렉션을 사용할까요?</summary>
+  </details>
+  <details>
+    <summary>ArrayList와 LinkedList의 차이에 대해 설명해주세요.</summary>
+  </details>
+  <details>
+    <summary>HashTable, HashMap, LinkedHashMap, TreeMap 각 차이를 설명해주세요.</summary>
+  </details>
+  <details>
+    <summary>HashMap, ConcurrentHashMap의 차이에 대해 설명해주세요.</summary>
+  </details>
+</details> 
+
 ## JVM & Garbage Collector
 
 <details>
