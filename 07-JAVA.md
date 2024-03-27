@@ -792,13 +792,22 @@
   ---
 
   <details>
-    <summary>각 컬렉션들의 차이점은 무엇이고 언제 어떤 컬렉션을 사용할까요?</summary>
+    <summary>각 컬렉션들의 차이점은 무엇이고 언제, 어디서, 어떤 컬렉션을 사용할까요?</summary>
   </details>
   <details>
     <summary>ArrayList와 LinkedList의 차이에 대해 설명해주세요.</summary>
   </details>
   <details>
+    <summary>LinkedList가 ArrayList보다 항상 삽입/삭제에 있어서 빠를까요?</summary>
+  </details>
+  <details>
+    <summary>Hash Collision에 대해서 설명해주시고, 극복할 수 있는 방법에 대해서 설명해주세요.</summary>
+  </details>
+  <details>
     <summary>HashTable, HashMap, LinkedHashMap, TreeMap 각 차이를 설명해주세요.</summary>
+  </details>
+  <details>
+    <summary>HashMap이 내부적으로 어떻게 구현되어 있는 지와 동작 방법에 대해서 설명해주세요.</summary>
   </details>
   <details>
     <summary>HashMap, ConcurrentHashMap의 차이에 대해 설명해주세요.</summary>
