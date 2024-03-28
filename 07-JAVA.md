@@ -795,7 +795,30 @@
     <summary>각 컬렉션들의 차이점은 무엇이고 언제, 어디서, 어떤 컬렉션을 사용할까요?</summary>
   </details>
   <details>
+    <summary>Array와 ArrayList 차이에 대해 설명해주세요.</summary>
+
+    - 공통점
+      - 둘 모두 연속적으로 값을 유지하며 배열의 원소들을 이용해 관리합니다.
+    - 차이점
+      - Array의 크기는 고정이지만 ArrayList는 크기가 유동적입니다.
+  </details>
+  <details>
     <summary>ArrayList와 LinkedList의 차이에 대해 설명해주세요.</summary>
+
+    - ArrayList
+      - 중복을 허용하고 입력되는 순서를 유지하며, 배열을 사용해 원소들을 관리합니다.
+      - 모든 데이터에 상수 시간으로 접근이 가능합니다. 즉, 특정 인덱스 조회 시 O(1)으로 값을 가져올 수 있습니다.
+        즉, 데이터 접근은 LinkedList보다 빠르다고 할 수 있습니다.
+      - 삽입/삭제 자체는 상수 시간만큼 걸립니다. 단, 삽입/삭제 시 필요한 경우 원소들을 옮겨야 하므로 O(N)만큼 추가 시간이 걸립니다.
+      - 내부적으로 동적 배열을 사용해 요소들을 저장합니다. 즉, 배열 확장이 필요한 경우 새로운 배열에 복사하는 추가 시간이 발생합니다.
+      - 배열 기반으로 사용하지 않는 공간도 메모리를 차지할 수 있지만, 요소의 참조를 저장하는데 필요한 메모리 외에 추가적인 오버헤드가 없습니다.
+    - LinkedList
+      - 연결된 노드들의 집합이며, 각 노드는 데이터와 포인터로 이루어져있습니다.
+      - 위치에 따라 조회 시간이 발생합니다. 즉, 특정 노드 조회 시 첫 노드부터 순차적으로 탐색해서 무조건 O(N)만큼 걸립니다.
+      - 삽입/삭제 자체는 상수 시간만큼 걸립니다. 단, 삽입/삭제 위치로 이동하는 시간과 삽입/삭제 O(1)만큼 걸린다고 볼 수 있습니다.
+        즉, ArrayList의 삽입/삭제보다는 빠르다고 볼 수 있습니다.
+      - 이중 연결 리스트를 사용해 요소들을 저장합니다. 즉, 각 요소가 자신의 이전 및 다음 요소에 대한 참조도 가지고 있어서 
+        같은 수의 요소를 저장하더라도 ArrayList보다 더 많은 메모리를 사용할 수 있습니다.
   </details>
   <details>
     <summary>LinkedList가 ArrayList보다 항상 삽입/삭제에 있어서 빠를까요?</summary>
@@ -892,6 +915,7 @@
 - [변수는 어디에 저장되는가?](https://velog.io/@this-is-spear/%EA%B7%B8%EB%9E%98%EC%84%9C-static-%EB%B3%80%EC%88%98%EB%8A%94-%EC%96%B4%EB%94%94%EC%97%90-%EC%A0%80%EC%9E%A5%EB%90%98%EB%8A%94%EA%B0%80)
 - [https://incheol-jung.gitbook.io/docs/q-and-a/java/static](https://incheol-jung.gitbook.io/docs/q-and-a/java/static)
 - [자바 8부터 static이 Heap 영역에 저장된다.](https://jgrammer.tistory.com/entry/JAVA-Java8%EB%B6%80%ED%84%B0%EB%8A%94-static%EC%9D%B4-heap%EC%98%81%EC%97%AD%EC%97%90-%EC%A0%80%EC%9E%A5%EB%90%9C%EB%8B%A4)
+- [쉬운코드 - List에 대해 아시나요?](https://www.youtube.com/watch?v=xvi-n11kym0)
 
 <!-- 
 
