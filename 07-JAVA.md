@@ -792,9 +792,6 @@
   ---
 
   <details>
-    <summary>각 컬렉션들의 차이점은 무엇이고 언제, 어디서, 어떤 컬렉션을 사용할까요?</summary>
-  </details>
-  <details>
     <summary>Array와 ArrayList 차이에 대해 설명해주세요.</summary>
 
     - 공통점
@@ -821,19 +818,73 @@
         같은 수의 요소를 저장하더라도 ArrayList보다 더 많은 메모리를 사용할 수 있습니다.
   </details>
   <details>
-    <summary>LinkedList가 ArrayList보다 항상 삽입/삭제에 있어서 빠를까요?</summary>
+    <summary>LinkedList가 ArrayList 중 선택하는 기준이 있나요?</summary>
+
+    - 보통 ArrayList 와 LinkedList 중에 어느걸 사용하면 되냐고 묻는다면, 삽입/삭제가 빈번하면 LinkedList를 사용하고
+      특정 요소 조회가 빈번하면 ArrayList를 사용하면 된다고 합니다. 하지만 사실 LinkedList는 잘 사용되지 않는 것으로 알고 있습니다.
+      이유는 ArrayList가 리사이징 과정에서 배열 복사 비용이 추가적으로 들지만, 이 과정이 배열을 새로 만들고 for문을 돌려 기존 요소를 
+      일일히 대입하는 그러한 처리가 아니라, 내부적으로 잘 튜닝이 되고 최적화 되어있어 우리가 생각하는 것처럼 전혀 느리지않다고 합니다. 
+      즉, 체감상 차이가 그리 큰 편도 아닙니다. 자바 플랫폼의 설계와 구현을 주도한 조슈아 블로치 본인도 자신이 설계했지만 사용하지 않는다고 한 글을 본 적이 있습니다.
+    - 또한 선입선출 빈번할 경우, ArrayList 경우 첫번째에 요소를 추가할 때마다 자주 데이터 이동이 일어나기 때문에 "큐를 사용해야 할때 LinkedList를 사용한다"
+      라고 말하지만, 차라리 그런경우엔 따로 최적화된 컬렉션인 ArrayDeque을 쓰는 것이 훨씬 좋습니다.
+  </details>
+  <details>
+    <summary>HashMap, HashTable, ConcurrentHashMap, LinkedHashMap, TreeMap 각 차이를 설명해주세요.</summary>
+
+    - HashMap
+      - 데이터를 저장할 때, 키-값 쌍으로 저장하고 순서를 보장하지 못합니다. 즉, 불연속성입니다.
+      - 키는 중복되지 않고 값은 중복이 가능합니다. 이때 둘 모두 Null을 허용합니다.
+      - 동기화를 지원하지 않아 Thread-Safe하지 않습니다. (Collections.synchronizeMap() 메서드를 사용해 동기화시킬 수 있습니다.)
+      - HashMap의 반복자(Iterator)는 fail-fast 속성을 가집니다.
+    - HashTable
+      - HashMap과 유사한 해시 테이블 구조를 사용하지만 Null을 허용하지 않습니다.
+      - 동기화(Synchronization)을 제공해 Thread-Safe합니다. 단, 동기화를 제공하므로 성능면에서는 HashMap보다 떨어지는 경우가 있습니다.
+      - HashTable의 반복자(Iterator)는 fail-fast 속성을 가지고 있지 않습니다.
+    - ConcurrentHashMap
+    - LinkedHashMap
+    - TreeMap
+  </details>
+  <details>
+    <summary>HashMap에 여러 쓰레드가 동시 접근할 경우 어떤 문제가 발생하나요?</summary>
+
+    - 데이터 일관성 문제가 발생할 수 있습니다. 이는 해시 충돌, 동시에 데이터 수정, 동시에 데이터 삽입에 의해 발생합니다.
+    
+    - 해시 충돌 발생
+      - 같은 인덱스에 여러 데이터가 중복되어 저장될 수 있습니다. 이때는 링크드 리스트를 이용해 데이터를 추가로 연결하게 되어,
+        데이터가 많이 쌓일수록 검색 속도가 느려질 수 있습니다.
+      - 해시 충돌이 자주 일어나서 HashMap에 일정 길이 이상의 링크드 리스트를 가지면 해당 인덱스에 대한 모든 데이터를 새로운
+        위치로 이동시켜야 하는 데이터 재배치(rehashing)가 발생합니다.
+    - 동시에 데이터 수정
+      - 한 스레드가 HashMap의 값을 수정하는 도중에 다른 스레드가 같은 위치에 있는 값을 수정할 때 값이 덮어 써질 수 있습니다.
+    - 동시에 데이터 삽입
+      - 여러 스레드에서 동시에 HashMap에 값을 추가하면, 배열의 크기가 늘어나야 하는 상황에서도 여러 스레드가 동시에 배열의
+        크기를 조정하려고 할 수 있습니다.
+      - 이런 경우 다른 스레드가 동시에 배열의 크기를 증가시키려고 하여 배열이 원하는 만큼 증가가 안되고 결국 배열의 크기가 작다고 판단해,
+        데이터 재배치가 자주 발생하게 됩니다.
+  </details>
+  <details>
+    <summary>HashMap에서 재배치란 어떤 의미인가요?</summary>
+
+    - HashMap 내부적으로 배열과 링크드 리스트를 사용해 데이터를 저장하는데, 이때 배열의 크기는 HashMap의 초기 크기와 로드 팩터리에 따라 결정됩니다.
+      만약 배열의 크기가 초기에 설정된 값보다 작아지면, 배열의 크기를 늘리고 모든 데이터를 새로운 배열에 다시 해싱해야 합니다. 이 작업이 바로 데이터 재배치입니다.
+    - 이런 문제를 해결하기 위해 ConcurrentHashMap을 사용하거나 Collections.synchronizeMap() 메서드를 사용해 HashMap을 동기화해야 합니다.
+  </details>
+  <details>
+    <summary>HashTable이 어떤 식으로 동기화를 제공하나요?</summary>
+
+    - 모든 메서드에 synchronized 키워드를 사용해 스레드 간 동기화를 제공하는 것으로 알고 있습니다.
+    - 하지만 이는 테이블 자체에 동기화가 걸려 있는 것으로 단일 키에 대한 락이 아닌 모든 데이터에 대한 락으로 성능이 좋지 못합니다.
+    - 때문에, ConcurrentHashMap이나 Collections.synchronizedMap() 메서드를 사용하는 것을 권장합니다.
+      이런 방법들은 HashTable과 달리 락(Lock)을 더욱 세분화하여 성능을 향상 시킬 수 있는 것으로 알고 있습니다.
+  </details>
+  <details>
+    <summary>fail-fast 속성이란 무엇인가요?</summary>
   </details>
   <details>
     <summary>Hash Collision에 대해서 설명해주시고, 극복할 수 있는 방법에 대해서 설명해주세요.</summary>
   </details>
   <details>
-    <summary>HashTable, HashMap, LinkedHashMap, TreeMap 각 차이를 설명해주세요.</summary>
-  </details>
-  <details>
-    <summary>HashMap이 내부적으로 어떻게 구현되어 있는 지와 동작 방법에 대해서 설명해주세요.</summary>
-  </details>
-  <details>
-    <summary>HashMap, ConcurrentHashMap의 차이에 대해 설명해주세요.</summary>
+    <summary>HashMap이 내부적으로 어떻게 구현되어 있는 지와 동작 방법에 대해서 설명해주세요. (답변 미작성)</summary>
   </details>
 </details> 
 
