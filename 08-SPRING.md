@@ -291,7 +291,7 @@
     <summary>IoC 컨테이너(Spring 컨테이너)란 무엇인가요?</summary>
 
     - 빈의 생명주기를 관리하고 의존성 주입과 같은 DI 역할을 도와주는 컨테이너입니다. 
-    - 즉, Bean 객체를 담는 공간이라 볼 수 있는 곳으로 Bean 객체의 생명주기를 관리하고 생성된 객체에게 추가적인 기능을 제공합니다.
+    - 즉, Bean 객체를 담는 공간이라 볼 수 있는 곳으로 Bean 객체의 생명주기를 관리하고 생성된 객체에게 추가적인 기능을 제공합니다.
     - 스프링에서는 BeanFactory, ApplicationContext, DI Container라고도 불립니다.
   </details>
   <details>
