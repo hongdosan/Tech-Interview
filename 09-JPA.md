@@ -265,7 +265,7 @@
     - 즉, 기본적으로 별도의 설정을 하지 않는다면 OSIV는 true로 설정되어 있어 @Transactional 어노테이션 유무의 차이를 알 수 없지만,
     - OSIV를 false로 설정한다면 영속성 컨텍스트는 트랜잭션 범위를 벗어나는 순간 Entity는 영속성 컨텍스트의 관리를 받지 않는 준영속 상태가 됩니다. 
     - 따라서 영속성 컨텍스트의 관리를 받지 않는 준영속 상태는 Lazy Loading의 동작도 불가능해져 LazyInitializationException이 발생할 수 있습니다.
-    - 결론저긍로 OSIV가 꺼져있는 상태에서는 @Transactional 어노테이션이 없을 때에 Lazy Loading의 동작을 수행할 수 없다는 문제점이 있으므로 
+    - 결론적으로 OSIV가 꺼져있는 상태에서는 @Transactional 어노테이션이 없을 때에 Lazy Loading의 동작을 수행할 수 없다는 문제점이 있으므로 
       조회용 메서드에 대해서도 @Transactional 어노테이션을 붙여주어야 한다고 생각합니다.
   </details>  
   <details>
