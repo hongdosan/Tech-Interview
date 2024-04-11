@@ -12,25 +12,21 @@
 
 ## Contents
 
-- [Data Structure](https://github.com/HyuckJuneHong/Tech-Interview/blob/main/01-DATA_STRUCTURE.md)
-- [Operating System](https://github.com/HyuckJuneHong/Tech-Interview/blob/main/02-OPERATING_SYSTEM.md)
-- [Network](https://github.com/HyuckJuneHong/Tech-Interview/blob/main/03-NETWORK.md)
+- [Java](https://github.com/HyuckJuneHong/Tech-Interview/blob/main/01-JAVA.md)
+- [Spring](https://github.com/HyuckJuneHong/Tech-Interview/blob/main/02-SPRING.md)
+- [JPA](https://github.com/HyuckJuneHong/Tech-Interview/blob/main/03-JPA.md)
 - [Database](https://github.com/HyuckJuneHong/Tech-Interview/blob/main/04-DATABASE.md)
-- [Etc](https://github.com/HyuckJuneHong/Tech-Interview/blob/main/05-ETC.md)
-- [Algorithm](https://github.com/HyuckJuneHong/Tech-Interview/blob/main/06-ALGORITHM.md)
-- [Java](https://github.com/HyuckJuneHong/Tech-Interview/blob/main/07-JAVA.md)
-- [Spring](https://github.com/HyuckJuneHong/Tech-Interview/blob/main/08-SPRING.md)
-- [JPA](https://github.com/HyuckJuneHong/Tech-Interview/blob/main/09-JPA.md)
-- [Project](https://github.com/HyuckJuneHong/Tech-Interview/blob/main/09-PROJECT.md)
+- [Network](https://github.com/HyuckJuneHong/Tech-Interview/blob/main/05-NETWORK.md)
+- [OS](https://github.com/HyuckJuneHong/Tech-Interview/blob/main/06-OS.md)
 
 ## 답변 정리 완료
 
-- v1.1.0 완료 : [OS](https://github.com/HyuckJuneHong/Tech-Interview/blob/main/02-OPERATING_SYSTEM.md)
-- v1.1.0 완료 : [Java](https://github.com/HyuckJuneHong/Tech-Interview/blob/main/07-JAVA.md)
-- v1.0.0 완료 : [Spring](https://github.com/HyuckJuneHong/Tech-Interview/blob/main/08-SPRING.md)
-- v1.0.0 완료 : [JPA](https://github.com/HyuckJuneHong/Tech-Interview/blob/main/09-JPA.md)
+- v1.1.0 완료 : [OS](https://github.com/HyuckJuneHong/Tech-Interview/blob/main/06-OS.md)
+- v1.1.0 완료 : [Java](https://github.com/HyuckJuneHong/Tech-Interview/blob/main/01-JAVA.md)
+- v1.0.0 완료 : [Spring](https://github.com/HyuckJuneHong/Tech-Interview/blob/main/02-SPRING.md)
+- v1.0.0 완료 : [JPA](https://github.com/HyuckJuneHong/Tech-Interview/blob/main/03-JPA.md)
   
 ## 답변 정리 진행 중
 
-- v1.2.0 진행 : [Java](https://github.com/HyuckJuneHong/Tech-Interview/blob/main/07-JAVA.md)
-- v1.0.0 진행 : [Network](https://github.com/HyuckJuneHong/Tech-Interview/blob/main/03-NETWORK.md)
+- v1.2.0 진행 : [Java](https://github.com/HyuckJuneHong/Tech-Interview/blob/main/01-JAVA.md)
+- v1.0.0 진행 : [Network](https://github.com/HyuckJuneHong/Tech-Interview/blob/main/05-NETWORK.md)
