@@ -523,9 +523,10 @@
   
 </details>
 
+<!--
+
 ## 스프링 심화
 
-<!--
 
   <details>
     <summary>스프링 프레임워크에서 Bean을 등록할 때는 Proxy로 생성되나요? </summary>
