@@ -21,12 +21,13 @@
 
 ## 답변 정리 완료
 
-- v1.1.0 완료 : [OS](https://github.com/HyuckJuneHong/Tech-Interview/blob/main/06-OS.md)
 - v1.1.0 완료 : [Java](https://github.com/HyuckJuneHong/Tech-Interview/blob/main/01-JAVA.md)
 - v1.0.0 완료 : [Spring](https://github.com/HyuckJuneHong/Tech-Interview/blob/main/02-SPRING.md)
 - v1.0.0 완료 : [JPA](https://github.com/HyuckJuneHong/Tech-Interview/blob/main/03-JPA.md)
+- v1.0.0 완료 : [Network](https://github.com/HyuckJuneHong/Tech-Interview/blob/main/05-NETWORK.md)
+- v1.1.0 완료 : [OS](https://github.com/HyuckJuneHong/Tech-Interview/blob/main/06-OS.md)
   
 ## 답변 정리 진행 중
 
 - v1.2.0 진행 : [Java](https://github.com/HyuckJuneHong/Tech-Interview/blob/main/01-JAVA.md)
-- v1.0.0 진행 : [Network](https://github.com/HyuckJuneHong/Tech-Interview/blob/main/05-NETWORK.md)
+- v1.1.0 진행 : [Network](https://github.com/HyuckJuneHong/Tech-Interview/blob/main/05-NETWORK.md)
